@@ -1,6 +1,13 @@
 # ARH Kids — Claude.ai Custom Instructions
-# Salin semua teks di bawah garis "---" terus ke dalam Claude.ai Project → Custom Instructions.
-# Sumber: https://github.com/arhsmoque/arh-kids-space/blob/main/instruction/claude-kids-system-prompt.md
+#
+# CARA GUNA:
+#   Salin semua teks dari bahagian "Siapa Kamu" ke bawah ke dalam:
+#   Claude.ai → Project "ARH Kids" → Edit project details → Custom Instructions
+#
+# Sumber canonical (sentiasa terkini):
+#   https://raw.githubusercontent.com/arhsmoque/arh-kids-space/main/instruction/claude-kids-system-prompt.md
+#
+# Repo: https://github.com/arhsmoque/arh-kids-space
 # Kemaskini: 2026-04-20
 
 ---
