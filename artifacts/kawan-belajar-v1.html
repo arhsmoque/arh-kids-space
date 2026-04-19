@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kawan Belajar ARH</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',sans-serif;background:#0f172a;color:#f1f5f9;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px}
+h1{font-size:1.6rem;text-align:center;margin-bottom:4px;color:#fbbf24}
+.sub{text-align:center;color:#94a3b8;font-size:.85rem;margin-bottom:20px}
+.card{background:#1e293b;border-radius:16px;padding:20px;width:100%;max-width:420px;box-shadow:0 4px 24px #0006}
+.tabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+.tab{flex:1;padding:8px 4px;border:none;border-radius:8px;background:#334155;color:#94a3b8;cursor:pointer;font-size:.8rem;min-width:70px}
+.tab.active{background:#fbbf24;color:#0f172a;font-weight:700}
+.panel{display:none}.panel.active{display:block}
+
+/* Quiz */
+.qtext{font-size:1rem;font-weight:600;margin-bottom:12px;line-height:1.4;min-height:48px}
+.opts{display:grid;gap:8px}
+.opt{padding:10px 14px;border-radius:10px;border:2px solid #334155;background:#0f172a;color:#f1f5f9;cursor:pointer;text-align:left;font-size:.9rem;transition:.15s}
+.opt:hover{border-color:#fbbf24}
+.opt.correct{background:#166534;border-color:#4ade80;color:#bbf7d0}
+.opt.wrong{background:#7f1d1d;border-color:#f87171;color:#fee2e2}
+.score-bar{margin-top:14px;font-size:.85rem;color:#94a3b8;text-align:right}
+.streak{color:#fbbf24;font-weight:700}
+.next-btn{margin-top:12px;width:100%;padding:10px;border-radius:10px;border:none;background:#fbbf24;color:#0f172a;font-weight:700;cursor:pointer;font-size:.95rem}
+.next-btn:disabled{background:#334155;color:#64748b;cursor:default}
+
+/* Hafazan */
+.surah-list{display:grid;gap:6px}
+.surah-item{background:#0f172a;border-radius:10px;padding:10px 14px;cursor:pointer;border:2px solid #334155;transition:.15s}
+.surah-item:hover{border-color:#60a5fa}
+.surah-item.done{border-color:#4ade80;background:#052e16}
+.surah-name{font-size:.95rem;font-weight:600}
+.surah-ar{font-size:1.2rem;color:#fbbf24;font-family:serif;direction:rtl;margin-top:2px}
+.surah-check{float:right;color:#4ade80;font-size:1.1rem}
+.progress-label{font-size:.8rem;color:#94a3b8;margin-bottom:10px}
+progress{width:100%;height:8px;border-radius:4px;margin-bottom:12px}
+progress::-webkit-progress-bar{background:#334155;border-radius:4px}
+progress::-webkit-progress-value{background:#4ade80;border-radius:4px}
+
+/* Mandarin */
+.char-box{text-align:center;margin-bottom:14px}
+.hanzi{font-size:5rem;line-height:1;color:#fbbf24;cursor:pointer;user-select:none;transition:.1s}
+.hanzi:active{transform:scale(.93)}
+.pinyin{font-size:1.1rem;color:#94a3b8;margin:4px 0}
+.meaning{font-size:1rem;color:#f1f5f9;font-weight:600}
+.char-nav{display:flex;gap:8px;justify-content:center;margin-top:10px}
+.char-nav button{padding:8px 18px;border-radius:8px;border:none;background:#334155;color:#f1f5f9;cursor:pointer;font-size:.9rem}
+.char-nav button:hover{background:#475569}
+.char-tag{display:inline-block;padding:2px 8px;border-radius:6px;background:#1e3a5f;color:#93c5fd;font-size:.75rem;margin-bottom:8px}
+.tap-hint{font-size:.72rem;color:#475569;margin-top:6px}
+
+/* Stars */
+.stars{text-align:center;padding:10px 0}
+.stars span{font-size:1.6rem}
+</style>
+</head>
+<body>
+
+<h1>⭐ Kawan Belajar ARH</h1>
+<p class="sub">Selamat datang! Pilih aktiviti kamu 👇</p>
+
+<div class="card">
+  <div class="tabs">
+    <button class="tab active" onclick="show('quiz')">Kuiz Islam</button>
+    <button class="tab" onclick="show('hafazan')">Hafazan</button>
+    <button class="tab" onclick="show('mandarin')">Mandarin</button>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="quiz" class="panel active">
+    <div class="qtext" id="qtext"></div>
+    <div class="opts" id="opts"></div>
+    <div class="score-bar">Betul: <span class="streak" id="score">0</span> / <span id="total">0</span></div>
+    <button class="next-btn" id="nextBtn" onclick="nextQ()" disabled>Soalan seterusnya →</button>
+  </div>
+
+  <!-- HAFAZAN -->
+  <div id="hafazan" class="panel">
+    <div class="progress-label">Surah dah hafal: <span id="doneCount">0</span> / <span id="totalSurah">0</span></div>
+    <progress id="hprog" value="0" max="1"></progress>
+    <div class="surah-list" id="surahList"></div>
+  </div>
+
+  <!-- MANDARIN -->
+  <div id="mandarin" class="panel">
+    <div class="char-box">
+      <div class="char-tag" id="charTag"></div>
+      <div class="hanzi" id="hanzi" onclick="speak()" title="Klik untuk dengar bunyi">字</div>
+      <div class="pinyin" id="pinyin"></div>
+      <div class="meaning" id="meaning"></div>
+      <div class="tap-hint">👆 Klik aksara untuk dengar bunyi</div>
+    </div>
+    <div class="char-nav">
+      <button onclick="prevChar()">← Sebelum</button>
+      <button onclick="nextChar()">Seterus →</button>
+    </div>
+    <div class="stars" id="stars"></div>
+  </div>
+</div>
+
+<script>
+// ── TABS ──
+function show(id){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// ── QUIZ DATA ──
+const qs=[
+  {q:"Berapa bilangan Rukun Islam?",a:"5",opts:["3","4","5","6"]},
+  {q:"Siapakah Nabi terakhir yang diutuskan Allah?",a:"Nabi Muhammad ﷺ",opts:["Nabi Isa a.s.","Nabi Musa a.s.","Nabi Ibrahim a.s.","Nabi Muhammad ﷺ"]},
+  {q:"Berapa bilangan Rukun Iman?",a:"6",opts:["4","5","6","7"]},
+  {q:"Solat fardu sehari semalam ada berapa waktu?",a:"5",opts:["3","4","5","6"]},
+  {q:"Surah apakah yang wajib dibaca dalam setiap rakaat solat?",a:"Al-Fatihah",opts:["Al-Ikhlas","Al-Baqarah","Al-Fatihah","An-Nas"]},
+  {q:"Apakah maksud 'tauhid'?",a:"Mengesakan Allah",opts:["Baca Al-Quran","Mengesakan Allah","Berpuasa","Membayar zakat"]},
+  {q:"Apa yang perlu dilakukan sebelum solat?",a:"Wudhu",opts:["Makan","Wudhu","Tidur","Mandi"]},
+  {q:"Bulan apakah kita berpuasa?",a:"Ramadan",opts:["Syawal","Rejab","Syaaban","Ramadan"]},
+  {q:"Apakah rukun Islam yang pertama?",a:"Mengucap dua kalimah syahadah",opts:["Solat","Mengucap dua kalimah syahadah","Zakat","Puasa"]},
+  {q:"Allah itu satu. Ini dipanggil?",a:"Tauhid",opts:["Fiqh","Adab","Tauhid","Hafazan"]},
+  {q:"Berapa rakaat solat Subuh?",a:"2",opts:["2","3","4","5"]},
+  {q:"Berapa rakaat solat Zohor?",a:"4",opts:["2","3","4","5"]},
+  {q:"Apakah doa sebelum makan?",a:"Bismillah",opts:["Alhamdulillah","Subhanallah","Bismillah","Masya-Allah"]},
+];
+let qi=0,sc=0,tot=0,answered=false;
+function shuffle(a){return a.sort(()=>Math.random()-.5)}
+function loadQ(){
+  if(qi>=qs.length){qi=0}
+  const q=qs[qi];
+  document.getElementById('qtext').textContent=(qi+1)+". "+q.q;
+  const opts=shuffle([...q.opts]);
+  const c=document.getElementById('opts');
+  c.innerHTML='';
+  opts.forEach(o=>{
+    const b=document.createElement('button');
+    b.className='opt';b.textContent=o;
+    b.onclick=()=>answer(b,o,q.a);
+    c.appendChild(b);
+  });
+  document.getElementById('nextBtn').disabled=true;
+  answered=false;
+}
+function answer(btn,chosen,correct){
+  if(answered)return;
+  answered=true;tot++;
+  if(chosen===correct){sc++;btn.classList.add('correct');}
+  else{
+    btn.classList.add('wrong');
+    document.querySelectorAll('.opt').forEach(b=>{if(b.textContent===correct)b.classList.add('correct');});
+  }
+  document.getElementById('score').textContent=sc;
+  document.getElementById('total').textContent=tot;
+  document.getElementById('nextBtn').disabled=false;
+}
+function nextQ(){qi++;loadQ();}
+loadQ();
+
+// ── HAFAZAN DATA ──
+const surahs=[
+  {name:"Al-Fatihah",ar:"الفاتحة"},
+  {name:"An-Nas",ar:"الناس"},
+  {name:"Al-Falaq",ar:"الفلق"},
+  {name:"Al-Ikhlas",ar:"الإخلاص"},
+  {name:"Al-Kafirun",ar:"الكافرون"},
+  {name:"Al-Maun",ar:"الماعون"},
+  {name:"Al-Fil",ar:"الفيل"},
+  {name:"Al-Humazah",ar:"الهمزة"},
+  {name:"Al-Asr",ar:"العصر"},
+  {name:"At-Takathur",ar:"التكاثر"},
+];
+const done=new Set();
+function renderSurahs(){
+  const l=document.getElementById('surahList');
+  l.innerHTML='';
+  surahs.forEach((s,i)=>{
+    const d=document.createElement('div');
+    d.className='surah-item'+(done.has(i)?' done':'');
+    d.innerHTML=`<span class="surah-name">${s.name}</span>${done.has(i)?'<span class="surah-check">✓</span>':''}<div class="surah-ar">${s.ar}</div>`;
+    d.onclick=()=>{done.has(i)?done.delete(i):done.add(i);renderSurahs();};
+    l.appendChild(d);
+  });
+  document.getElementById('doneCount').textContent=done.size;
+  document.getElementById('totalSurah').textContent=surahs.length;
+  document.getElementById('hprog').value=done.size/surahs.length;
+}
+renderSurahs();
+
+// ── MANDARIN DATA ──
+const chars=[
+  {h:"水",p:"shuǐ",m:"Air / Water",tag:"Alam"},
+  {h:"火",p:"huǒ",m:"Api / Fire",tag:"Alam"},
+  {h:"山",p:"shān",m:"Gunung / Mountain",tag:"Alam"},
+  {h:"日",p:"rì",m:"Matahari / Sun",tag:"Alam"},
+  {h:"月",p:"yuè",m:"Bulan / Moon",tag:"Alam"},
+  {h:"一",p:"yī",m:"Satu / One",tag:"Nombor"},
+  {h:"二",p:"èr",m:"Dua / Two",tag:"Nombor"},
+  {h:"三",p:"sān",m:"Tiga / Three",tag:"Nombor"},
+  {h:"四",p:"sì",m:"Empat / Four",tag:"Nombor"},
+  {h:"五",p:"wǔ",m:"Lima / Five",tag:"Nombor"},
+  {h:"人",p:"rén",m:"Manusia / Person",tag:"Asas"},
+  {h:"大",p:"dà",m:"Besar / Big",tag:"Sifat"},
+  {h:"小",p:"xiǎo",m:"Kecil / Small",tag:"Sifat"},
+  {h:"好",p:"hǎo",m:"Baik / Good",tag:"Sifat"},
+  {h:"学",p:"xué",m:"Belajar / Study",tag:"Sekolah"},
+  {h:"书",p:"shū",m:"Buku / Book",tag:"Sekolah"},
+];
+let ci=0,charStars=0;
+function renderChar(){
+  const c=chars[ci];
+  document.getElementById('hanzi').textContent=c.h;
+  document.getElementById('pinyin').textContent=c.p;
+  document.getElementById('meaning').textContent=c.m;
+  document.getElementById('charTag').textContent=c.tag;
+  document.getElementById('stars').innerHTML='⭐'.repeat(charStars);
+}
+function nextChar(){ci=(ci+1)%chars.length;charStars=Math.min(charStars+1,5);renderChar();}
+function prevChar(){ci=(ci-1+chars.length)%chars.length;renderChar();}
+function speak(){
+  if('speechSynthesis' in window){
+    const u=new SpeechSynthesisUtterance(chars[ci].h);
+    u.lang='zh-CN';u.rate=.8;
+    speechSynthesis.speak(u);
+  }
+}
+renderChar();
+</script>
+</body>
+</html>
