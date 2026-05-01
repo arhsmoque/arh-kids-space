@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
+<meta name="mobile-web-app-capable" content="yes">
+<title>ARH Kids — Ujian Cara Belajar</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════
+   TOKENS
+═══════════════════════════════════════ */
+:root {
+  --bg:       #0f1923;
+  --bg2:      #162030;
+  --surface:  #1e2d3d;
+  --surface2: #243447;
+  --border:   #2e4158;
+  --ink:      #e8f0f8;
+  --ink2:     #94afc8;
+  --ink3:     #526b84;
+  --amber:    #f0a500;
+  --amber-l:  #fff3cc;
+  --green:    #22c97a;
+  --red:      #f05050;
+  --blue:     #4a9eff;
+
+  --V:  #4a9eff;
+  --A:  #22c97a;
+  --K:  #f0a500;
+
+  --r: 18px;
+  --touch: 56px;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+
+body {
+  background: var(--bg);
+  font-family: 'Nunito', sans-serif;
+  color: var(--ink);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* subtle star bg */
+body::before {
+  content:'';
+  position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 10%, rgba(74,158,255,.06) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(34,201,122,.05) 0%, transparent 60%);
+}
+
+.wrap { max-width:520px; margin:0 auto; padding:24px 16px 80px; position:relative; z-index:1; }
+
+/* ═══════════════════════════════════════
+   SCREENS
+═══════════════════════════════════════ */
+.scr { display:none; }
+.scr.on { display:block; animation: fadeUp .35s cubic-bezier(.22,.68,0,1.2) both; }
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(20px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* ═══════════════════════════════════════
+   TYPOGRAPHY
+═══════════════════════════════════════ */
+.display {
+  font-family:'Baloo 2',cursive;
+  font-size:clamp(1.8rem,7vw,2.6rem);
+  font-weight:800; line-height:1.1;
+  color:var(--ink); margin-bottom:12px;
+}
+.display span { color:var(--amber); }
+
+.body-text { font-size:.9rem; line-height:1.7; color:var(--ink2); margin-bottom:20px; }
+.label { font-size:.7rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--ink3); margin-bottom:8px; }
+
+/* ═══════════════════════════════════════
+   CARDS
+═══════════════════════════════════════ */
+.card {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  padding:20px;
+  margin-bottom:14px;
+}
+
+/* ═══════════════════════════════════════
+   CHILD PICKER
+═══════════════════════════════════════ */
+.child-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:20px; }
+
+.child-btn {
+  background:var(--surface);
+  border:2px solid var(--border);
+  border-radius:16px;
+  padding:18px 8px 14px;
+  text-align:center;
+  cursor:pointer;
+  transition:all .18s;
+  user-select:none;
+}
+.child-btn:active { transform:scale(.95); }
+.child-btn.sel {
+  border-color:var(--amber);
+  background:rgba(240,165,0,.08);
+  box-shadow:0 0 0 3px rgba(240,165,0,.15);
+}
+.child-btn .avatar { font-size:2.4rem; line-height:1; margin-bottom:8px; display:block; }
+.child-btn .cname { font-family:'Baloo 2',cursive; font-size:1rem; font-weight:700; color:var(--ink); }
+.child-btn .cage  { font-size:.72rem; color:var(--ink3); margin-top:2px; }
+
+/* ═══════════════════════════════════════
+   BUTTONS
+═══════════════════════════════════════ */
+.btn {
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  min-height:var(--touch);
+  background:var(--amber); color:#1a0f00;
+  border:none; border-radius:99px;
+  padding:0 28px;
+  font-family:'Baloo 2',cursive; font-size:1rem; font-weight:700;
+  cursor:pointer; transition:all .15s; width:100%;
+  letter-spacing:.01em;
+}
+.btn:active { transform:scale(.97); }
+.btn:disabled { opacity:.3; cursor:not-allowed; }
+.btn.ghost {
+  background:transparent; color:var(--ink2);
+  border:1.5px solid var(--border);
+}
+.btn.ghost:active { background:var(--surface2); }
+.btn.green { background:var(--green); color:#003d1a; }
+.btn.blue  { background:var(--blue);  color:#001a3d; }
+.btn.sm    { min-height:44px; font-size:.85rem; padding:0 18px; }
+
+.btn-row { display:flex; gap:10px; }
+.btn-row .btn { flex:1; }
+
+/* ═══════════════════════════════════════
+   ABAH ALERT
+═══════════════════════════════════════ */
+.abah-alert {
+  background:rgba(240,165,0,.12);
+  border:2px solid var(--amber);
+  border-radius:var(--r);
+  padding:16px 18px;
+  margin-bottom:20px;
+  font-size:.88rem;
+  line-height:1.6;
+  color:var(--ink);
+}
+.abah-alert .ah {
+  font-family:'Baloo 2',cursive;
+  font-size:1rem; font-weight:800;
+  color:var(--amber);
+  margin-bottom:6px;
+  display:flex; align-items:center; gap:8px;
+}
+
+/* ═══════════════════════════════════════
+   PROGRESS
+═══════════════════════════════════════ */
+.prog-row { display:flex; align-items:center; gap:10px; margin-bottom:20px; }
+.prog-track { flex:1; height:6px; background:var(--surface2); border-radius:99px; overflow:hidden; }
+.prog-fill  { height:100%; background:var(--amber); border-radius:99px; transition:width .4s ease; }
+.prog-label { font-size:.75rem; color:var(--ink3); font-weight:700; white-space:nowrap; }
+
+/* ═══════════════════════════════════════
+   GAME HEADER
+═══════════════════════════════════════ */
+.game-header {
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom:20px;
+}
+.game-title {
+  font-family:'Baloo 2',cursive; font-size:1.3rem; font-weight:800; color:var(--ink);
+}
+.game-badge {
+  font-size:.68rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+  padding:4px 12px; border-radius:99px; color:#fff;
+}
+
+/* hint buttons */
+.hint-row { display:flex; gap:8px; margin-top:14px; }
+.hint-btn {
+  display:flex; align-items:center; gap:6px;
+  background:var(--surface2); border:1px solid var(--border);
+  border-radius:99px; padding:8px 16px;
+  font-family:'Nunito',sans-serif; font-size:.82rem; font-weight:700;
+  color:var(--ink2); cursor:pointer; transition:all .15s; flex:1;
+  justify-content:center;
+}
+.hint-btn:active { transform:scale(.95); }
+.hint-btn.used { opacity:.45; }
+
+/* undo/redo */
+.action-row {
+  display:flex; gap:8px; margin-top:10px; justify-content:flex-end;
+}
+.icon-btn {
+  width:44px; height:44px; border-radius:99px;
+  background:var(--surface2); border:1px solid var(--border);
+  color:var(--ink2); font-size:1.1rem;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition:all .15s;
+}
+.icon-btn:active { transform:scale(.9); background:var(--surface); }
+.icon-btn:disabled { opacity:.25; cursor:not-allowed; }
+
+/* ═══════════════════════════════════════
+   GAME 1 — SUSUN GAMBAR
+═══════════════════════════════════════ */
+.story-grid {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:10px; margin-bottom:14px;
+}
+.story-card {
+  background:var(--surface2);
+  border:2px solid var(--border);
+  border-radius:14px;
+  padding:16px 10px;
+  text-align:center;
+  cursor:grab;
+  transition:all .15s;
+  user-select:none;
+  touch-action:none;
+  min-height:110px;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:6px;
+}
+.story-card.dragging  { opacity:.5; border-style:dashed; border-color:var(--amber); }
+.story-card.drag-over { border-color:var(--blue); background:rgba(74,158,255,.08); transform:scale(1.02); }
+.story-card.placed    { border-color:var(--green); background:rgba(34,201,122,.06); }
+.story-card .sc-emoji { font-size:2.8rem; line-height:1; }
+.story-card .sc-num   { font-size:.72rem; font-weight:700; color:var(--ink3); }
+
+.slots-grid {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:10px; margin-bottom:14px;
+}
+.slot {
+  border:2px dashed var(--border);
+  border-radius:14px; min-height:110px;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:6px;
+  transition:all .15s; background:var(--bg2);
+  position:relative;
+}
+.slot.drag-over { border-color:var(--blue); background:rgba(74,158,255,.08); }
+.slot.filled    { border-style:solid; border-color:var(--green); background:rgba(34,201,122,.06); }
+.slot .slot-num {
+  position:absolute; top:8px; left:10px;
+  font-size:.68rem; font-weight:800; color:var(--ink3);
+}
+.slot .slot-label {
+  font-size:.75rem; color:var(--ink3); text-align:center; padding:0 8px;
+}
+
+/* ═══════════════════════════════════════
+   GAME 2 — PADANAN BUNYI
+═══════════════════════════════════════ */
+.sound-word {
+  background:var(--surface2);
+  border:2px solid var(--border);
+  border-radius:var(--r);
+  padding:24px 16px;
+  text-align:center;
+  margin-bottom:16px;
+}
+.sound-word .sw-text {
+  font-family:'Baloo 2',cursive;
+  font-size:2rem; font-weight:800; color:var(--amber);
+  margin-bottom:4px;
+}
+.sound-word .sw-sub { font-size:.82rem; color:var(--ink3); }
+
+.replay-btn {
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  background:rgba(74,158,255,.12); border:1px solid var(--blue);
+  border-radius:99px; padding:10px 20px; margin:0 auto 16px;
+  font-size:.85rem; font-weight:700; color:var(--blue);
+  cursor:pointer; transition:all .15s; width:fit-content;
+}
+.replay-btn:active { transform:scale(.95); }
+.replay-btn.used { opacity:.5; }
+
+.image-choices {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:10px; margin-bottom:14px;
+}
+.img-choice {
+  background:var(--surface2);
+  border:2px solid var(--border);
+  border-radius:14px; padding:18px 10px;
+  text-align:center; cursor:pointer;
+  transition:all .15s; user-select:none;
+  min-height:100px;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:8px;
+}
+.img-choice:active { transform:scale(.95); }
+.img-choice.selected-right { border-color:var(--green); background:rgba(34,201,122,.08); }
+.img-choice.selected-wrong { border-color:var(--red);   background:rgba(240,80,80,.08); }
+.img-choice .ic-emoji { font-size:2.6rem; line-height:1; }
+.img-choice .ic-label { font-size:.78rem; color:var(--ink2); font-weight:600; }
+
+/* ═══════════════════════════════════════
+   GAME 3 — BINA CORAK
+═══════════════════════════════════════ */
+.pattern-display {
+  display:flex; gap:8px; align-items:center; justify-content:center;
+  flex-wrap:wrap;
+  background:var(--surface2); border:1px solid var(--border);
+  border-radius:var(--r); padding:20px 16px; margin-bottom:16px;
+}
+.pat-cell {
+  width:54px; height:54px; border-radius:12px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.6rem; font-weight:700;
+  border:2px solid transparent;
+  transition:all .15s;
+}
+.pat-cell.blank {
+  background:var(--bg); border:2px dashed var(--border);
+  font-size:1rem; color:var(--ink3);
+}
+.pat-cell.filled-correct { border-color:var(--green); }
+.pat-cell.filled-wrong   { border-color:var(--red); animation:shake .3s ease; }
+
+@keyframes shake {
+  0%,100%{transform:translateX(0)} 25%{transform:translateX(-4px)} 75%{transform:translateX(4px)}
+}
+
+.pat-options {
+  display:flex; gap:10px; justify-content:center; flex-wrap:wrap;
+  margin-bottom:14px;
+}
+.pat-opt {
+  width:64px; height:64px; border-radius:14px;
+  background:var(--surface2); border:2px solid var(--border);
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.8rem; cursor:pointer; transition:all .15s;
+}
+.pat-opt:active { transform:scale(.9); }
+.pat-opt.used   { opacity:.3; cursor:default; }
+
+/* ═══════════════════════════════════════
+   FEEDBACK TOAST
+═══════════════════════════════════════ */
+.toast {
+  position:fixed; bottom:32px; left:50%; transform:translateX(-50%) translateY(20px);
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:99px; padding:12px 24px;
+  font-size:.88rem; font-weight:700; color:var(--ink);
+  opacity:0; transition:all .25s; z-index:1000; white-space:nowrap;
+  box-shadow:0 8px 32px rgba(0,0,0,.3);
+}
+.toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+.toast.good { color:var(--green); border-color:var(--green); }
+.toast.bad  { color:var(--red);   border-color:var(--red); }
+
+/* ═══════════════════════════════════════
+   RESULT
+═══════════════════════════════════════ */
+.result-banner {
+  text-align:center; padding:28px 0 20px;
+  border-bottom:1px solid var(--border); margin-bottom:24px;
+}
+.result-emoji { font-size:4rem; line-height:1; margin-bottom:10px; display:block; }
+.result-style {
+  font-family:'Baloo 2',cursive; font-size:2rem; font-weight:800;
+  margin-bottom:6px;
+}
+.result-desc { font-size:.88rem; color:var(--ink2); line-height:1.65; max-width:380px; margin:0 auto; }
+
+.signal-grid { display:flex; flex-direction:column; gap:10px; margin-bottom:24px; }
+.signal-row {
+  display:grid; grid-template-columns:1fr auto;
+  align-items:center; gap:12px;
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:12px; padding:12px 16px;
+}
+.signal-name { font-size:.82rem; font-weight:700; color:var(--ink2); }
+.signal-val  { font-size:.8rem; font-weight:800; color:var(--amber); white-space:nowrap; }
+
+.export-box {
+  background:var(--bg2); border:1px solid var(--border);
+  border-radius:var(--r); padding:16px;
+  font-size:.72rem; font-family:monospace; color:var(--ink2);
+  white-space:pre-wrap; word-break:break-all;
+  max-height:200px; overflow-y:auto; margin-bottom:14px;
+  line-height:1.6;
+}
+
+/* ═══════════════════════════════════════
+   DIVIDER
+═══════════════════════════════════════ */
+.div { height:1px; background:var(--border); margin:20px 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ══════════════════════════════════════════
+     S0: LANDING
+══════════════════════════════════════════ -->
+<div class="scr on" id="s-land">
+  <div style="padding:20px 0 28px;">
+    <div class="label">ARH Kids · Penilaian Cara Belajar</div>
+    <div class="display">Ujian <span>Cara Belajar</span> Anak</div>
+    <p class="body-text">Tiga permainan pendek. App akan catat cara anak main — bukan jawapan betul atau salah. Abah akan terima laporan lengkap selepas selesai.</p>
+  </div>
+
+  <div class="abah-alert">
+    <div class="ah">📣 Abah/Ibu — Sila Baca Dulu</div>
+    Pilih nama anak yang akan main sekarang. Satu anak satu sesi. Selepas selesai, app akan hasilkan laporan — hantar kepada Abah untuk analisis.<br><br>
+    <strong>Untuk Asma (5 tahun):</strong> Abah perlu duduk bersama sepanjang sesi. App akan tunjuk arahan khas untuk Abah.
+  </div>
+
+  <div class="label">Siapa yang main sekarang?</div>
+  <div class="child-grid">
+    <div class="child-btn" id="cb-aflah" onclick="pickChild('aflah')">
+      <span class="avatar">🧒</span>
+      <div class="cname">Aflah</div>
+      <div class="cage">8 tahun · D2</div>
+    </div>
+    <div class="child-btn" id="cb-haidar" onclick="pickChild('haidar')">
+      <span class="avatar">👦</span>
+      <div class="cname">Haidar</div>
+      <div class="cage">7 tahun · D1</div>
+    </div>
+    <div class="child-btn" id="cb-asma" onclick="pickChild('asma')">
+      <span class="avatar">👧</span>
+      <div class="cname">Asma</div>
+      <div class="cage">5 tahun · Tadika</div>
+    </div>
+  </div>
+
+  <button class="btn" id="land-start" onclick="goToIntro()" disabled>Mula Ujian →</button>
+</div>
+
+<!-- ══════════════════════════════════════════
+     S1: CHILD INTRO
+══════════════════════════════════════════ -->
+<div class="scr" id="s-intro">
+  <div id="intro-abah-note"></div>
+  <div class="card" style="text-align:center; padding:28px 20px;">
+    <div style="font-size:4rem; margin-bottom:12px;" id="intro-avatar"></div>
+    <div class="display" style="margin-bottom:8px;" id="intro-name"></div>
+    <p class="body-text" style="margin:0;" id="intro-desc"></p>
+  </div>
+
+  <div class="card">
+    <div class="label" style="margin-bottom:10px;">Dalam ujian ini kamu akan:</div>
+    <div style="display:flex;flex-direction:column;gap:8px;" id="intro-games"></div>
+  </div>
+
+  <div style="margin-top:6px;">
+    <p class="body-text" style="font-size:.82rem;text-align:center;">Takde jawapan betul atau salah. Main je macam biasa! 😊</p>
+  </div>
+
+  <button class="btn green" onclick="startGames()" style="margin-top:8px;">Jom Mula! 🚀</button>
+</div>
+
+<!-- ══════════════════════════════════════════
+     S2: GAME 1 — SUSUN GAMBAR
+══════════════════════════════════════════ -->
+<div class="scr" id="s-g1">
+  <div class="game-header">
+    <div class="game-title">🖼️ Susun Gambar</div>
+    <div class="game-badge" style="background:var(--V);">Permainan 1</div>
+  </div>
+
+  <div class="prog-row">
+    <div class="prog-track"><div class="prog-fill" id="g1-prog" style="width:0%"></div></div>
+    <div class="prog-label" id="g1-plabel">0 / 3</div>
+  </div>
+
+  <p class="body-text" id="g1-instruction" style="margin-bottom:12px;"></p>
+
+  <div id="g1-asma-note" style="display:none;"></div>
+
+  <!-- cards to drag -->
+  <div class="label">Gambar-gambar ini:</div>
+  <div class="story-grid" id="g1-cards"></div>
+
+  <!-- drop slots -->
+  <div class="label" style="margin-top:4px;">Susun mengikut urutan cerita:</div>
+  <div class="slots-grid" id="g1-slots"></div>
+
+  <div class="hint-row" id="g1-hints">
+    <button class="hint-btn" id="g1-hint-v" onclick="useHint('g1','visual')">👁️ Tunjuk Petunjuk</button>
+    <button class="hint-btn" id="g1-hint-a" onclick="useHint('g1','audio')">🔊 Dengar Petunjuk</button>
+  </div>
+
+  <div class="action-row">
+    <button class="icon-btn" id="g1-undo" onclick="doUndo('g1')" title="Undo" disabled>↩️</button>
+    <button class="icon-btn" id="g1-redo" onclick="doRedo('g1')" title="Redo" disabled>↪️</button>
+  </div>
+
+  <div id="g1-hint-box" style="display:none;" class="abah-alert" style="margin-top:12px;"></div>
+
+  <button class="btn" id="g1-next" onclick="finishG1()" disabled style="margin-top:16px;">Seterusnya →</button>
+</div>
+
+<!-- ══════════════════════════════════════════
+     S3: GAME 2 — PADANAN BUNYI
+══════════════════════════════════════════ -->
+<div class="scr" id="s-g2">
+  <div class="game-header">
+    <div class="game-title">🔊 Padanan Bunyi</div>
+    <div class="game-badge" style="background:var(--A);">Permainan 2</div>
+  </div>
+
+  <div class="prog-row">
+    <div class="prog-track"><div class="prog-fill" id="g2-prog" style="width:0%"></div></div>
+    <div class="prog-label" id="g2-plabel">0 / 4</div>
+  </div>
+
+  <p class="body-text" id="g2-instruction" style="margin-bottom:12px;"></p>
+  <div id="g2-asma-note" style="display:none;"></div>
+
+  <div class="sound-word">
+    <div class="sw-text" id="g2-word"></div>
+    <div class="sw-sub" id="g2-wordsub"></div>
+  </div>
+
+  <div class="replay-btn" id="g2-replay" onclick="replayWord()">
+    🔊 Dengar Semula
+  </div>
+
+  <div class="image-choices" id="g2-choices"></div>
+
+  <div class="hint-row" id="g2-hints">
+    <button class="hint-btn" id="g2-hint-v" onclick="useHint('g2','visual')">👁️ Petunjuk Visual</button>
+    <button class="hint-btn" id="g2-hint-a" onclick="useHint('g2','audio')">🔊 Petunjuk Bunyi</button>
+  </div>
+
+  <div id="g2-hint-box" style="display:none;" class="abah-alert" style="margin-top:12px;"></div>
+
+  <div class="action-row">
+    <button class="icon-btn" id="g2-undo" onclick="doUndo('g2')" title="Cuba Lain" disabled>↩️</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     S4: GAME 3 — BINA CORAK
+══════════════════════════════════════════ -->
+<div class="scr" id="s-g3">
+  <div class="game-header">
+    <div class="game-title">🧩 Bina Corak</div>
+    <div class="game-badge" style="background:var(--K);">Permainan 3</div>
+  </div>
+
+  <div class="prog-row">
+    <div class="prog-track"><div class="prog-fill" id="g3-prog" style="width:0%"></div></div>
+    <div class="prog-label" id="g3-plabel">0 / 4</div>
+  </div>
+
+  <p class="body-text" id="g3-instruction" style="margin-bottom:12px;"></p>
+
+  <div class="label">Corak ini:</div>
+  <div class="pattern-display" id="g3-pattern"></div>
+
+  <div class="label" style="margin-top:4px;">Pilih yang betul untuk isi tempat kosong:</div>
+  <div class="pat-options" id="g3-options"></div>
+
+  <div class="hint-row" id="g3-hints">
+    <button class="hint-btn" id="g3-hint-v" onclick="useHint('g3','visual')">👁️ Tunjuk Pola</button>
+    <button class="hint-btn" id="g3-hint-a" onclick="useHint('g3','audio')">🔊 Terangkan</button>
+  </div>
+
+  <div id="g3-hint-box" style="display:none;" class="abah-alert" style="margin-top:12px;"></div>
+
+  <div class="action-row">
+    <button class="icon-btn" id="g3-undo" onclick="doUndo('g3')" title="Undo" disabled>↩️</button>
+    <button class="icon-btn" id="g3-redo" onclick="doRedo('g3')" title="Redo" disabled>↪️</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     S5: RESULT
+══════════════════════════════════════════ -->
+<div class="scr" id="s-result">
+  <div class="result-banner">
+    <span class="result-emoji" id="res-emoji"></span>
+    <div class="result-style" id="res-style"></div>
+    <p class="result-desc" id="res-desc"></p>
+  </div>
+
+  <div class="abah-alert">
+    <div class="ah">📣 Abah — Laporan Siap</div>
+    Salin laporan di bawah dan hantar kepada Abah untuk analisis VAK penuh. Tekan butang untuk salin atau muat turun.
+  </div>
+
+  <div class="label">Ringkasan Signal</div>
+  <div class="signal-grid" id="res-signals"></div>
+
+  <div class="div"></div>
+
+  <div class="label">Laporan Lengkap (untuk Abah)</div>
+  <div class="export-box" id="export-text"></div>
+
+  <div class="btn-row" style="margin-bottom:10px;">
+    <button class="btn blue sm" onclick="copyReport()">📋 Salin</button>
+    <button class="btn sm ghost" onclick="downloadReport()">⬇️ Muat Turun</button>
+  </div>
+
+  <button class="btn ghost" onclick="goTo('s-land'); resetAll();" style="margin-top:8px;">← Anak Lain / Mula Semula</button>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+</div><!-- /wrap -->
+
+<script>
+// ═══════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════
+let child = null; // 'aflah' | 'haidar' | 'asma'
+
+// Central behavioral log — every meaningful action
+const LOG = [];
+function log(event, detail={}) {
+  LOG.push({ t: Date.now(), event, child, ...detail });
+}
+
+// Per-game signal accumulators
+const SIG = {
+  g1: { firstActionMs:null, sessionStart:null, hintsV:0, hintsA:0, undos:0, redos:0, attempts:[], placementOrder:[], wrongPlacements:0 },
+  g2: { firstActionMs:null, sessionStart:null, hintsV:0, hintsA:0, replays:0, attempts:[], wrongPicks:0, undos:0 },
+  g3: { firstActionMs:null, sessionStart:null, hintsV:0, hintsA:0, undos:0, redos:0, attempts:[], wrongPicks:0, hesitateSecs:[] }
+};
+
+// TTS
+function speak(text) {
+  if (!window.speechSynthesis) return;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'ms-MY'; u.rate = 0.9;
+  speechSynthesis.speak(u);
+}
+
+// ═══════════════════════════════════════════════════════
+// CHILD CONFIG
+// ═══════════════════════════════════════════════════════
+const CHILDREN = {
+  aflah: {
+    name:'Aflah', avatar:'🧒', age:'8 tahun', grade:'Darjah 2',
+    games: ['g1','g2','g3'],
+    desc:'Kamu akan main 3 permainan pendek. Main je macam biasa — takde jawapan salah dalam ujian ni!',
+    gameLabels:['🖼️ Susun Gambar','🔊 Padanan Bunyi','🧩 Bina Corak'],
+    asma: false
+  },
+  haidar: {
+    name:'Haidar', avatar:'👦', age:'7 tahun', grade:'Darjah 1',
+    games: ['g1','g2','g3'],
+    desc:'Kamu akan main 3 permainan pendek. Main je macam biasa — takde jawapan salah!',
+    gameLabels:['🖼️ Susun Gambar','🔊 Padanan Bunyi','🧩 Bina Corak'],
+    asma: false
+  },
+  asma: {
+    name:'Asma', avatar:'👧', age:'5 tahun', grade:'Tadika',
+    games: ['g1'],
+    desc:'Kita main satu permainan pendek je. Abah ada sama! 😊',
+    gameLabels:['🖼️ Susun Gambar'],
+    asma: true
+  }
+};
+
+// ═══════════════════════════════════════════════════════
+// GAME 1 DATA — SUSUN GAMBAR (Story Sequencing)
+// 3 rounds, each a 4-panel story
+// ═══════════════════════════════════════════════════════
+const G1_ROUNDS = [
+  {
+    title: 'Cerita Hujan',
+    hint_visual: 'Tengok langit dan tanah — gelap dulu, pastu basah, pastu terang!',
+    hint_audio:  'Abah: Ceritakan pada anak — langit jadi mendung, hujan turun, tanah basah, lepas tu matahari keluar semula.',
+    panels: [
+      { emoji:'☀️', label:'Hari yang cerah', order:1 },
+      { emoji:'☁️', label:'Awan mendung datang', order:2 },
+      { emoji:'🌧️', label:'Hujan lebat', order:3 },
+      { emoji:'🌈', label:'Pelangi keluar', order:4 },
+    ]
+  },
+  {
+    title: 'Pokok Epal',
+    hint_visual: 'Tengok saiz pokok — kecil dulu, pastu besar, pastu ada buah!',
+    hint_audio:  'Abah: Ceritakan — tanam benih dulu, siram air, pokok tumbuh besar, lepas tu buah keluar.',
+    panels: [
+      { emoji:'🌱', label:'Tanam benih', order:1 },
+      { emoji:'💧', label:'Siram air setiap hari', order:2 },
+      { emoji:'🌳', label:'Pokok dah besar', order:3 },
+      { emoji:'🍎', label:'Buah dah masak', order:4 },
+    ]
+  },
+  {
+    title: 'Masak Nasi',
+    hint_visual: 'Tengok bekas masakan — kosong dulu, pastu ada beras, pastu ada asap, pastu siap!',
+    hint_audio:  'Abah: Ceritakan — basuh beras dulu, masuk dalam periuk, masak atas api, lepas tu nasi siap dimakan.',
+    panels: [
+      { emoji:'🌾', label:'Basuh beras', order:1 },
+      { emoji:'🫙', label:'Masuk dalam periuk', order:2 },
+      { emoji:'🔥', label:'Masak atas dapur', order:3 },
+      { emoji:'🍚', label:'Nasi siap! Makan!', order:4 },
+    ]
+  }
+];
+
+// ═══════════════════════════════════════════════════════
+// GAME 2 DATA — PADANAN BUNYI
+// ═══════════════════════════════════════════════════════
+const G2_ROUNDS = [
+  {
+    word:'KUCING', sub:'Haiwan berbulu yang suka tidur',
+    correct:{ emoji:'🐱', label:'Kucing' },
+    wrong:  [{ emoji:'🐶', label:'Anjing' }, { emoji:'🐰', label:'Arnab' }, { emoji:'🐸', label:'Katak' }]
+  },
+  {
+    word:'MATAHARI', sub:'Bersinar di langit pada waktu siang',
+    correct:{ emoji:'☀️', label:'Matahari' },
+    wrong:  [{ emoji:'🌙', label:'Bulan' }, { emoji:'⭐', label:'Bintang' }, { emoji:'☁️', label:'Awan' }]
+  },
+  {
+    word:'IKAN', sub:'Haiwan yang hidup dalam air',
+    correct:{ emoji:'🐟', label:'Ikan' },
+    wrong:  [{ emoji:'🦀', label:'Ketam' }, { emoji:'🐙', label:'Sotong' }, { emoji:'🦋', label:'Rama-rama' }]
+  },
+  {
+    word:'POKOK', sub:'Tumbuhan besar yang ada daun dan dahan',
+    correct:{ emoji:'🌳', label:'Pokok' },
+    wrong:  [{ emoji:'🌸', label:'Bunga' }, { emoji:'🍄', label:'Cendawan' }, { emoji:'🌿', label:'Rumput' }]
+  }
+];
+
+// ═══════════════════════════════════════════════════════
+// GAME 3 DATA — BINA CORAK
+// ═══════════════════════════════════════════════════════
+const G3_ROUNDS = [
+  {
+    pattern:   ['🔴','🔵','🔴','🔵','❓'],
+    answer:    '🔴',
+    options:   ['🔴','🔵','🟡','🟢'],
+    hint_v:    'Tengok warna bertukar-tukar — merah, biru, merah, biru... lepas biru, mesti apa?',
+    hint_a:    'Abah: Sebut corak bersama anak — "merah, biru, merah, biru... sekarang?"'
+  },
+  {
+    pattern:   ['🌟','🌟','💫','🌟','🌟','❓'],
+    answer:    '💫',
+    options:   ['🌟','💫','⭐','✨'],
+    hint_v:    'Kira — dua bintang, satu bintang kecil, dua bintang lagi... lepas dua tu, mesti apa?',
+    hint_a:    'Abah: Sebut — "bintang-bintang-cahaya, bintang-bintang-??" tanya anak sambungkan.'
+  },
+  {
+    pattern:   ['🐱','🐶','🐱','🐶','🐱','❓'],
+    answer:    '🐶',
+    options:   ['🐱','🐶','🐰','🐸'],
+    hint_v:    'Tengok corak — kucing, anjing, kucing, anjing... giliran siapa lepas ni?',
+    hint_a:    'Abah: Tanya anak — "Kucing, Anjing, Kucing, Anjing... seterusnya?"'
+  },
+  {
+    pattern:   ['1️⃣','2️⃣','3️⃣','1️⃣','2️⃣','❓'],
+    answer:    '3️⃣',
+    options:   ['1️⃣','2️⃣','3️⃣','4️⃣'],
+    hint_v:    'Nombor 1, 2, 3 berulang — lepas 1, 2 mesti apa?',
+    hint_a:    'Abah: Kira bersama — "satu, dua, tiga, satu, dua... tiga?" tanya anak.'
+  }
+];
+
+// ═══════════════════════════════════════════════════════
+// GAME STATE
+// ═══════════════════════════════════════════════════════
+let g1Round = 0, g1History = [], g1Future = [], g1Slots = [null,null,null,null];
+let g2Round = 0;
+let g3Round = 0;
+let currentGame = null;
+
+// ═══════════════════════════════════════════════════════
+// LANDING
+// ═══════════════════════════════════════════════════════
+function pickChild(c) {
+  child = c;
+  document.querySelectorAll('.child-btn').forEach(b => b.classList.remove('sel'));
+  document.getElementById('cb-'+c).classList.add('sel');
+  document.getElementById('land-start').disabled = false;
+  log('child_selected', { selected: c });
+}
+
+function goToIntro() {
+  log('intro_start');
+  const cfg = CHILDREN[child];
+
+  // Asma abah note
+  const abahNote = document.getElementById('intro-abah-note');
+  if (cfg.asma) {
+    abahNote.innerHTML = `<div class="abah-alert"><div class="ah">📣 Abah — Duduk Bersama Asma</div>
+    Tolong baca semua arahan kepada Asma. Perhatikan apa yang dia buat dulu — adakah dia <b>tengok lama sebelum sentuh</b>, atau <b>terus sentuh</b>, atau <b>bercakap-cakap</b>? Abah boleh catat pemerhatian dalam laporan nanti.</div>`;
+    abahNote.style.display = 'block';
+  } else { abahNote.style.display = 'none'; }
+
+  document.getElementById('intro-avatar').textContent = cfg.avatar;
+  document.getElementById('intro-name').textContent = 'Hai ' + cfg.name + '! 👋';
+  document.getElementById('intro-desc').textContent = cfg.desc;
+
+  const gEl = document.getElementById('intro-games');
+  gEl.innerHTML = cfg.gameLabels.map(g =>
+    `<div style="display:flex;align-items:center;gap:10px;background:var(--surface2);border-radius:10px;padding:10px 14px;font-size:.88rem;font-weight:700;color:var(--ink);">${g}</div>`
+  ).join('');
+
+  goTo('s-intro');
+}
+
+// ═══════════════════════════════════════════════════════
+// START GAMES
+// ═══════════════════════════════════════════════════════
+function startGames() {
+  log('games_start');
+  // unlock audio
+  speak(' ');
+  setTimeout(() => startG1(), 100);
+}
+
+// ═══════════════════════════════════════════════════════
+// GAME 1 — SUSUN GAMBAR
+// ═══════════════════════════════════════════════════════
+function startG1() {
+  currentGame = 'g1';
+  g1Round = 0;
+  Object.assign(SIG.g1, { firstActionMs:null, sessionStart:Date.now(), hintsV:0, hintsA:0, undos:0, redos:0, attempts:[], placementOrder:[], wrongPlacements:0 });
+  log('g1_start');
+
+  const cfg = CHILDREN[child];
+  document.getElementById('g1-instruction').textContent =
+    cfg.asma
+      ? 'Abah: Tunjukkan gambar-gambar ini kepada Asma. Minta dia susun mengikut cerita yang betul.'
+      : 'Susun gambar-gambar ini mengikut cerita yang betul. Seret gambar ke dalam kotak yang betul!';
+
+  const asmaNote = document.getElementById('g1-asma-note');
+  if (cfg.asma) {
+    asmaNote.style.display = 'block';
+    asmaNote.innerHTML = `<div class="abah-alert"><div class="ah">📣 Abah</div>Perhatikan: Adakah Asma tengok semua gambar dulu sebelum gerak? Atau terus pegang dan cuba? Adakah dia bercakap semasa main?</div>`;
+  }
+
+  loadG1Round();
+  goTo('s-g1');
+}
+
+function loadG1Round() {
+  const round = G1_ROUNDS[g1Round];
+  const prog = ((g1Round) / G1_ROUNDS.length) * 100;
+  document.getElementById('g1-prog').style.width = prog + '%';
+  document.getElementById('g1-plabel').textContent = g1Round + ' / ' + G1_ROUNDS.length;
+  document.getElementById('g1-next').disabled = true;
+
+  g1Slots = [null, null, null, null];
+  g1History = []; g1Future = [];
+  document.getElementById('g1-undo').disabled = true;
+  document.getElementById('g1-redo').disabled = true;
+  document.getElementById('g1-hint-box').style.display = 'none';
+  document.getElementById('g1-hint-v').classList.remove('used');
+  document.getElementById('g1-hint-a').classList.remove('used');
+
+  // Shuffle panels for display
+  const shuffled = [...round.panels].sort(() => Math.random() - .5);
+
+  const cardsEl = document.getElementById('g1-cards');
+  cardsEl.innerHTML = '';
+  shuffled.forEach((p, i) => {
+    const card = document.createElement('div');
+    card.className = 'story-card';
+    card.dataset.order = p.order;
+    card.dataset.emoji = p.emoji;
+    card.innerHTML = `<div class="sc-emoji">${p.emoji}</div><div class="sc-num">${p.label}</div>`;
+    card.draggable = true;
+
+    card.addEventListener('dragstart', e => {
+      e.dataTransfer.setData('text/plain', p.order + '|' + p.emoji + '|' + p.label);
+      card.classList.add('dragging');
+      if (!SIG.g1.firstActionMs) SIG.g1.firstActionMs = Date.now() - SIG.g1.sessionStart;
+      log('g1_drag_start', { emoji:p.emoji, order:p.order, round:g1Round });
+    });
+    card.addEventListener('dragend', () => card.classList.remove('dragging'));
+
+    // Touch drag fallback
+    setupTouchDrag(card, p.order, p.emoji, p.label);
+    cardsEl.appendChild(card);
+  });
+
+  const slotsEl = document.getElementById('g1-slots');
+  slotsEl.innerHTML = '';
+  [1,2,3,4].forEach(num => {
+    const slot = document.createElement('div');
+    slot.className = 'slot';
+    slot.dataset.slot = num;
+    slot.innerHTML = `<span class="slot-num">${num}</span><span class="slot-label">Ke-${num}</span>`;
+
+    slot.addEventListener('dragover', e => { e.preventDefault(); slot.classList.add('drag-over'); });
+    slot.addEventListener('dragleave', () => slot.classList.remove('drag-over'));
+    slot.addEventListener('drop', e => {
+      e.preventDefault();
+      slot.classList.remove('drag-over');
+      const [order, emoji, label] = e.dataTransfer.getData('text/plain').split('|');
+      placeCard(slot, num, parseInt(order), emoji, label);
+    });
+    slotsEl.appendChild(slot);
+  });
+}
+
+let touchDragData = null;
+
+function setupTouchDrag(card, order, emoji, label) {
+  card.addEventListener('touchstart', e => {
+    touchDragData = { order, emoji, label, card };
+    if (!SIG.g1.firstActionMs) SIG.g1.firstActionMs = Date.now() - SIG.g1.sessionStart;
+    log('g1_touch_start', { emoji, order, round:g1Round });
+    card.style.opacity = '.5';
+  }, { passive:true });
+
+  card.addEventListener('touchend', e => {
+    if (!touchDragData) return;
+    card.style.opacity = '1';
+    const touch = e.changedTouches[0];
+    const el = document.elementFromPoint(touch.clientX, touch.clientY);
+    const slot = el?.closest('.slot');
+    if (slot) {
+      const slotNum = parseInt(slot.dataset.slot);
+      placeCard(slot, slotNum, touchDragData.order, touchDragData.emoji, touchDragData.label);
+    }
+    touchDragData = null;
+  }, { passive:true });
+}
+
+function placeCard(slotEl, slotNum, order, emoji, label) {
+  const isCorrect = slotNum === order;
+  const prev = g1Slots[slotNum - 1];
+  g1History.push({ slotNum, prev, order, emoji });
+  g1Future = [];
+  document.getElementById('g1-undo').disabled = false;
+  document.getElementById('g1-redo').disabled = true;
+
+  g1Slots[slotNum - 1] = { order, emoji, label };
+  SIG.g1.placementOrder.push(slotNum);
+  SIG.g1.attempts.push({ t:Date.now(), slotNum, order, emoji, correct:isCorrect });
+  if (!isCorrect) SIG.g1.wrongPlacements++;
+  log('g1_place', { slotNum, order, emoji, correct:isCorrect, round:g1Round });
+
+  renderSlot(slotEl, emoji, label, isCorrect);
+  toast(isCorrect ? '✅ Bagus!' : '🔄 Cuba lagi!', isCorrect ? 'good':'bad');
+  checkG1Complete();
+}
+
+function renderSlot(slotEl, emoji, label, correct) {
+  slotEl.classList.add('filled');
+  slotEl.classList.toggle('drag-over', false);
+  slotEl.innerHTML = `<span class="slot-num">${slotEl.dataset.slot}</span>
+    <div style="font-size:2.4rem;line-height:1;">${emoji}</div>
+    <div style="font-size:.7rem;color:var(--ink2);text-align:center;padding:0 6px;">${label}</div>`;
+}
+
+function checkG1Complete() {
+  const allFilled = g1Slots.every(s => s !== null);
+  const allCorrect = g1Slots.every((s, i) => s && s.order === i + 1);
+  if (allFilled) {
+    document.getElementById('g1-next').disabled = false;
+    if (allCorrect) toast('🎉 Betul semua!', 'good');
+  }
+}
+
+function doUndo(game) {
+  if (game === 'g1') {
+    if (!g1History.length) return;
+    const last = g1History.pop();
+    g1Future.push(last);
+    g1Slots[last.slotNum - 1] = last.prev;
+    SIG.g1.undos++;
+    log('g1_undo', { slotNum:last.slotNum });
+    const slotEl = document.querySelector(`[data-slot="${last.slotNum}"]`);
+    if (slotEl) {
+      slotEl.classList.remove('filled');
+      slotEl.innerHTML = `<span class="slot-num">${last.slotNum}</span><span class="slot-label">Ke-${last.slotNum}</span>`;
+    }
+    document.getElementById('g1-undo').disabled = g1History.length === 0;
+    document.getElementById('g1-redo').disabled = false;
+    document.getElementById('g1-next').disabled = true;
+  } else if (game === 'g2') {
+    SIG.g2.undos++;
+    log('g2_undo');
+    loadG2Round();
+  } else if (game === 'g3') {
+    SIG.g3.undos++;
+    log('g3_undo');
+    loadG3Round();
+  }
+}
+
+function doRedo(game) {
+  if (game === 'g1') {
+    if (!g1Future.length) return;
+    const next = g1Future.pop();
+    g1History.push(next);
+    g1Slots[next.slotNum - 1] = { order:next.order, emoji:next.emoji };
+    SIG.g1.redos++;
+    log('g1_redo', { slotNum:next.slotNum });
+    const slotEl = document.querySelector(`[data-slot="${next.slotNum}"]`);
+    if (slotEl) renderSlot(slotEl, next.emoji, '', true);
+    document.getElementById('g1-redo').disabled = g1Future.length === 0;
+    document.getElementById('g1-undo').disabled = false;
+    checkG1Complete();
+  } else if (game === 'g3') {
+    SIG.g3.redos++;
+    log('g3_redo');
+  }
+}
+
+function finishG1() {
+  log('g1_round_done', { round:g1Round });
+  g1Round++;
+  if (g1Round < G1_ROUNDS.length && !CHILDREN[child].asma) {
+    loadG1Round();
+  } else {
+    log('g1_complete');
+    if (CHILDREN[child].asma) { showResult(); }
+    else startG2();
+  }
+  document.getElementById('g1-prog').style.width = (g1Round / G1_ROUNDS.length * 100) + '%';
+  document.getElementById('g1-plabel').textContent = g1Round + ' / ' + G1_ROUNDS.length;
+}
+
+// ═══════════════════════════════════════════════════════
+// GAME 2 — PADANAN BUNYI
+// ═══════════════════════════════════════════════════════
+function startG2() {
+  currentGame = 'g2';
+  g2Round = 0;
+  Object.assign(SIG.g2, { firstActionMs:null, sessionStart:Date.now(), hintsV:0, hintsA:0, replays:0, attempts:[], wrongPicks:0, undos:0 });
+  log('g2_start');
+
+  document.getElementById('g2-instruction').textContent =
+    'Tengok perkataan di bawah. Dengar sebutan dia, pastu pilih gambar yang betul!';
+  loadG2Round();
+  goTo('s-g2');
+}
+
+function loadG2Round() {
+  const round = G2_ROUNDS[g2Round];
+  const prog = (g2Round / G2_ROUNDS.length) * 100;
+  document.getElementById('g2-prog').style.width = prog + '%';
+  document.getElementById('g2-plabel').textContent = g2Round + ' / ' + G2_ROUNDS.length;
+  document.getElementById('g2-word').textContent = round.word;
+  document.getElementById('g2-wordsub').textContent = round.sub;
+  document.getElementById('g2-hint-box').style.display = 'none';
+  document.getElementById('g2-hint-v').classList.remove('used');
+  document.getElementById('g2-hint-a').classList.remove('used');
+  document.getElementById('g2-undo').disabled = true;
+
+  const replay = document.getElementById('g2-replay');
+  replay.classList.remove('used');
+
+  // Auto-speak word on load (after user gesture already unlocked audio)
+  speak(round.word);
+  log('g2_word_shown', { word:round.word, round:g2Round });
+
+  // Shuffle choices
+  const all = [round.correct, ...round.wrong].sort(()=>Math.random()-.5);
+  const choicesEl = document.getElementById('g2-choices');
+  choicesEl.innerHTML = '';
+  all.forEach(opt => {
+    const div = document.createElement('div');
+    div.className = 'img-choice';
+    div.innerHTML = `<div class="ic-emoji">${opt.emoji}</div><div class="ic-label">${opt.label}</div>`;
+    div.onclick = () => {
+      if (!SIG.g2.firstActionMs) SIG.g2.firstActionMs = Date.now() - SIG.g2.sessionStart;
+      const correct = opt.label === round.correct.label;
+      div.classList.add(correct ? 'selected-right' : 'selected-wrong');
+      SIG.g2.attempts.push({ t:Date.now(), picked:opt.label, correct, round:g2Round });
+      if (!correct) SIG.g2.wrongPicks++;
+      log('g2_pick', { picked:opt.label, correct, word:round.word, round:g2Round });
+
+      document.getElementById('g2-undo').disabled = false;
+      toast(correct ? '✅ Betul!' : '❌ Cuba lagi!', correct?'good':'bad');
+
+      if (correct) {
+        setTimeout(() => {
+          g2Round++;
+          if (g2Round < G2_ROUNDS.length) loadG2Round();
+          else { log('g2_complete'); startG3(); }
+        }, 800);
+      }
+    };
+    choicesEl.appendChild(div);
+  });
+}
+
+function replayWord() {
+  const round = G2_ROUNDS[g2Round];
+  SIG.g2.replays++;
+  log('g2_replay', { word:round.word, round:g2Round });
+  speak(round.word);
+  document.getElementById('g2-replay').classList.add('used');
+  setTimeout(() => document.getElementById('g2-replay').classList.remove('used'), 1500);
+}
+
+// ═══════════════════════════════════════════════════════
+// GAME 3 — BINA CORAK
+// ═══════════════════════════════════════════════════════
+function startG3() {
+  currentGame = 'g3';
+  g3Round = 0;
+  Object.assign(SIG.g3, { firstActionMs:null, sessionStart:Date.now(), hintsV:0, hintsA:0, undos:0, redos:0, attempts:[], wrongPicks:0, hesitateSecs:[] });
+  log('g3_start');
+  document.getElementById('g3-instruction').textContent =
+    'Ada corak di sini. Cari yang sesuai untuk isi tempat yang ada tanda ❓!';
+  loadG3Round();
+  goTo('s-g3');
+}
+
+let g3ActionTs = null;
+
+function loadG3Round() {
+  const round = G3_ROUNDS[g3Round];
+  const prog = (g3Round / G3_ROUNDS.length) * 100;
+  document.getElementById('g3-prog').style.width = prog + '%';
+  document.getElementById('g3-plabel').textContent = g3Round + ' / ' + G3_ROUNDS.length;
+  document.getElementById('g3-hint-box').style.display = 'none';
+  document.getElementById('g3-hint-v').classList.remove('used');
+  document.getElementById('g3-hint-a').classList.remove('used');
+  document.getElementById('g3-undo').disabled = true;
+  document.getElementById('g3-redo').disabled = true;
+  g3ActionTs = Date.now();
+
+  const patEl = document.getElementById('g3-pattern');
+  patEl.innerHTML = '';
+  round.pattern.forEach(item => {
+    const cell = document.createElement('div');
+    cell.className = 'pat-cell' + (item === '❓' ? ' blank' : '');
+    cell.textContent = item === '❓' ? '?' : item;
+    patEl.appendChild(cell);
+  });
+  log('g3_round_shown', { round:g3Round, answer:round.answer });
+
+  const optsEl = document.getElementById('g3-options');
+  const shuffled = [...round.options].sort(()=>Math.random()-.5);
+  optsEl.innerHTML = '';
+  shuffled.forEach(opt => {
+    const div = document.createElement('div');
+    div.className = 'pat-opt';
+    div.textContent = opt;
+    div.onclick = () => {
+      if (!SIG.g3.firstActionMs) SIG.g3.firstActionMs = Date.now() - SIG.g3.sessionStart;
+      const hesitate = (Date.now() - g3ActionTs) / 1000;
+      SIG.g3.hesitateSecs.push(hesitate);
+      const correct = opt === round.answer;
+      SIG.g3.attempts.push({ t:Date.now(), picked:opt, correct, round:g3Round, hesitateSec:hesitate });
+      if (!correct) SIG.g3.wrongPicks++;
+      log('g3_pick', { picked:opt, correct, answer:round.answer, round:g3Round, hesitateSec:hesitate });
+
+      // visual feedback on pattern blank
+      const blankCell = document.querySelector('.pat-cell.blank');
+      if (blankCell) {
+        blankCell.textContent = opt;
+        blankCell.classList.add(correct ? 'filled-correct' : 'filled-wrong');
+      }
+      document.getElementById('g3-undo').disabled = false;
+      toast(correct ? '🎉 Pandai!' : '❌ Cuba lagi!', correct?'good':'bad');
+
+      if (correct) {
+        div.classList.add('used');
+        setTimeout(() => {
+          g3Round++;
+          if (g3Round < G3_ROUNDS.length) loadG3Round();
+          else { log('g3_complete'); showResult(); }
+        }, 700);
+      }
+    };
+    optsEl.appendChild(div);
+  });
+}
+
+// ═══════════════════════════════════════════════════════
+// HINTS
+// ═══════════════════════════════════════════════════════
+function useHint(game, type) {
+  SIG[game]['hints' + type.charAt(0).toUpperCase() + type.slice(1)]++;
+  log(game + '_hint', { type });
+
+  const btnId = `${game}-hint-${type.charAt(0)}`;
+  document.getElementById(btnId).classList.add('used');
+
+  let text = '';
+  if (game === 'g1') {
+    text = type === 'visual'
+      ? G1_ROUNDS[g1Round]?.hint_visual
+      : G1_ROUNDS[g1Round]?.hint_audio;
+  } else if (game === 'g3') {
+    text = type === 'visual'
+      ? G3_ROUNDS[g3Round]?.hint_v
+      : G3_ROUNDS[g3Round]?.hint_a;
+  } else if (game === 'g2') {
+    text = type === 'visual'
+      ? 'Tengok rupa bentuk gambar dengan teliti — mana satu yang sama dengan perkataan itu?'
+      : 'Abah: Sebut perkataan tu pelan-pelan dan tanya anak — mana gambar yang sama?';
+  }
+
+  const hintBox = document.getElementById(`${game}-hint-box`);
+  const isAbahNote = type === 'audio' || (game === 'g1' && type === 'audio');
+  hintBox.innerHTML = isAbahNote
+    ? `<div class="ah">📣 Abah</div>${text}`
+    : `<div class="ah">👁️ Petunjuk</div>${text}`;
+  hintBox.style.display = 'block';
+
+  if (type === 'audio' && !isAbahNote) speak(text);
+}
+
+// ═══════════════════════════════════════════════════════
+// RESULT & REPORT
+// ═══════════════════════════════════════════════════════
+function showResult() {
+  log('session_complete');
+  const cfg = CHILDREN[child];
+  const isAsma = cfg.asma;
+
+  // ── Compute VAK scores ──
+  const scores = { V:0, A:0, K:0 };
+
+  // G1 signals
+  const g1 = SIG.g1;
+  if (g1.firstActionMs !== null) {
+    if (g1.firstActionMs > 4000) scores.V += 2;       // long pause = observer
+    else if (g1.firstActionMs < 2000) scores.K += 2;  // fast = doer
+    else scores.A += 1;
+  }
+  if (g1.hintsV > g1.hintsA) scores.V += 2;
+  if (g1.hintsA > g1.hintsV) scores.A += 2;
+  if (g1.wrongPlacements <= 1) scores.V += 1;         // few mistakes = careful planner
+  if (g1.undos > 2) scores.A += 1;                    // reflective = A/V
+  if (g1.wrongPlacements > 3) scores.K += 1;          // trial and error = K
+
+  if (!isAsma) {
+    // G2 signals
+    const g2 = SIG.g2;
+    if (g2.firstActionMs !== null) {
+      if (g2.firstActionMs > 4000) scores.V += 1;
+      else if (g2.firstActionMs < 2000) scores.K += 1;
+    }
+    if (g2.replays > 1) scores.A += 3;                // strong A signal
+    if (g2.hintsA > g2.hintsV) scores.A += 2;
+    if (g2.hintsV > g2.hintsA) scores.V += 2;
+    if (g2.wrongPicks <= 1) scores.V += 1;
+
+    // G3 signals
+    const g3 = SIG.g3;
+    const avgHesitate = g3.hesitateSecs.length
+      ? g3.hesitateSecs.reduce((a,b)=>a+b,0) / g3.hesitateSecs.length : 0;
+    if (avgHesitate > 5) scores.V += 2;               // studies pattern first
+    if (avgHesitate < 2) scores.K += 2;               // dives in
+    if (g3.hintsV > g3.hintsA) scores.V += 2;
+    if (g3.hintsA > g3.hintsV) scores.A += 2;
+    if (g3.wrongPicks > 3) scores.K += 1;
+    if (g3.undos > 2) scores.V += 1;
+  }
+
+  const total = scores.V + scores.A + scores.K || 1;
+  const sorted = Object.entries(scores).sort((a,b)=>b[1]-a[1]);
+  const [pk] = sorted[0];
+
+  const STYLE_META = {
+    V:{ label:'Visual 👁️', color:' var(--V)', emoji:'👁️',
+        desc:'Belajar paling baik dengan melihat — gambar, carta, warna, dan corak. Suka perhatikan dulu sebelum bertindak.' },
+    A:{ label:'Auditori 🔊', color:'var(--A)', emoji:'🔊',
+        desc:'Belajar paling baik dengan mendengar — sebutan, penjelasan lisan, dan muzik. Suka ulang-ulang secara lisan.' },
+    K:{ label:'Kinestetik 🤲', color:'var(--K)', emoji:'🤲',
+        desc:'Belajar paling baik dengan buat sendiri — cuba, sentuh, gerak, dan praktik terus. Suka explore dulu.' }
+  };
+
+  const meta = STYLE_META[pk];
+  document.getElementById('res-emoji').textContent = meta.emoji;
+  document.getElementById('res-style').textContent = meta.label;
+  document.getElementById('res-style').style.color = meta.color;
+  document.getElementById('res-desc').textContent = meta.desc;
+
+  // Signal summary cards
+  const sigGrid = document.getElementById('res-signals');
+  const g1lat = g1.firstActionMs !== null ? (g1.firstActionMs/1000).toFixed(1)+'s' : '—';
+  const rows = [
+    ['Tindakan Pertama (G1)', g1lat],
+    ['Petunjuk Visual dipilih', (SIG.g1.hintsV + (isAsma?0:SIG.g2.hintsV) + (isAsma?0:SIG.g3.hintsV)) + 'x'],
+    ['Petunjuk Bunyi dipilih', (SIG.g1.hintsA + (isAsma?0:SIG.g2.hintsA) + (isAsma?0:SIG.g3.hintsA)) + 'x'],
+    ['Undo digunakan', (SIG.g1.undos + (isAsma?0:SIG.g2.undos) + (isAsma?0:SIG.g3.undos)) + 'x'],
+    ['Dengar semula (G2)', isAsma ? 'N/A' : SIG.g2.replays + 'x'],
+    ['Kesilapan keseluruhan', (SIG.g1.wrongPlacements + (isAsma?0:SIG.g2.wrongPicks) + (isAsma?0:SIG.g3.wrongPicks)) + 'x'],
+  ];
+  sigGrid.innerHTML = rows.map(([k,v]) =>
+    `<div class="signal-row"><div class="signal-name">${k}</div><div class="signal-val">${v}</div></div>`
+  ).join('');
+
+  // ── Build export ──
+  const now = new Date();
+  const pct = k => Math.round((scores[k]/total)*100);
+
+  const readable = `
+╔══════════════════════════════════════════════════════╗
+  LAPORAN VAK — ARH Kids Behavioural Assessment
+  Anak : ${cfg.name} (${cfg.age}, ${cfg.grade})
+  Tarikh: ${now.toLocaleDateString('ms-MY')}
+  Masa  : ${now.toLocaleTimeString('ms-MY')}
+╚══════════════════════════════════════════════════════╝
+
+KEPUTUSAN UTAMA
+───────────────
+Gaya Belajar Utama : ${meta.label}
+Skor Visual        : ${scores.V} mata (${pct('V')}%)
+Skor Auditori      : ${scores.A} mata (${pct('A')}%)
+Skor Kinestetik    : ${scores.K} mata (${pct('K')}%)
+
+SIGNAL BEHAVIORIAL
+──────────────────
+Tindakan Pertama G1 : ${g1lat} (>4s=V, <2s=K)
+Hint Visual dipilih : ${SIG.g1.hintsV + (isAsma?0:SIG.g2.hintsV+SIG.g3.hintsV)}x
+Hint Bunyi dipilih  : ${SIG.g1.hintsA + (isAsma?0:SIG.g2.hintsA+SIG.g3.hintsA)}x
+Undo digunakan      : ${SIG.g1.undos + (isAsma?0:SIG.g2.undos+SIG.g3.undos)}x
+Redo digunakan      : ${SIG.g1.redos + (isAsma?0:SIG.g3.redos)}x
+Dengar Semula (G2)  : ${isAsma?'N/A':SIG.g2.replays+'x'}
+Kesilapan G1        : ${SIG.g1.wrongPlacements}
+Kesilapan G2        : ${isAsma?'N/A':SIG.g2.wrongPicks}
+Kesilapan G3        : ${isAsma?'N/A':SIG.g3.wrongPicks}
+Avg Hesitasi G3     : ${isAsma?'N/A':(SIG.g3.hesitateSecs.length?(SIG.g3.hesitateSecs.reduce((a,b)=>a+b,0)/SIG.g3.hesitateSecs.length).toFixed(1)+'s':'—')}
+
+LOG AKSI PENUH
+──────────────
+${LOG.map(e=>`[${new Date(e.t).toLocaleTimeString('ms-MY')}] ${e.event} ${JSON.stringify(Object.fromEntries(Object.entries(e).filter(([k])=>!['t','event','child'].includes(k))))}`).join('\n')}
+
+NOTA UNTUK ABAH
+───────────────
+Hantar laporan ini kepada Claude untuk analisis VAK penuh.
+Tambah pemerhatian Abah jika ada (terutama untuk Asma):
+- Adakah anak bercakap semasa main?
+- Adakah anak gelisah atau duduk diam?
+- Ada tingkah laku lain yang Abah perasan?
+`.trim();
+
+  const jsonReport = {
+    meta: { child:cfg.name, age:cfg.age, grade:cfg.grade, datetime:now.toISOString() },
+    result: { primary:pk, scores, percentages:{ V:pct('V'), A:pct('A'), K:pct('K') } },
+    signals: {
+      g1_first_action_ms: SIG.g1.firstActionMs,
+      hints_visual_total: SIG.g1.hintsV + (isAsma?0:SIG.g2.hintsV+SIG.g3.hintsV),
+      hints_audio_total:  SIG.g1.hintsA + (isAsma?0:SIG.g2.hintsA+SIG.g3.hintsA),
+      undo_total: SIG.g1.undos + (isAsma?0:SIG.g2.undos+SIG.g3.undos),
+      redo_total: SIG.g1.redos + (isAsma?0:SIG.g3.redos),
+      g2_replays: isAsma?null:SIG.g2.replays,
+      errors_g1: SIG.g1.wrongPlacements,
+      errors_g2: isAsma?null:SIG.g2.wrongPicks,
+      errors_g3: isAsma?null:SIG.g3.wrongPicks,
+      g3_avg_hesitate_sec: isAsma?null:(SIG.g3.hesitateSecs.length?parseFloat((SIG.g3.hesitateSecs.reduce((a,b)=>a+b,0)/SIG.g3.hesitateSecs.length).toFixed(2)):null)
+    },
+    action_log: LOG
+  };
+
+  const full = readable + '\n\n---JSON---\n' + JSON.stringify(jsonReport, null, 2);
+  document.getElementById('export-text').textContent = full;
+  window._reportData = full;
+  window._reportName = `VAK_${cfg.name}_${now.toISOString().slice(0,10)}.txt`;
+
+  goTo('s-result');
+}
+
+function copyReport() {
+  if (!window._reportData) return;
+  navigator.clipboard.writeText(window._reportData)
+    .then(()=>toast('📋 Disalin!','good'))
+    .catch(()=>toast('Gagal salin','bad'));
+}
+
+function downloadReport() {
+  if (!window._reportData) return;
+  const blob = new Blob([window._reportData], {type:'text/plain;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = window._reportName || 'vak_report.txt';
+  a.click();
+}
+
+// ═══════════════════════════════════════════════════════
+// UTILS
+// ═══════════════════════════════════════════════════════
+function goTo(id) {
+  document.querySelectorAll('.scr').forEach(s=>s.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function toast(msg, type='') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'toast show ' + type;
+  clearTimeout(el._t);
+  el._t = setTimeout(()=>el.classList.remove('show'), 1800);
+}
+
+function resetAll() {
+  child = null;
+  LOG.length = 0;
+  g1Round=0; g2Round=0; g3Round=0;
+  document.querySelectorAll('.child-btn').forEach(b=>b.classList.remove('sel'));
+  document.getElementById('land-start').disabled=true;
+}
+</script>
+</body>
+</html>

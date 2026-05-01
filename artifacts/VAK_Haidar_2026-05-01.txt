@@ -1,0 +1,657 @@
+╔══════════════════════════════════════════════════════╗
+  LAPORAN VAK — ARH Kids Behavioural Assessment
+  Anak : Haidar (7 tahun, Darjah 1)
+  Tarikh: 1/5/2026
+  Masa  : 5:05:27 PTG
+╚══════════════════════════════════════════════════════╝
+
+KEPUTUSAN UTAMA
+───────────────
+Gaya Belajar Utama : Visual 👁️
+Skor Visual        : 4 mata (44%)
+Skor Auditori      : 4 mata (44%)
+Skor Kinestetik    : 1 mata (11%)
+
+SIGNAL BEHAVIORIAL
+──────────────────
+Tindakan Pertama G1 : 2.5s (>4s=V, <2s=K)
+Hint Visual dipilih : 0x
+Hint Bunyi dipilih  : 0x
+Undo digunakan      : 0x
+Redo digunakan      : 0x
+Dengar Semula (G2)  : 2x
+Kesilapan G1        : 4
+Kesilapan G2        : 1
+Kesilapan G3        : 1
+Avg Hesitasi G3     : 7.5s
+
+LOG AKSI PENUH
+──────────────
+[5:02:43 PTG] child_selected {"selected":"haidar"}
+[5:02:49 PTG] intro_start {}
+[5:02:51 PTG] games_start {}
+[5:02:51 PTG] g1_start {}
+[5:02:54 PTG] g1_touch_start {"emoji":"☀️","order":1,"round":0}
+[5:02:55 PTG] g1_place {"slotNum":1,"order":1,"emoji":"☀️","correct":true,"round":0}
+[5:02:56 PTG] g1_touch_start {"emoji":"☁️","order":2,"round":0}
+[5:02:57 PTG] g1_place {"slotNum":2,"order":2,"emoji":"☁️","correct":true,"round":0}
+[5:02:57 PTG] g1_touch_start {"emoji":"🌈","order":4,"round":0}
+[5:02:58 PTG] g1_place {"slotNum":3,"order":4,"emoji":"🌈","correct":false,"round":0}
+[5:02:59 PTG] g1_touch_start {"emoji":"🌧️","order":3,"round":0}
+[5:03:00 PTG] g1_place {"slotNum":4,"order":3,"emoji":"🌧️","correct":false,"round":0}
+[5:03:12 PTG] g1_touch_start {"emoji":"🌈","order":4,"round":0}
+[5:03:21 PTG] g1_round_done {"round":0}
+[5:03:29 PTG] g1_touch_start {"emoji":"💧","order":2,"round":1}
+[5:03:30 PTG] g1_place {"slotNum":1,"order":2,"emoji":"💧","correct":false,"round":1}
+[5:03:32 PTG] g1_touch_start {"emoji":"💧","order":2,"round":1}
+[5:03:33 PTG] g1_touch_start {"emoji":"🌳","order":3,"round":1}
+[5:03:34 PTG] g1_place {"slotNum":1,"order":3,"emoji":"🌳","correct":false,"round":1}
+[5:03:36 PTG] g1_touch_start {"emoji":"🌱","order":1,"round":1}
+[5:03:37 PTG] g1_place {"slotNum":1,"order":1,"emoji":"🌱","correct":true,"round":1}
+[5:03:37 PTG] g1_touch_start {"emoji":"💧","order":2,"round":1}
+[5:03:38 PTG] g1_place {"slotNum":2,"order":2,"emoji":"💧","correct":true,"round":1}
+[5:03:42 PTG] g1_touch_start {"emoji":"🌳","order":3,"round":1}
+[5:03:44 PTG] g1_touch_start {"emoji":"🌳","order":3,"round":1}
+[5:03:45 PTG] g1_place {"slotNum":3,"order":3,"emoji":"🌳","correct":true,"round":1}
+[5:03:46 PTG] g1_touch_start {"emoji":"🍎","order":4,"round":1}
+[5:03:47 PTG] g1_place {"slotNum":4,"order":4,"emoji":"🍎","correct":true,"round":1}
+[5:03:50 PTG] g1_round_done {"round":1}
+[5:03:56 PTG] g1_touch_start {"emoji":"🌾","order":1,"round":2}
+[5:03:56 PTG] g1_place {"slotNum":1,"order":1,"emoji":"🌾","correct":true,"round":2}
+[5:03:57 PTG] g1_touch_start {"emoji":"🫙","order":2,"round":2}
+[5:03:58 PTG] g1_place {"slotNum":2,"order":2,"emoji":"🫙","correct":true,"round":2}
+[5:03:59 PTG] g1_touch_start {"emoji":"🔥","order":3,"round":2}
+[5:04:01 PTG] g1_touch_start {"emoji":"🔥","order":3,"round":2}
+[5:04:02 PTG] g1_place {"slotNum":3,"order":3,"emoji":"🔥","correct":true,"round":2}
+[5:04:03 PTG] g1_touch_start {"emoji":"🍚","order":4,"round":2}
+[5:04:03 PTG] g1_place {"slotNum":4,"order":4,"emoji":"🍚","correct":true,"round":2}
+[5:04:09 PTG] g1_round_done {"round":2}
+[5:04:09 PTG] g1_complete {}
+[5:04:09 PTG] g2_start {}
+[5:04:09 PTG] g2_word_shown {"word":"KUCING","round":0}
+[5:04:14 PTG] g2_pick {"picked":"Kucing","correct":true,"word":"KUCING","round":0}
+[5:04:15 PTG] g2_word_shown {"word":"MATAHARI","round":1}
+[5:04:17 PTG] g2_pick {"picked":"Bintang","correct":false,"word":"MATAHARI","round":1}
+[5:04:18 PTG] g2_pick {"picked":"Matahari","correct":true,"word":"MATAHARI","round":1}
+[5:04:19 PTG] g2_word_shown {"word":"IKAN","round":2}
+[5:04:22 PTG] g2_pick {"picked":"Ikan","correct":true,"word":"IKAN","round":2}
+[5:04:22 PTG] g2_word_shown {"word":"POKOK","round":3}
+[5:04:25 PTG] g2_replay {"word":"POKOK","round":3}
+[5:04:30 PTG] g2_replay {"word":"POKOK","round":3}
+[5:04:49 PTG] g2_pick {"picked":"Pokok","correct":true,"word":"POKOK","round":3}
+[5:04:50 PTG] g2_complete {}
+[5:04:50 PTG] g3_start {}
+[5:04:50 PTG] g3_round_shown {"round":0,"answer":"🔴"}
+[5:05:10 PTG] g3_pick {"picked":"🔴","correct":true,"answer":"🔴","round":0,"hesitateSec":19.312}
+[5:05:10 PTG] g3_round_shown {"round":1,"answer":"💫"}
+[5:05:15 PTG] g3_pick {"picked":"💫","correct":true,"answer":"💫","round":1,"hesitateSec":4.606}
+[5:05:16 PTG] g3_round_shown {"round":2,"answer":"🐶"}
+[5:05:20 PTG] g3_pick {"picked":"🐱","correct":false,"answer":"🐶","round":2,"hesitateSec":4.222}
+[5:05:21 PTG] g3_pick {"picked":"🐶","correct":true,"answer":"🐶","round":2,"hesitateSec":5.439}
+[5:05:22 PTG] g3_round_shown {"round":3,"answer":"3️⃣"}
+[5:05:26 PTG] g3_pick {"picked":"3️⃣","correct":true,"answer":"3️⃣","round":3,"hesitateSec":4.05}
+[5:05:26 PTG] g3_complete {}
+[5:05:26 PTG] session_complete {}
+
+NOTA UNTUK ABAH
+───────────────
+Hantar laporan ini kepada Claude untuk analisis VAK penuh.
+Tambah pemerhatian Abah jika ada (terutama untuk Asma):
+- Adakah anak bercakap semasa main?
+- Adakah anak gelisah atau duduk diam?
+- Ada tingkah laku lain yang Abah perasan?
+
+---JSON---
+{
+  "meta": {
+    "child": "Haidar",
+    "age": "7 tahun",
+    "grade": "Darjah 1",
+    "datetime": "2026-05-01T09:05:27.000Z"
+  },
+  "result": {
+    "primary": "V",
+    "scores": {
+      "V": 4,
+      "A": 4,
+      "K": 1
+    },
+    "percentages": {
+      "V": 44,
+      "A": 44,
+      "K": 11
+    }
+  },
+  "signals": {
+    "g1_first_action_ms": 2542,
+    "hints_visual_total": 0,
+    "hints_audio_total": 0,
+    "undo_total": 0,
+    "redo_total": 0,
+    "g2_replays": 2,
+    "errors_g1": 4,
+    "errors_g2": 1,
+    "errors_g3": 1,
+    "g3_avg_hesitate_sec": 7.53
+  },
+  "action_log": [
+    {
+      "t": 1777626163204,
+      "event": "child_selected",
+      "child": "haidar",
+      "selected": "haidar"
+    },
+    {
+      "t": 1777626169240,
+      "event": "intro_start",
+      "child": "haidar"
+    },
+    {
+      "t": 1777626171498,
+      "event": "games_start",
+      "child": "haidar"
+    },
+    {
+      "t": 1777626171607,
+      "event": "g1_start",
+      "child": "haidar"
+    },
+    {
+      "t": 1777626174149,
+      "event": "g1_touch_start",
+      "child": "haidar",
+      "emoji": "☀️",
+      "order": 1,
+      "round": 0
+    },
+    {
+      "t": 1777626175306,
+      "event": "g1_place",
+      "child": "haidar",
+      "slotNum": 1,
+      "order": 1,
+      "emoji": "☀️",
+      "correct": true,
+      "round": 0
+    },
+    {
+      "t": 1777626176387,
+      "event": "g1_touch_start",
+      "child": "haidar",
+      "emoji": "☁️",
+      "order": 2,
+      "round": 0
+    },
+    {
+      "t": 1777626177053,
+      "event": "g1_place",
+      "child": "haidar",
+      "slotNum": 2,
+      "order": 2,
+      "emoji": "☁️",
+      "correct": true,
+      "round": 0
+    },
+    {
+      "t": 1777626177805,
+      "event": "g1_touch_start",
+      "child": "haidar",
+      "emoji": "🌈",
+      "order": 4,
+      "round": 0
+    },
+    {
+      "t": 1777626178452,
+      "event": "g1_place",
+      "child": "haidar",
+      "slotNum": 3,
+      "order": 4,
+      "emoji": "🌈",
+      "correct": false,
+      "round": 0
+    },
+    {
+      "t": 1777626179269,
+      "event": "g1_touch_start",
+      "child": "haidar",
+      "emoji": "🌧️",
+      "order": 3,
+      "round": 0
+    },
+    {
+      "t": 1777626180357,
+      "event": "g1_place",
+      "child": "haidar",
+      "slotNum": 4,
+      "order": 3,
+      "emoji": "🌧️",
+      "correct": false,
+      "round": 0
+    },
+    {
+      "t": 1777626192345,
+      "event": "g1_touch_start",
+      "child": "haidar",
+      "emoji": "🌈",
+      "order": 4,
+      "round": 0
+    },
+    {
+      "t": 1777626201830,
+      "event": "g1_round_done",
+      "child": "haidar",
+      "round": 0
+    },
+    {
+      "t": 1777626209375,
+      "event": "g1_touch_start",
+      "child": "haidar",
+      "emoji": "💧",
+      "order": 2,
+      "round": 1
+    },
+    {
+      "t": 1777626210354,
+      "event": "g1_place",
+      "child": "haidar",
+      "slotNum": 1,
+      "order": 2,
+      "emoji": "💧",
+      "correct": false,
+      "round": 1
+    },
+    {
+      "t": 1777626212767,
+      "event": "g1_touch_start",
+      "child": "haidar",
+      "emoji": "💧",
+      "order": 2,
+      "round": 1
+    },
+    {
+      "t": 1777626213781,
+      "event": "g1_touch_start",
+      "child": "haidar",
+      "emoji": "🌳",
+      "order": 3,
+      "round": 1
+    },
+    {
+      "t": 1777626214619,
+      "event": "g1_place",
+      "child": "haidar",
+      "slotNum": 1,
+      "order": 3,
+      "emoji": "🌳",
+      "correct": false,
+      "round": 1
+    },
+    {
+      "t": 1777626216348,
+      "event": "g1_touch_start",
+      "child": "haidar",
+      "emoji": "🌱",
+      "order": 1,
+      "round": 1
+    },
+    {
+      "t": 1777626217035,
+      "event": "g1_place",
+      "child": "haidar",
+      "slotNum": 1,
+      "order": 1,
+      "emoji": "🌱",
+      "correct": true,
+      "round": 1
+    },
+    {
+      "t": 1777626217819,
+      "event": "g1_touch_start",
+      "child": "haidar",
+      "emoji": "💧",
+      "order": 2,
+      "round": 1
+    },
+    {
+      "t": 1777626218579,
+      "event": "g1_place",
+      "child": "haidar",
+      "slotNum": 2,
+      "order": 2,
+      "emoji": "💧",
+      "correct": true,
+      "round": 1
+    },
+    {
+      "t": 1777626222558,
+      "event": "g1_touch_start",
+      "child": "haidar",
+      "emoji": "🌳",
+      "order": 3,
+      "round": 1
+    },
+    {
+      "t": 1777626224812,
+      "event": "g1_touch_start",
+      "child": "haidar",
+      "emoji": "🌳",
+      "order": 3,
+      "round": 1
+    },
+    {
+      "t": 1777626225381,
+      "event": "g1_place",
+      "child": "haidar",
+      "slotNum": 3,
+      "order": 3,
+      "emoji": "🌳",
+      "correct": true,
+      "round": 1
+    },
+    {
+      "t": 1777626226625,
+      "event": "g1_touch_start",
+      "child": "haidar",
+      "emoji": "🍎",
+      "order": 4,
+      "round": 1
+    },
+    {
+      "t": 1777626227190,
+      "event": "g1_place",
+      "child": "haidar",
+      "slotNum": 4,
+      "order": 4,
+      "emoji": "🍎",
+      "correct": true,
+      "round": 1
+    },
+    {
+      "t": 1777626230060,
+      "event": "g1_round_done",
+      "child": "haidar",
+      "round": 1
+    },
+    {
+      "t": 1777626236371,
+      "event": "g1_touch_start",
+      "child": "haidar",
+      "emoji": "🌾",
+      "order": 1,
+      "round": 2
+    },
+    {
+      "t": 1777626236744,
+      "event": "g1_place",
+      "child": "haidar",
+      "slotNum": 1,
+      "order": 1,
+      "emoji": "🌾",
+      "correct": true,
+      "round": 2
+    },
+    {
+      "t": 1777626237905,
+      "event": "g1_touch_start",
+      "child": "haidar",
+      "emoji": "🫙",
+      "order": 2,
+      "round": 2
+    },
+    {
+      "t": 1777626238419,
+      "event": "g1_place",
+      "child": "haidar",
+      "slotNum": 2,
+      "order": 2,
+      "emoji": "🫙",
+      "correct": true,
+      "round": 2
+    },
+    {
+      "t": 1777626239795,
+      "event": "g1_touch_start",
+      "child": "haidar",
+      "emoji": "🔥",
+      "order": 3,
+      "round": 2
+    },
+    {
+      "t": 1777626241559,
+      "event": "g1_touch_start",
+      "child": "haidar",
+      "emoji": "🔥",
+      "order": 3,
+      "round": 2
+    },
+    {
+      "t": 1777626242440,
+      "event": "g1_place",
+      "child": "haidar",
+      "slotNum": 3,
+      "order": 3,
+      "emoji": "🔥",
+      "correct": true,
+      "round": 2
+    },
+    {
+      "t": 1777626243269,
+      "event": "g1_touch_start",
+      "child": "haidar",
+      "emoji": "🍚",
+      "order": 4,
+      "round": 2
+    },
+    {
+      "t": 1777626243821,
+      "event": "g1_place",
+      "child": "haidar",
+      "slotNum": 4,
+      "order": 4,
+      "emoji": "🍚",
+      "correct": true,
+      "round": 2
+    },
+    {
+      "t": 1777626249059,
+      "event": "g1_round_done",
+      "child": "haidar",
+      "round": 2
+    },
+    {
+      "t": 1777626249059,
+      "event": "g1_complete",
+      "child": "haidar"
+    },
+    {
+      "t": 1777626249059,
+      "event": "g2_start",
+      "child": "haidar"
+    },
+    {
+      "t": 1777626249059,
+      "event": "g2_word_shown",
+      "child": "haidar",
+      "word": "KUCING",
+      "round": 0
+    },
+    {
+      "t": 1777626254703,
+      "event": "g2_pick",
+      "child": "haidar",
+      "picked": "Kucing",
+      "correct": true,
+      "word": "KUCING",
+      "round": 0
+    },
+    {
+      "t": 1777626255506,
+      "event": "g2_word_shown",
+      "child": "haidar",
+      "word": "MATAHARI",
+      "round": 1
+    },
+    {
+      "t": 1777626257443,
+      "event": "g2_pick",
+      "child": "haidar",
+      "picked": "Bintang",
+      "correct": false,
+      "word": "MATAHARI",
+      "round": 1
+    },
+    {
+      "t": 1777626258673,
+      "event": "g2_pick",
+      "child": "haidar",
+      "picked": "Matahari",
+      "correct": true,
+      "word": "MATAHARI",
+      "round": 1
+    },
+    {
+      "t": 1777626259483,
+      "event": "g2_word_shown",
+      "child": "haidar",
+      "word": "IKAN",
+      "round": 2
+    },
+    {
+      "t": 1777626262152,
+      "event": "g2_pick",
+      "child": "haidar",
+      "picked": "Ikan",
+      "correct": true,
+      "word": "IKAN",
+      "round": 2
+    },
+    {
+      "t": 1777626262956,
+      "event": "g2_word_shown",
+      "child": "haidar",
+      "word": "POKOK",
+      "round": 3
+    },
+    {
+      "t": 1777626265631,
+      "event": "g2_replay",
+      "child": "haidar",
+      "word": "POKOK",
+      "round": 3
+    },
+    {
+      "t": 1777626270771,
+      "event": "g2_replay",
+      "child": "haidar",
+      "word": "POKOK",
+      "round": 3
+    },
+    {
+      "t": 1777626289975,
+      "event": "g2_pick",
+      "child": "haidar",
+      "picked": "Pokok",
+      "correct": true,
+      "word": "POKOK",
+      "round": 3
+    },
+    {
+      "t": 1777626290776,
+      "event": "g2_complete",
+      "child": "haidar"
+    },
+    {
+      "t": 1777626290776,
+      "event": "g3_start",
+      "child": "haidar"
+    },
+    {
+      "t": 1777626290777,
+      "event": "g3_round_shown",
+      "child": "haidar",
+      "round": 0,
+      "answer": "🔴"
+    },
+    {
+      "t": 1777626310093,
+      "event": "g3_pick",
+      "child": "haidar",
+      "picked": "🔴",
+      "correct": true,
+      "answer": "🔴",
+      "round": 0,
+      "hesitateSec": 19.312
+    },
+    {
+      "t": 1777626310796,
+      "event": "g3_round_shown",
+      "child": "haidar",
+      "round": 1,
+      "answer": "💫"
+    },
+    {
+      "t": 1777626315402,
+      "event": "g3_pick",
+      "child": "haidar",
+      "picked": "💫",
+      "correct": true,
+      "answer": "💫",
+      "round": 1,
+      "hesitateSec": 4.606
+    },
+    {
+      "t": 1777626316104,
+      "event": "g3_round_shown",
+      "child": "haidar",
+      "round": 2,
+      "answer": "🐶"
+    },
+    {
+      "t": 1777626320326,
+      "event": "g3_pick",
+      "child": "haidar",
+      "picked": "🐱",
+      "correct": false,
+      "answer": "🐶",
+      "round": 2,
+      "hesitateSec": 4.222
+    },
+    {
+      "t": 1777626321543,
+      "event": "g3_pick",
+      "child": "haidar",
+      "picked": "🐶",
+      "correct": true,
+      "answer": "🐶",
+      "round": 2,
+      "hesitateSec": 5.439
+    },
+    {
+      "t": 1777626322247,
+      "event": "g3_round_shown",
+      "child": "haidar",
+      "round": 3,
+      "answer": "3️⃣"
+    },
+    {
+      "t": 1777626326296,
+      "event": "g3_pick",
+      "child": "haidar",
+      "picked": "3️⃣",
+      "correct": true,
+      "answer": "3️⃣",
+      "round": 3,
+      "hesitateSec": 4.05
+    },
+    {
+      "t": 1777626326998,
+      "event": "g3_complete",
+      "child": "haidar"
+    },
+    {
+      "t": 1777626326998,
+      "event": "session_complete",
+      "child": "haidar"
+    }
+  ]
+}

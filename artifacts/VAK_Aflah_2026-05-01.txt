@@ -1,0 +1,765 @@
+╔══════════════════════════════════════════════════════╗
+  LAPORAN VAK — ARH Kids Behavioural Assessment
+  Anak : Aflah (8 tahun, Darjah 2)
+  Tarikh: 1/5/2026
+  Masa  : 4:42:13 PTG
+╚══════════════════════════════════════════════════════╝
+
+KEPUTUSAN UTAMA
+───────────────
+Gaya Belajar Utama : Visual 👁️
+Skor Visual        : 5 mata (100%)
+Skor Auditori      : 0 mata (0%)
+Skor Kinestetik    : 0 mata (0%)
+
+SIGNAL BEHAVIORIAL
+──────────────────
+Tindakan Pertama G1 : 4.7s (>4s=V, <2s=K)
+Hint Visual dipilih : 0x
+Hint Bunyi dipilih  : 0x
+Undo digunakan      : 0x
+Redo digunakan      : 0x
+Dengar Semula (G2)  : 1x
+Kesilapan G1        : 3
+Kesilapan G2        : 0
+Kesilapan G3        : 0
+Avg Hesitasi G3     : 5.3s
+
+LOG AKSI PENUH
+──────────────
+[4:39:14 PTG] child_selected {"selected":"aflah"}
+[4:39:15 PTG] intro_start {}
+[4:39:24 PTG] games_start {}
+[4:39:24 PTG] g1_start {}
+[4:39:29 PTG] g1_touch_start {"emoji":"🌧️","order":3,"round":0}
+[4:39:31 PTG] g1_touch_start {"emoji":"🌧️","order":3,"round":0}
+[4:39:32 PTG] g1_touch_start {"emoji":"🌧️","order":3,"round":0}
+[4:39:32 PTG] g1_touch_start {"emoji":"🌧️","order":3,"round":0}
+[4:39:43 PTG] g1_touch_start {"emoji":"☀️","order":1,"round":0}
+[4:39:44 PTG] g1_place {"slotNum":1,"order":1,"emoji":"☀️","correct":true,"round":0}
+[4:39:45 PTG] g1_touch_start {"emoji":"🌧️","order":3,"round":0}
+[4:39:48 PTG] g1_touch_start {"emoji":"🌧️","order":3,"round":0}
+[4:39:48 PTG] g1_place {"slotNum":2,"order":3,"emoji":"🌧️","correct":false,"round":0}
+[4:39:53 PTG] g1_touch_start {"emoji":"🌧️","order":3,"round":0}
+[4:39:53 PTG] g1_touch_start {"emoji":"🌧️","order":3,"round":0}
+[4:39:55 PTG] g1_touch_start {"emoji":"🌈","order":4,"round":0}
+[4:39:56 PTG] g1_place {"slotNum":2,"order":4,"emoji":"🌈","correct":false,"round":0}
+[4:39:57 PTG] g1_touch_start {"emoji":"☁️","order":2,"round":0}
+[4:39:58 PTG] g1_place {"slotNum":2,"order":2,"emoji":"☁️","correct":true,"round":0}
+[4:40:00 PTG] g1_touch_start {"emoji":"🌧️","order":3,"round":0}
+[4:40:01 PTG] g1_place {"slotNum":3,"order":3,"emoji":"🌧️","correct":true,"round":0}
+[4:40:02 PTG] g1_touch_start {"emoji":"🌈","order":4,"round":0}
+[4:40:02 PTG] g1_place {"slotNum":4,"order":4,"emoji":"🌈","correct":true,"round":0}
+[4:40:12 PTG] g1_round_done {"round":0}
+[4:40:17 PTG] g1_touch_start {"emoji":"🌱","order":1,"round":1}
+[4:40:18 PTG] g1_place {"slotNum":1,"order":1,"emoji":"🌱","correct":true,"round":1}
+[4:40:19 PTG] g1_touch_start {"emoji":"💧","order":2,"round":1}
+[4:40:20 PTG] g1_place {"slotNum":2,"order":2,"emoji":"💧","correct":true,"round":1}
+[4:40:21 PTG] g1_touch_start {"emoji":"🍎","order":4,"round":1}
+[4:40:23 PTG] g1_touch_start {"emoji":"🍎","order":4,"round":1}
+[4:40:24 PTG] g1_touch_start {"emoji":"🌳","order":3,"round":1}
+[4:40:26 PTG] g1_touch_start {"emoji":"🌳","order":3,"round":1}
+[4:40:26 PTG] g1_place {"slotNum":3,"order":3,"emoji":"🌳","correct":true,"round":1}
+[4:40:29 PTG] g1_touch_start {"emoji":"🍎","order":4,"round":1}
+[4:40:34 PTG] g1_touch_start {"emoji":"🍎","order":4,"round":1}
+[4:40:35 PTG] g1_place {"slotNum":4,"order":4,"emoji":"🍎","correct":true,"round":1}
+[4:40:39 PTG] g1_round_done {"round":1}
+[4:41:13 PTG] g1_touch_start {"emoji":"🌾","order":1,"round":2}
+[4:41:13 PTG] g1_place {"slotNum":1,"order":1,"emoji":"🌾","correct":true,"round":2}
+[4:41:17 PTG] g1_touch_start {"emoji":"🔥","order":3,"round":2}
+[4:41:17 PTG] g1_place {"slotNum":2,"order":3,"emoji":"🔥","correct":false,"round":2}
+[4:41:18 PTG] g1_touch_start {"emoji":"🫙","order":2,"round":2}
+[4:41:20 PTG] g1_touch_start {"emoji":"🫙","order":2,"round":2}
+[4:41:20 PTG] g1_place {"slotNum":2,"order":2,"emoji":"🫙","correct":true,"round":2}
+[4:41:21 PTG] g1_touch_start {"emoji":"🔥","order":3,"round":2}
+[4:41:22 PTG] g1_touch_start {"emoji":"🔥","order":3,"round":2}
+[4:41:23 PTG] g1_drag_start {"emoji":"🔥","order":3,"round":2}
+[4:41:25 PTG] g1_touch_start {"emoji":"🔥","order":3,"round":2}
+[4:41:25 PTG] g1_touch_start {"emoji":"🔥","order":3,"round":2}
+[4:41:27 PTG] g1_touch_start {"emoji":"🔥","order":3,"round":2}
+[4:41:27 PTG] g1_place {"slotNum":3,"order":3,"emoji":"🔥","correct":true,"round":2}
+[4:41:28 PTG] g1_touch_start {"emoji":"🍚","order":4,"round":2}
+[4:41:28 PTG] g1_place {"slotNum":4,"order":4,"emoji":"🍚","correct":true,"round":2}
+[4:41:33 PTG] g1_round_done {"round":2}
+[4:41:33 PTG] g1_complete {}
+[4:41:33 PTG] g2_start {}
+[4:41:33 PTG] g2_word_shown {"word":"KUCING","round":0}
+[4:41:36 PTG] g2_pick {"picked":"Kucing","correct":true,"word":"KUCING","round":0}
+[4:41:37 PTG] g2_word_shown {"word":"MATAHARI","round":1}
+[4:41:39 PTG] g2_pick {"picked":"Matahari","correct":true,"word":"MATAHARI","round":1}
+[4:41:39 PTG] g2_word_shown {"word":"IKAN","round":2}
+[4:41:45 PTG] g2_pick {"picked":"Ikan","correct":true,"word":"IKAN","round":2}
+[4:41:45 PTG] g2_word_shown {"word":"POKOK","round":3}
+[4:41:47 PTG] g2_replay {"word":"POKOK","round":3}
+[4:41:48 PTG] g2_pick {"picked":"Pokok","correct":true,"word":"POKOK","round":3}
+[4:41:49 PTG] g2_complete {}
+[4:41:49 PTG] g3_start {}
+[4:41:49 PTG] g3_round_shown {"round":0,"answer":"🔴"}
+[4:41:55 PTG] g3_pick {"picked":"🔴","correct":true,"answer":"🔴","round":0,"hesitateSec":5.922}
+[4:41:56 PTG] g3_round_shown {"round":1,"answer":"💫"}
+[4:42:01 PTG] g3_pick {"picked":"💫","correct":true,"answer":"💫","round":1,"hesitateSec":5.492}
+[4:42:02 PTG] g3_round_shown {"round":2,"answer":"🐶"}
+[4:42:08 PTG] g3_pick {"picked":"🐶","correct":true,"answer":"🐶","round":2,"hesitateSec":6.118}
+[4:42:09 PTG] g3_round_shown {"round":3,"answer":"3️⃣"}
+[4:42:12 PTG] g3_pick {"picked":"3️⃣","correct":true,"answer":"3️⃣","round":3,"hesitateSec":3.506}
+[4:42:13 PTG] g3_complete {}
+[4:42:13 PTG] session_complete {}
+
+NOTA UNTUK ABAH
+───────────────
+Hantar laporan ini kepada Claude untuk analisis VAK penuh.
+Tambah pemerhatian Abah jika ada (terutama untuk Asma):
+- Adakah anak bercakap semasa main?
+- Adakah anak gelisah atau duduk diam?
+- Ada tingkah laku lain yang Abah perasan?
+
+---JSON---
+{
+  "meta": {
+    "child": "Aflah",
+    "age": "8 tahun",
+    "grade": "Darjah 2",
+    "datetime": "2026-05-01T08:42:13.604Z"
+  },
+  "result": {
+    "primary": "V",
+    "scores": {
+      "V": 5,
+      "A": 0,
+      "K": 0
+    },
+    "percentages": {
+      "V": 100,
+      "A": 0,
+      "K": 0
+    }
+  },
+  "signals": {
+    "g1_first_action_ms": 4738,
+    "hints_visual_total": 0,
+    "hints_audio_total": 0,
+    "undo_total": 0,
+    "redo_total": 0,
+    "g2_replays": 1,
+    "errors_g1": 3,
+    "errors_g2": 0,
+    "errors_g3": 0,
+    "g3_avg_hesitate_sec": 5.26
+  },
+  "action_log": [
+    {
+      "t": 1777624754697,
+      "event": "child_selected",
+      "child": "aflah",
+      "selected": "aflah"
+    },
+    {
+      "t": 1777624755325,
+      "event": "intro_start",
+      "child": "aflah"
+    },
+    {
+      "t": 1777624764890,
+      "event": "games_start",
+      "child": "aflah"
+    },
+    {
+      "t": 1777624764999,
+      "event": "g1_start",
+      "child": "aflah"
+    },
+    {
+      "t": 1777624769737,
+      "event": "g1_touch_start",
+      "child": "aflah",
+      "emoji": "🌧️",
+      "order": 3,
+      "round": 0
+    },
+    {
+      "t": 1777624771779,
+      "event": "g1_touch_start",
+      "child": "aflah",
+      "emoji": "🌧️",
+      "order": 3,
+      "round": 0
+    },
+    {
+      "t": 1777624772105,
+      "event": "g1_touch_start",
+      "child": "aflah",
+      "emoji": "🌧️",
+      "order": 3,
+      "round": 0
+    },
+    {
+      "t": 1777624772343,
+      "event": "g1_touch_start",
+      "child": "aflah",
+      "emoji": "🌧️",
+      "order": 3,
+      "round": 0
+    },
+    {
+      "t": 1777624783660,
+      "event": "g1_touch_start",
+      "child": "aflah",
+      "emoji": "☀️",
+      "order": 1,
+      "round": 0
+    },
+    {
+      "t": 1777624784340,
+      "event": "g1_place",
+      "child": "aflah",
+      "slotNum": 1,
+      "order": 1,
+      "emoji": "☀️",
+      "correct": true,
+      "round": 0
+    },
+    {
+      "t": 1777624785872,
+      "event": "g1_touch_start",
+      "child": "aflah",
+      "emoji": "🌧️",
+      "order": 3,
+      "round": 0
+    },
+    {
+      "t": 1777624788048,
+      "event": "g1_touch_start",
+      "child": "aflah",
+      "emoji": "🌧️",
+      "order": 3,
+      "round": 0
+    },
+    {
+      "t": 1777624788430,
+      "event": "g1_place",
+      "child": "aflah",
+      "slotNum": 2,
+      "order": 3,
+      "emoji": "🌧️",
+      "correct": false,
+      "round": 0
+    },
+    {
+      "t": 1777624793650,
+      "event": "g1_touch_start",
+      "child": "aflah",
+      "emoji": "🌧️",
+      "order": 3,
+      "round": 0
+    },
+    {
+      "t": 1777624793897,
+      "event": "g1_touch_start",
+      "child": "aflah",
+      "emoji": "🌧️",
+      "order": 3,
+      "round": 0
+    },
+    {
+      "t": 1777624795744,
+      "event": "g1_touch_start",
+      "child": "aflah",
+      "emoji": "🌈",
+      "order": 4,
+      "round": 0
+    },
+    {
+      "t": 1777624796275,
+      "event": "g1_place",
+      "child": "aflah",
+      "slotNum": 2,
+      "order": 4,
+      "emoji": "🌈",
+      "correct": false,
+      "round": 0
+    },
+    {
+      "t": 1777624797693,
+      "event": "g1_touch_start",
+      "child": "aflah",
+      "emoji": "☁️",
+      "order": 2,
+      "round": 0
+    },
+    {
+      "t": 1777624798332,
+      "event": "g1_place",
+      "child": "aflah",
+      "slotNum": 2,
+      "order": 2,
+      "emoji": "☁️",
+      "correct": true,
+      "round": 0
+    },
+    {
+      "t": 1777624800680,
+      "event": "g1_touch_start",
+      "child": "aflah",
+      "emoji": "🌧️",
+      "order": 3,
+      "round": 0
+    },
+    {
+      "t": 1777624801405,
+      "event": "g1_place",
+      "child": "aflah",
+      "slotNum": 3,
+      "order": 3,
+      "emoji": "🌧️",
+      "correct": true,
+      "round": 0
+    },
+    {
+      "t": 1777624802204,
+      "event": "g1_touch_start",
+      "child": "aflah",
+      "emoji": "🌈",
+      "order": 4,
+      "round": 0
+    },
+    {
+      "t": 1777624802879,
+      "event": "g1_place",
+      "child": "aflah",
+      "slotNum": 4,
+      "order": 4,
+      "emoji": "🌈",
+      "correct": true,
+      "round": 0
+    },
+    {
+      "t": 1777624812332,
+      "event": "g1_round_done",
+      "child": "aflah",
+      "round": 0
+    },
+    {
+      "t": 1777624817648,
+      "event": "g1_touch_start",
+      "child": "aflah",
+      "emoji": "🌱",
+      "order": 1,
+      "round": 1
+    },
+    {
+      "t": 1777624818285,
+      "event": "g1_place",
+      "child": "aflah",
+      "slotNum": 1,
+      "order": 1,
+      "emoji": "🌱",
+      "correct": true,
+      "round": 1
+    },
+    {
+      "t": 1777624819422,
+      "event": "g1_touch_start",
+      "child": "aflah",
+      "emoji": "💧",
+      "order": 2,
+      "round": 1
+    },
+    {
+      "t": 1777624820032,
+      "event": "g1_place",
+      "child": "aflah",
+      "slotNum": 2,
+      "order": 2,
+      "emoji": "💧",
+      "correct": true,
+      "round": 1
+    },
+    {
+      "t": 1777624821410,
+      "event": "g1_touch_start",
+      "child": "aflah",
+      "emoji": "🍎",
+      "order": 4,
+      "round": 1
+    },
+    {
+      "t": 1777624823512,
+      "event": "g1_touch_start",
+      "child": "aflah",
+      "emoji": "🍎",
+      "order": 4,
+      "round": 1
+    },
+    {
+      "t": 1777624824800,
+      "event": "g1_touch_start",
+      "child": "aflah",
+      "emoji": "🌳",
+      "order": 3,
+      "round": 1
+    },
+    {
+      "t": 1777624826173,
+      "event": "g1_touch_start",
+      "child": "aflah",
+      "emoji": "🌳",
+      "order": 3,
+      "round": 1
+    },
+    {
+      "t": 1777624826879,
+      "event": "g1_place",
+      "child": "aflah",
+      "slotNum": 3,
+      "order": 3,
+      "emoji": "🌳",
+      "correct": true,
+      "round": 1
+    },
+    {
+      "t": 1777624829546,
+      "event": "g1_touch_start",
+      "child": "aflah",
+      "emoji": "🍎",
+      "order": 4,
+      "round": 1
+    },
+    {
+      "t": 1777624834488,
+      "event": "g1_touch_start",
+      "child": "aflah",
+      "emoji": "🍎",
+      "order": 4,
+      "round": 1
+    },
+    {
+      "t": 1777624835002,
+      "event": "g1_place",
+      "child": "aflah",
+      "slotNum": 4,
+      "order": 4,
+      "emoji": "🍎",
+      "correct": true,
+      "round": 1
+    },
+    {
+      "t": 1777624839019,
+      "event": "g1_round_done",
+      "child": "aflah",
+      "round": 1
+    },
+    {
+      "t": 1777624873027,
+      "event": "g1_touch_start",
+      "child": "aflah",
+      "emoji": "🌾",
+      "order": 1,
+      "round": 2
+    },
+    {
+      "t": 1777624873656,
+      "event": "g1_place",
+      "child": "aflah",
+      "slotNum": 1,
+      "order": 1,
+      "emoji": "🌾",
+      "correct": true,
+      "round": 2
+    },
+    {
+      "t": 1777624877370,
+      "event": "g1_touch_start",
+      "child": "aflah",
+      "emoji": "🔥",
+      "order": 3,
+      "round": 2
+    },
+    {
+      "t": 1777624877792,
+      "event": "g1_place",
+      "child": "aflah",
+      "slotNum": 2,
+      "order": 3,
+      "emoji": "🔥",
+      "correct": false,
+      "round": 2
+    },
+    {
+      "t": 1777624878385,
+      "event": "g1_touch_start",
+      "child": "aflah",
+      "emoji": "🫙",
+      "order": 2,
+      "round": 2
+    },
+    {
+      "t": 1777624880167,
+      "event": "g1_touch_start",
+      "child": "aflah",
+      "emoji": "🫙",
+      "order": 2,
+      "round": 2
+    },
+    {
+      "t": 1777624880481,
+      "event": "g1_place",
+      "child": "aflah",
+      "slotNum": 2,
+      "order": 2,
+      "emoji": "🫙",
+      "correct": true,
+      "round": 2
+    },
+    {
+      "t": 1777624881248,
+      "event": "g1_touch_start",
+      "child": "aflah",
+      "emoji": "🔥",
+      "order": 3,
+      "round": 2
+    },
+    {
+      "t": 1777624882646,
+      "event": "g1_touch_start",
+      "child": "aflah",
+      "emoji": "🔥",
+      "order": 3,
+      "round": 2
+    },
+    {
+      "t": 1777624883043,
+      "event": "g1_drag_start",
+      "child": "aflah",
+      "emoji": "🔥",
+      "order": 3,
+      "round": 2
+    },
+    {
+      "t": 1777624885252,
+      "event": "g1_touch_start",
+      "child": "aflah",
+      "emoji": "🔥",
+      "order": 3,
+      "round": 2
+    },
+    {
+      "t": 1777624885581,
+      "event": "g1_touch_start",
+      "child": "aflah",
+      "emoji": "🔥",
+      "order": 3,
+      "round": 2
+    },
+    {
+      "t": 1777624887130,
+      "event": "g1_touch_start",
+      "child": "aflah",
+      "emoji": "🔥",
+      "order": 3,
+      "round": 2
+    },
+    {
+      "t": 1777624887466,
+      "event": "g1_place",
+      "child": "aflah",
+      "slotNum": 3,
+      "order": 3,
+      "emoji": "🔥",
+      "correct": true,
+      "round": 2
+    },
+    {
+      "t": 1777624888160,
+      "event": "g1_touch_start",
+      "child": "aflah",
+      "emoji": "🍚",
+      "order": 4,
+      "round": 2
+    },
+    {
+      "t": 1777624888783,
+      "event": "g1_place",
+      "child": "aflah",
+      "slotNum": 4,
+      "order": 4,
+      "emoji": "🍚",
+      "correct": true,
+      "round": 2
+    },
+    {
+      "t": 1777624893088,
+      "event": "g1_round_done",
+      "child": "aflah",
+      "round": 2
+    },
+    {
+      "t": 1777624893088,
+      "event": "g1_complete",
+      "child": "aflah"
+    },
+    {
+      "t": 1777624893089,
+      "event": "g2_start",
+      "child": "aflah"
+    },
+    {
+      "t": 1777624893089,
+      "event": "g2_word_shown",
+      "child": "aflah",
+      "word": "KUCING",
+      "round": 0
+    },
+    {
+      "t": 1777624896256,
+      "event": "g2_pick",
+      "child": "aflah",
+      "picked": "Kucing",
+      "correct": true,
+      "word": "KUCING",
+      "round": 0
+    },
+    {
+      "t": 1777624897058,
+      "event": "g2_word_shown",
+      "child": "aflah",
+      "word": "MATAHARI",
+      "round": 1
+    },
+    {
+      "t": 1777624899035,
+      "event": "g2_pick",
+      "child": "aflah",
+      "picked": "Matahari",
+      "correct": true,
+      "word": "MATAHARI",
+      "round": 1
+    },
+    {
+      "t": 1777624899838,
+      "event": "g2_word_shown",
+      "child": "aflah",
+      "word": "IKAN",
+      "round": 2
+    },
+    {
+      "t": 1777624905027,
+      "event": "g2_pick",
+      "child": "aflah",
+      "picked": "Ikan",
+      "correct": true,
+      "word": "IKAN",
+      "round": 2
+    },
+    {
+      "t": 1777624905830,
+      "event": "g2_word_shown",
+      "child": "aflah",
+      "word": "POKOK",
+      "round": 3
+    },
+    {
+      "t": 1777624907904,
+      "event": "g2_replay",
+      "child": "aflah",
+      "word": "POKOK",
+      "round": 3
+    },
+    {
+      "t": 1777624908948,
+      "event": "g2_pick",
+      "child": "aflah",
+      "picked": "Pokok",
+      "correct": true,
+      "word": "POKOK",
+      "round": 3
+    },
+    {
+      "t": 1777624909750,
+      "event": "g2_complete",
+      "child": "aflah"
+    },
+    {
+      "t": 1777624909750,
+      "event": "g3_start",
+      "child": "aflah"
+    },
+    {
+      "t": 1777624909752,
+      "event": "g3_round_shown",
+      "child": "aflah",
+      "round": 0,
+      "answer": "🔴"
+    },
+    {
+      "t": 1777624915674,
+      "event": "g3_pick",
+      "child": "aflah",
+      "picked": "🔴",
+      "correct": true,
+      "answer": "🔴",
+      "round": 0,
+      "hesitateSec": 5.922
+    },
+    {
+      "t": 1777624916377,
+      "event": "g3_round_shown",
+      "child": "aflah",
+      "round": 1,
+      "answer": "💫"
+    },
+    {
+      "t": 1777624921869,
+      "event": "g3_pick",
+      "child": "aflah",
+      "picked": "💫",
+      "correct": true,
+      "answer": "💫",
+      "round": 1,
+      "hesitateSec": 5.492
+    },
+    {
+      "t": 1777624922571,
+      "event": "g3_round_shown",
+      "child": "aflah",
+      "round": 2,
+      "answer": "🐶"
+    },
+    {
+      "t": 1777624928688,
+      "event": "g3_pick",
+      "child": "aflah",
+      "picked": "🐶",
+      "correct": true,
+      "answer": "🐶",
+      "round": 2,
+      "hesitateSec": 6.118
+    },
+    {
+      "t": 1777624929392,
+      "event": "g3_round_shown",
+      "child": "aflah",
+      "round": 3,
+      "answer": "3️⃣"
+    },
+    {
+      "t": 1777624932897,
+      "event": "g3_pick",
+      "child": "aflah",
+      "picked": "3️⃣",
+      "correct": true,
+      "answer": "3️⃣",
+      "round": 3,
+      "hesitateSec": 3.506
+    },
+    {
+      "t": 1777624933598,
+      "event": "g3_complete",
+      "child": "aflah"
+    },
+    {
+      "t": 1777624933601,
+      "event": "session_complete",
+      "child": "aflah"
+    }
+  ]
+}
