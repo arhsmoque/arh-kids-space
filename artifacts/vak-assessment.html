@@ -647,6 +647,23 @@ function speak(text) {
   speechSynthesis.speak(u);
 }
 
+// Asma: pre-recorded Malay audio
+let _asmaAudio = null;
+function playAsma(file) {
+  if (child !== 'asma') return;
+  if (_asmaAudio) { _asmaAudio.pause(); _asmaAudio.currentTime = 0; }
+  _asmaAudio = new Audio('audio/' + file + '.mp3');
+  _asmaAudio.play().catch(() => {});
+}
+function playAsmaChain(files) {
+  if (!files.length || child !== 'asma') return;
+  const [first, ...rest] = files;
+  if (_asmaAudio) { _asmaAudio.pause(); _asmaAudio.currentTime = 0; }
+  _asmaAudio = new Audio('audio/' + first + '.mp3');
+  if (rest.length) _asmaAudio.onended = () => playAsmaChain(rest);
+  _asmaAudio.play().catch(() => { if (rest.length) playAsmaChain(rest); });
+}
+
 // ═══════════════════════════════════════════════════════
 // CHILD CONFIG
 // ═══════════════════════════════════════════════════════
@@ -815,6 +832,7 @@ function goToIntro() {
   ).join('');
 
   goTo('s-intro');
+  if (cfg.asma) playAsma('asma_welcome');
 }
 
 // ═══════════════════════════════════════════════════════
@@ -850,6 +868,7 @@ function startG1() {
 
   loadG1Round();
   goTo('s-g1');
+  if (CHILDREN[child].asma) playAsmaChain(['asma_g1_intro', 'asma_g1_r0_prompt']);
 }
 
 function loadG1Round() {
@@ -953,6 +972,7 @@ function placeCard(slotEl, slotNum, order, emoji, label) {
 
   renderSlot(slotEl, emoji, label, isCorrect);
   toast(isCorrect ? '✅ Bagus!' : '🔄 Cuba lagi!', isCorrect ? 'good':'bad');
+  if (child === 'asma') playAsma(isCorrect ? 'asma_correct' : 'asma_tryagain');
   checkG1Complete();
 }
 
@@ -1022,12 +1042,17 @@ function doRedo(game) {
 function finishG1() {
   log('g1_round_done', { round:g1Round });
   g1Round++;
-  if (g1Round < G1_ROUNDS.length && !CHILDREN[child].asma) {
+  if (g1Round < G1_ROUNDS.length) {
+    if (CHILDREN[child].asma) playAsmaChain(['asma_next_round', `asma_g1_r${g1Round}_prompt`]);
     loadG1Round();
   } else {
     log('g1_complete');
-    if (CHILDREN[child].asma) { showResult(); }
-    else startG2();
+    if (CHILDREN[child].asma) {
+      playAsmaChain(['asma_done', 'asma_call_abah']);
+      setTimeout(() => showResult(), 6000);
+    } else {
+      startG2();
+    }
   }
   document.getElementById('g1-prog').style.width = (g1Round / G1_ROUNDS.length * 100) + '%';
   document.getElementById('g1-plabel').textContent = g1Round + ' / ' + G1_ROUNDS.length;
@@ -1216,6 +1241,10 @@ function useHint(game, type) {
   hintBox.style.display = 'block';
 
   if (type === 'audio' && !isAbahNote) speak(text);
+  if (child === 'asma' && game === 'g1') {
+    const HINTS = ['asma_hint_r0', 'asma_hint_r1', 'asma_hint_r2'];
+    playAsma(HINTS[g1Round]);
+  }
 }
 
 // ═══════════════════════════════════════════════════════
