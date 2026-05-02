@@ -1,0 +1,43 @@
+name: "[Reusable] Deploy to Cloudflare Pages"
+
+on:
+  workflow_call:
+    inputs:
+      project-name:
+        description: "Cloudflare Pages project name"
+        required: true
+        type: string
+      directory:
+        description: "Directory to deploy (relative to repo root)"
+        required: false
+        type: string
+        default: "."
+      branch:
+        description: "CF Pages branch name"
+        required: false
+        type: string
+        default: "main"
+    secrets:
+      CLOUDFLARE_API_TOKEN:
+        required: true
+      CLOUDFLARE_ACCOUNT_ID:
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: >
+            pages deploy ${{ inputs.directory }}
+            --project-name=${{ inputs.project-name }}
+            --branch=${{ inputs.branch }}
+            --commit-dirty=true
