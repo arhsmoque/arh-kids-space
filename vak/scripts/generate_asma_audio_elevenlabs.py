@@ -36,7 +36,7 @@ MODEL     = "eleven_multilingual_v2"
 STABILITY        = 0.5   # 0–1, higher = more consistent
 SIMILARITY_BOOST = 0.85  # 0–1, higher = closer to original voice
 STYLE            = 0.3   # 0–1, slight expressiveness
-OUTPUT_DIR = Path(__file__).parent / "audio"
+OUTPUT_DIR = Path(__file__).parent.parent / "v2" / "audio"
 
 # ── Source credentials from ~/.cf-credentials if not in env ──────────────────
 _creds = Path.home() / ".cf-credentials"

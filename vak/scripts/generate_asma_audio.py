@@ -18,13 +18,15 @@ Intended runner: Claude Code (has full network access)
 
 import asyncio
 import os
+from pathlib import Path
 import edge_tts
 
 # ── Config ──────────────────────────────────────────────
 VOICE       = "ms-MY-YasminNeural"
 RATE        = "+0%"    # normal speed — clear for 5yo
 VOLUME      = "+0%"
-OUTPUT_DIR  = "audio"
+# Absolute path — works regardless of cwd
+OUTPUT_DIR  = str(Path(__file__).parent.parent / "v2" / "audio")
 
 # ── Script: all lines Asma's session needs ───────────────
 # Format: (filename_without_ext, text_to_speak)
@@ -105,9 +107,7 @@ async def main() -> None:
         await asyncio.sleep(0.3)  # polite delay between requests
 
     print(f"\n✅ All done. {len(LINES)} files in ./{OUTPUT_DIR}/\n")
-    print("Next step:")
-    print("  1. Copy the audio/ folder next to vak-assessment.html")
-    print("  2. Rebuild app with audio playback wired in (next Claude turn)\n")
+    print("Files are at vak/v2/audio/ — ready to use in vak/v2/index.html\n")
 
 
 if __name__ == "__main__":
