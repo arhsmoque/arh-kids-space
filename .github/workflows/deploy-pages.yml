@@ -10,5 +10,5 @@ jobs:
     uses: arhsmoque/arh-kids-space/.github/workflows/reusable-cf-pages-deploy.yml@main
     with:
       project-name: arh-kids-space
-      directory: artifacts
+      directory: .
     secrets: inherit

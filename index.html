@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARH Kids Space</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #fdf6ee;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    h1 {
+      font-size: 2rem;
+      color: #4a3728;
+      margin-bottom: 0.4rem;
+      text-align: center;
+    }
+    .subtitle {
+      color: #8a7060;
+      margin-bottom: 2.5rem;
+      text-align: center;
+      font-size: 1rem;
+    }
+    .apps {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+    }
+    a.app-card {
+      display: flex;
+      flex-direction: column;
+      background: white;
+      border-radius: 1.2rem;
+      padding: 1.8rem 2rem;
+      width: 260px;
+      text-decoration: none;
+      color: inherit;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    a.app-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.13);
+    }
+    .app-icon { font-size: 2.4rem; margin-bottom: 0.8rem; }
+    .app-name { font-size: 1.1rem; font-weight: 700; color: #333; margin-bottom: 0.4rem; }
+    .app-desc { font-size: 0.88rem; color: #666; line-height: 1.5; }
+    .app-badge {
+      display: inline-block;
+      margin-top: 0.8rem;
+      font-size: 0.75rem;
+      background: #eee;
+      color: #555;
+      border-radius: 0.4rem;
+      padding: 0.2rem 0.5rem;
+      font-weight: 600;
+    }
+    footer {
+      margin-top: 3rem;
+      color: #b0a090;
+      font-size: 0.8rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>ARH Kids Space</h1>
+  <p class="subtitle">Aflah &middot; Haidar &middot; Asma</p>
+
+  <div class="apps">
+    <a class="app-card" href="vak/v2/">
+      <div class="app-icon">🧠</div>
+      <div class="app-name">Penilaian VAK</div>
+      <div class="app-desc">Penilaian gaya belajar Visual · Auditori · Kinestetik untuk Aflah, Haidar &amp; Asma.</div>
+      <span class="app-badge">v2</span>
+    </a>
+
+    <a class="app-card" href="kawan-belajar/v1/">
+      <div class="app-icon">📚</div>
+      <div class="app-name">Kawan Belajar</div>
+      <div class="app-desc">Kuiz Islam · Hafazan tracker · Kad Karakter Mandarin untuk Aflah &amp; Haidar.</div>
+      <span class="app-badge">v1</span>
+    </a>
+  </div>
+
+  <footer>arh-kids-space &mdash; keluarga ARH</footer>
+</body>
+</html>
