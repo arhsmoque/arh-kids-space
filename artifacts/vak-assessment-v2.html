@@ -1,0 +1,1744 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
+<meta name="mobile-web-app-capable" content="yes">
+<title>ARH Kids — Ujian Cara Belajar v2</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════
+   TOKENS — cheerful pastel landing
+═══════════════════════════════════════ */
+:root {
+  --bg:        #fafaf7;
+  --bg2:       #f2efe8;
+  --surface:   #ffffff;
+  --surface2:  #f5f2eb;
+  --border:    #e8e2d6;
+  --ink:       #2c2820;
+  --ink2:      #6b6052;
+  --ink3:      #a89880;
+  --amber:     #e07b2a;
+  --on-amber:  #ffffff;
+  --green:     #2aaa68;
+  --red:       #d94040;
+  --blue:      #2e6fcc;
+
+  --V:  #2e6fcc;
+  --A:  #2aaa68;
+  --K:  #e07b2a;
+
+  --r: 18px;
+  --touch: 56px;
+}
+
+/* ── Asma: pastel pink ── */
+body.theme-asma {
+  --bg: #fce4ec; --bg2: #f8bbd0; --surface: #fff5f8; --surface2: #ffd6e8;
+  --border: #ffffff;
+  --ink: #3d0a20; --ink2: #82244a; --ink3: #c47090;
+  --amber: #e91e8c; --on-amber: #ffffff;
+  --green: #4caf80; --red: #e05050; --blue: #9c4dcc;
+  --V: #9c4dcc; --A: #4caf80; --K: #e91e8c;
+}
+body.theme-asma::before {
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 10%, rgba(255,105,180,.20) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(255,182,193,.15) 0%, transparent 60%);
+}
+
+/* ── Aflah: pastel red ── */
+body.theme-aflah {
+  --bg: #fff3f3; --bg2: #ffe0e0; --surface: #fff8f8; --surface2: #ffd0d0;
+  --border: #ffffff;
+  --ink: #3d0000; --ink2: #822020; --ink3: #c47070;
+  --amber: #d32f2f; --on-amber: #ffffff;
+  --green: #4caf80; --red: #e05050; --blue: #5c6bc0;
+  --V: #5c6bc0; --A: #4caf80; --K: #d32f2f;
+}
+body.theme-aflah::before {
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 10%, rgba(255,100,100,.18) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(255,160,160,.12) 0%, transparent 60%);
+}
+
+/* ── Haidar: pastel blue ── */
+body.theme-haidar {
+  --bg: #e8f4fd; --bg2: #d0e8f8; --surface: #f0f8ff; --surface2: #c8e0f5;
+  --border: #ffffff;
+  --ink: #0a1e3d; --ink2: #204070; --ink3: #6080bf;
+  --amber: #1565c0; --on-amber: #ffffff;
+  --green: #4caf80; --red: #e05050; --blue: #1565c0;
+  --V: #1565c0; --A: #4caf80; --K: #ff8f00;
+}
+body.theme-haidar::before {
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 10%, rgba(100,160,255,.22) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(150,200,255,.14) 0%, transparent 60%);
+}
+
+/* ── New child: pastel mint ── */
+body.theme-new {
+  --bg: #e8f5e9; --bg2: #d0eed3; --surface: #f0faf2; --surface2: #c0e8c8;
+  --border: #ffffff;
+  --ink: #0a2e14; --ink2: #1a5c30; --ink3: #5a9c6a;
+  --amber: #2e7d32; --on-amber: #ffffff;
+  --green: #4caf80; --red: #e05050; --blue: #5c6bc0;
+  --V: #5c6bc0; --A: #4caf80; --K: #ff8f00;
+}
+body.theme-new::before {
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 10%, rgba(100,200,120,.20) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(150,230,160,.12) 0%, transparent 60%);
+}
+
+/* ── Landing page glow ── */
+body:not([class])::before,
+body.theme-none::before {
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 10%, rgba(224,123,42,.10) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(42,170,104,.08) 0%, transparent 60%);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+
+body {
+  background: var(--bg);
+  font-family: 'Nunito', sans-serif;
+  color: var(--ink);
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background .3s ease, color .3s ease;
+}
+
+body::before {
+  content:'';
+  position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 10%, rgba(224,123,42,.10) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(42,170,104,.08) 0%, transparent 60%);
+}
+
+.wrap { max-width:520px; margin:0 auto; padding:24px 16px 80px; position:relative; z-index:1; }
+
+/* ═══════════════════════════════════════
+   SCREENS
+═══════════════════════════════════════ */
+.scr { display:none; }
+.scr.on { display:block; animation: fadeUp .35s cubic-bezier(.22,.68,0,1.2) both; }
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(20px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* ═══════════════════════════════════════
+   TYPOGRAPHY
+═══════════════════════════════════════ */
+.display {
+  font-family:'Baloo 2',cursive;
+  font-size:clamp(1.8rem,7vw,2.6rem);
+  font-weight:800; line-height:1.1;
+  color:var(--ink); margin-bottom:12px;
+}
+.display span { color:var(--amber); }
+
+.body-text { font-size:.9rem; line-height:1.7; color:var(--ink2); margin-bottom:20px; }
+.label { font-size:.7rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--ink3); margin-bottom:8px; }
+
+/* ═══════════════════════════════════════
+   CARDS
+═══════════════════════════════════════ */
+.card {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  padding:20px;
+  margin-bottom:14px;
+  box-shadow:0 2px 8px rgba(0,0,0,.06);
+}
+
+/* ═══════════════════════════════════════
+   CHILD PICKER
+═══════════════════════════════════════ */
+.child-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(100px, 1fr));
+  gap:10px; margin-bottom:20px;
+}
+
+.child-btn {
+  background:var(--surface);
+  border:2px solid var(--border);
+  border-radius:16px;
+  padding:18px 8px 14px;
+  text-align:center;
+  cursor:pointer;
+  transition:all .18s;
+  user-select:none;
+  box-shadow:0 2px 6px rgba(0,0,0,.06);
+}
+.child-btn:active { transform:scale(.95); }
+.child-btn.sel {
+  border-color:var(--amber);
+  background:color-mix(in srgb, var(--amber) 8%, transparent);
+  box-shadow:0 0 0 3px color-mix(in srgb, var(--amber) 18%, transparent);
+}
+.child-btn .avatar { font-size:2.4rem; line-height:1; margin-bottom:8px; display:block; }
+.child-btn .cname { font-family:'Baloo 2',cursive; font-size:1rem; font-weight:700; color:var(--ink); }
+.child-btn .cage  { font-size:.72rem; color:var(--ink3); margin-top:2px; }
+.child-btn-add { border-style:dashed; opacity:.6; }
+.child-btn-add:hover, .child-btn-add:active { opacity:1; border-color:var(--amber); }
+
+/* ═══════════════════════════════════════
+   BUTTONS
+═══════════════════════════════════════ */
+.btn {
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  min-height:var(--touch);
+  background:var(--amber); color:var(--on-amber);
+  border:none; border-radius:99px;
+  padding:0 28px;
+  font-family:'Baloo 2',cursive; font-size:1rem; font-weight:700;
+  cursor:pointer; transition:all .15s; width:100%;
+  letter-spacing:.01em;
+  box-shadow:0 3px 10px color-mix(in srgb, var(--amber) 35%, transparent);
+}
+.btn:active { transform:scale(.97); }
+.btn:disabled { opacity:.3; cursor:not-allowed; box-shadow:none; }
+.btn.ghost {
+  background:transparent; color:var(--ink2);
+  border:1.5px solid var(--border);
+  box-shadow:none;
+}
+.btn.ghost:active { background:var(--surface2); }
+.btn.green { background:var(--green); color:#fff; box-shadow:0 3px 10px color-mix(in srgb, var(--green) 35%, transparent); }
+.btn.blue  { background:var(--blue);  color:#fff; box-shadow:0 3px 10px color-mix(in srgb, var(--blue) 35%, transparent); }
+.btn.sm    { min-height:44px; font-size:.85rem; padding:0 18px; }
+
+.btn-row { display:flex; gap:10px; }
+.btn-row .btn { flex:1; }
+
+/* ═══════════════════════════════════════
+   ABAH ALERT
+═══════════════════════════════════════ */
+.abah-alert {
+  background:color-mix(in srgb, var(--amber) 10%, transparent);
+  border:2px solid var(--amber);
+  border-radius:var(--r);
+  padding:16px 18px;
+  margin-bottom:20px;
+  font-size:.88rem;
+  line-height:1.6;
+  color:var(--ink);
+}
+.abah-alert .ah {
+  font-family:'Baloo 2',cursive;
+  font-size:1rem; font-weight:800;
+  color:var(--amber);
+  margin-bottom:6px;
+  display:flex; align-items:center; gap:8px;
+}
+
+/* ═══════════════════════════════════════
+   PROGRESS
+═══════════════════════════════════════ */
+.prog-row { display:flex; align-items:center; gap:10px; margin-bottom:20px; }
+.prog-track { flex:1; height:8px; background:var(--surface2); border-radius:99px; overflow:hidden; border:1px solid var(--border); }
+.prog-fill  { height:100%; background:var(--amber); border-radius:99px; transition:width .4s ease; }
+.prog-label { font-size:.75rem; color:var(--ink3); font-weight:700; white-space:nowrap; }
+
+/* ═══════════════════════════════════════
+   GAME HEADER
+═══════════════════════════════════════ */
+.game-header {
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom:20px;
+}
+.game-title {
+  font-family:'Baloo 2',cursive; font-size:1.3rem; font-weight:800; color:var(--ink);
+}
+.game-badge {
+  font-size:.68rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+  padding:4px 12px; border-radius:99px; color:#fff;
+}
+
+/* hint buttons */
+.hint-row { display:flex; gap:8px; margin-top:14px; }
+.hint-btn {
+  display:flex; align-items:center; gap:6px;
+  background:var(--surface); border:1.5px solid var(--border);
+  border-radius:99px; padding:10px 16px;
+  font-family:'Nunito',sans-serif; font-size:.82rem; font-weight:700;
+  color:var(--ink2); cursor:pointer; transition:all .15s; flex:1;
+  justify-content:center;
+  box-shadow:0 2px 4px rgba(0,0,0,.06);
+}
+.hint-btn:active { transform:scale(.95); background:var(--surface2); }
+.hint-btn.used { opacity:.4; }
+
+/* undo/redo */
+.action-row {
+  display:flex; gap:8px; margin-top:10px; justify-content:flex-end;
+}
+.icon-btn {
+  width:44px; height:44px; border-radius:99px;
+  background:var(--surface); border:1.5px solid var(--border);
+  color:var(--ink2); font-size:1.1rem;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition:all .15s;
+  box-shadow:0 2px 4px rgba(0,0,0,.06);
+}
+.icon-btn:active { transform:scale(.9); background:var(--surface2); }
+.icon-btn:disabled { opacity:.25; cursor:not-allowed; box-shadow:none; }
+
+/* ═══════════════════════════════════════
+   GAME 1 — SUSUN GAMBAR
+═══════════════════════════════════════ */
+.story-grid {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:10px; margin-bottom:14px;
+}
+.story-card {
+  background:var(--surface);
+  border:2px solid var(--border);
+  border-radius:14px;
+  padding:18px 10px;
+  text-align:center;
+  cursor:grab;
+  transition:all .15s;
+  user-select:none;
+  touch-action:none;
+  min-height:110px;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:6px;
+  box-shadow:0 2px 8px rgba(0,0,0,.06);
+}
+.story-card.holding {
+  opacity:.7;
+  border-style:dashed;
+  border-color:var(--amber);
+  transform:scale(1.06);
+  box-shadow:0 8px 20px color-mix(in srgb, var(--amber) 30%, transparent);
+  cursor:grabbing;
+}
+.story-card.drag-over { border-color:var(--blue); background:color-mix(in srgb, var(--blue) 8%, var(--surface)); transform:scale(1.02); }
+.story-card.placed    { border-color:var(--green); background:color-mix(in srgb, var(--green) 6%, var(--surface)); }
+.story-card .sc-emoji { font-size:2.8rem; line-height:1; }
+.story-card .sc-num   { font-size:.72rem; font-weight:700; color:var(--ink3); }
+
+.slots-grid {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:10px; margin-bottom:14px;
+}
+.slot {
+  border:2px dashed var(--border);
+  border-radius:14px; min-height:110px;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:6px;
+  transition:all .15s; background:var(--bg2);
+  position:relative;
+}
+.slot.drag-over { border-color:var(--amber); background:color-mix(in srgb, var(--amber) 10%, var(--bg2)); border-style:solid; }
+.slot.filled    { border-style:solid; border-color:var(--green); background:color-mix(in srgb, var(--green) 8%, var(--bg2)); }
+.slot .slot-num {
+  position:absolute; top:8px; left:10px;
+  font-size:.68rem; font-weight:800; color:var(--ink3);
+}
+.slot .slot-label {
+  font-size:.75rem; color:var(--ink3); text-align:center; padding:0 8px;
+}
+
+/* ═══════════════════════════════════════
+   GAME 2 — PADANAN BUNYI
+═══════════════════════════════════════ */
+.sound-word {
+  background:var(--surface);
+  border:2px solid var(--border);
+  border-radius:var(--r);
+  padding:24px 16px;
+  text-align:center;
+  margin-bottom:16px;
+  box-shadow:0 2px 8px rgba(0,0,0,.06);
+}
+.sound-word .sw-text {
+  font-family:'Baloo 2',cursive;
+  font-size:2rem; font-weight:800; color:var(--amber);
+  margin-bottom:4px;
+}
+.sound-word .sw-sub { font-size:.82rem; color:var(--ink3); }
+
+.replay-btn {
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  background:color-mix(in srgb, var(--blue) 10%, transparent);
+  border:1.5px solid var(--blue);
+  border-radius:99px; padding:10px 20px; margin:0 auto 16px;
+  font-size:.85rem; font-weight:700; color:var(--blue);
+  cursor:pointer; transition:all .15s; width:fit-content;
+}
+.replay-btn:active { transform:scale(.95); }
+.replay-btn.used { opacity:.5; }
+
+.image-choices {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:10px; margin-bottom:14px;
+}
+.img-choice {
+  background:var(--surface);
+  border:2px solid var(--border);
+  border-radius:14px; padding:18px 10px;
+  text-align:center; cursor:pointer;
+  transition:all .15s; user-select:none;
+  min-height:100px;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:8px;
+  box-shadow:0 2px 6px rgba(0,0,0,.06);
+}
+.img-choice:active { transform:scale(.95); }
+.img-choice.selected-right { border-color:var(--green); background:color-mix(in srgb, var(--green) 10%, var(--surface)); }
+.img-choice.selected-wrong { border-color:var(--red);   background:color-mix(in srgb, var(--red) 8%, var(--surface)); }
+.img-choice .ic-emoji { font-size:2.6rem; line-height:1; }
+.img-choice .ic-label { font-size:.78rem; color:var(--ink2); font-weight:600; }
+
+/* ═══════════════════════════════════════
+   GAME 3 — BINA CORAK
+═══════════════════════════════════════ */
+.pattern-display {
+  display:flex; gap:8px; align-items:center; justify-content:center;
+  flex-wrap:wrap;
+  background:var(--surface); border:2px solid var(--border);
+  border-radius:var(--r); padding:20px 16px; margin-bottom:16px;
+  box-shadow:0 2px 8px rgba(0,0,0,.06);
+}
+.pat-cell {
+  width:54px; height:54px; border-radius:12px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.6rem; font-weight:700;
+  border:2px solid transparent;
+  transition:all .15s;
+}
+.pat-cell.blank {
+  background:var(--bg2); border:2px dashed var(--border);
+  font-size:1.2rem; color:var(--ink3);
+  font-weight:800;
+}
+.pat-cell.filled-correct { border-color:var(--green); background:color-mix(in srgb, var(--green) 12%, transparent); }
+.pat-cell.filled-wrong   { border-color:var(--red); animation:shake .3s ease; }
+
+@keyframes shake {
+  0%,100%{transform:translateX(0)} 25%{transform:translateX(-4px)} 75%{transform:translateX(4px)}
+}
+
+.pat-options {
+  display:flex; gap:10px; justify-content:center; flex-wrap:wrap;
+  margin-bottom:14px;
+}
+.pat-opt {
+  width:68px; height:68px; border-radius:14px;
+  background:var(--surface); border:2px solid var(--border);
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.8rem; cursor:pointer; transition:all .15s;
+  box-shadow:0 2px 6px rgba(0,0,0,.06);
+}
+.pat-opt:active { transform:scale(.9); }
+.pat-opt.used   { opacity:.3; cursor:default; }
+
+/* ═══════════════════════════════════════
+   FEEDBACK TOAST
+═══════════════════════════════════════ */
+.toast {
+  position:fixed; bottom:32px; left:50%; transform:translateX(-50%) translateY(20px);
+  background:var(--surface); border:1.5px solid var(--border);
+  border-radius:99px; padding:12px 24px;
+  font-size:.88rem; font-weight:700; color:var(--ink);
+  opacity:0; transition:all .25s; z-index:1000; white-space:nowrap;
+  box-shadow:0 8px 24px rgba(0,0,0,.15);
+}
+.toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+.toast.good { color:var(--green); border-color:var(--green); }
+.toast.bad  { color:var(--red);   border-color:var(--red); }
+
+/* ═══════════════════════════════════════
+   RESULT
+═══════════════════════════════════════ */
+.result-banner {
+  text-align:center; padding:28px 0 20px;
+  border-bottom:1px solid var(--border); margin-bottom:24px;
+}
+.result-emoji { font-size:4rem; line-height:1; margin-bottom:10px; display:block; }
+.result-style {
+  font-family:'Baloo 2',cursive; font-size:2rem; font-weight:800;
+  margin-bottom:6px;
+}
+.result-desc { font-size:.88rem; color:var(--ink2); line-height:1.65; max-width:380px; margin:0 auto; }
+
+/* VAK score bars */
+.vak-bars { display:flex; flex-direction:column; gap:12px; margin-bottom:24px; }
+.vak-bar-row { display:grid; grid-template-columns:120px 1fr 44px; align-items:center; gap:10px; }
+.vak-bar-label { font-size:.82rem; font-weight:700; color:var(--ink2); }
+.vak-bar-track {
+  height:12px; background:var(--surface2); border-radius:99px; overflow:hidden;
+  border:1px solid var(--border);
+}
+.vak-bar-fill { height:100%; border-radius:99px; transition:width .7s cubic-bezier(.22,.68,0,1.2); }
+.vak-bar-pct { font-size:.8rem; font-weight:800; color:var(--ink); text-align:right; }
+
+.signal-grid { display:flex; flex-direction:column; gap:10px; margin-bottom:24px; }
+.signal-row {
+  display:grid; grid-template-columns:1fr auto;
+  align-items:center; gap:12px;
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:12px; padding:12px 16px;
+  box-shadow:0 1px 4px rgba(0,0,0,.05);
+}
+.signal-name { font-size:.82rem; font-weight:700; color:var(--ink2); }
+.signal-val  { font-size:.8rem; font-weight:800; color:var(--amber); white-space:nowrap; }
+
+/* Insights */
+.insights-list { display:flex; flex-direction:column; gap:8px; margin-bottom:24px; }
+.insight-item {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:12px; padding:12px 16px;
+  font-size:.84rem; color:var(--ink2); line-height:1.5;
+  box-shadow:0 1px 4px rgba(0,0,0,.05);
+}
+
+.export-box {
+  background:var(--bg2); border:1px solid var(--border);
+  border-radius:var(--r); padding:16px;
+  font-size:.72rem; font-family:monospace; color:var(--ink2);
+  white-space:pre-wrap; word-break:break-all;
+  max-height:200px; overflow-y:auto; margin-bottom:14px;
+  line-height:1.6;
+}
+
+/* ═══════════════════════════════════════
+   DIVIDER
+═══════════════════════════════════════ */
+.div { height:1px; background:var(--border); margin:20px 0; }
+
+/* ═══════════════════════════════════════
+   MODAL — Add Child
+═══════════════════════════════════════ */
+.modal-backdrop {
+  position:fixed; inset:0;
+  background:rgba(0,0,0,.35);
+  display:none; align-items:center; justify-content:center;
+  z-index:2000; padding:16px;
+}
+.modal-backdrop.open { display:flex; animation:fadeUp .25s ease both; }
+.modal-box {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:var(--r); padding:24px; width:100%; max-width:400px;
+  max-height:90vh; overflow-y:auto;
+  box-shadow:0 16px 48px rgba(0,0,0,.18);
+}
+.modal-title {
+  font-family:'Baloo 2',cursive; font-size:1.3rem; font-weight:800;
+  color:var(--ink); margin-bottom:20px;
+}
+.modal-label {
+  font-size:.7rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--ink3); margin-bottom:6px; display:block;
+}
+.modal-input {
+  width:100%; padding:12px 14px;
+  background:var(--bg); border:1.5px solid var(--border);
+  border-radius:10px; color:var(--ink); font-size:.95rem;
+  font-family:'Nunito',sans-serif; outline:none; margin-bottom:16px;
+  transition:border-color .15s;
+}
+.modal-input:focus { border-color:var(--amber); }
+.modal-radio-row { display:flex; flex-direction:column; gap:10px; margin-bottom:20px; }
+.modal-radio-row label {
+  display:flex; align-items:center; gap:10px;
+  font-size:.88rem; color:var(--ink2); cursor:pointer;
+  background:var(--bg2); border:1.5px solid var(--border);
+  border-radius:10px; padding:10px 14px;
+  transition:all .15s;
+}
+.modal-radio-row label:has(input:checked) {
+  border-color:var(--amber);
+  background:color-mix(in srgb, var(--amber) 8%, transparent);
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ══════════════════════════════════════════
+     S0: LANDING
+══════════════════════════════════════════ -->
+<div class="scr on" id="s-land">
+  <div style="padding:20px 0 28px;">
+    <div class="label">ARH Kids · Penilaian Cara Belajar</div>
+    <div class="display">Ujian <span>Cara Belajar</span> Anak</div>
+    <p class="body-text">Tiga permainan pendek. App akan catat cara anak main — bukan jawapan betul atau salah. Abah akan terima laporan lengkap selepas selesai.</p>
+  </div>
+
+  <div class="abah-alert">
+    <div class="ah">📣 Abah/Ibu — Sila Baca Dulu</div>
+    Pilih nama anak yang akan main sekarang. Satu anak satu sesi. Selepas selesai, app akan hasilkan laporan — hantar kepada Abah untuk analisis.<br><br>
+    <strong>Untuk Asma (5 tahun):</strong> Abah perlu duduk bersama sepanjang sesi. App akan tunjuk arahan khas untuk Abah.
+  </div>
+
+  <div class="label">Siapa yang main sekarang?</div>
+  <div class="child-grid" id="child-grid"></div>
+
+  <button class="btn" id="land-start" onclick="goToIntro()" disabled>Mula Ujian →</button>
+</div>
+
+<!-- ══════════════════════════════════════════
+     S1: CHILD INTRO
+══════════════════════════════════════════ -->
+<div class="scr" id="s-intro">
+  <div id="intro-abah-note"></div>
+  <div class="card" style="text-align:center; padding:28px 20px;">
+    <div style="font-size:4rem; margin-bottom:12px;" id="intro-avatar"></div>
+    <div class="display" style="margin-bottom:8px;" id="intro-name"></div>
+    <p class="body-text" style="margin:0;" id="intro-desc"></p>
+  </div>
+
+  <div class="card">
+    <div class="label" style="margin-bottom:10px;">Dalam ujian ini kamu akan:</div>
+    <div style="display:flex;flex-direction:column;gap:8px;" id="intro-games"></div>
+  </div>
+
+  <div style="margin-top:6px;">
+    <p class="body-text" style="font-size:.82rem;text-align:center;">Takde jawapan betul atau salah. Main je macam biasa! 😊</p>
+  </div>
+
+  <button class="btn green" onclick="startGames()" style="margin-top:8px;">Jom Mula! 🚀</button>
+</div>
+
+<!-- ══════════════════════════════════════════
+     S2: GAME 1 — SUSUN GAMBAR
+══════════════════════════════════════════ -->
+<div class="scr" id="s-g1">
+  <div class="game-header">
+    <div class="game-title">🖼️ Susun Gambar</div>
+    <div class="game-badge" style="background:var(--V);">Permainan 1</div>
+  </div>
+
+  <div class="prog-row">
+    <div class="prog-track"><div class="prog-fill" id="g1-prog" style="width:0%"></div></div>
+    <div class="prog-label" id="g1-plabel">0 / 3</div>
+  </div>
+
+  <p class="body-text" id="g1-instruction" style="margin-bottom:12px;"></p>
+  <div id="g1-asma-note" style="display:none;"></div>
+
+  <div class="label">Gambar-gambar ini:</div>
+  <div class="story-grid" id="g1-cards"></div>
+
+  <div class="label" style="margin-top:4px;">Susun mengikut urutan cerita:</div>
+  <div class="slots-grid" id="g1-slots"></div>
+
+  <div class="hint-row" id="g1-hints">
+    <button class="hint-btn" id="g1-hint-v" onclick="useHint('g1','visual')">👁️ Tunjuk Petunjuk</button>
+    <button class="hint-btn" id="g1-hint-a" onclick="useHint('g1','audio')">🔊 Dengar Petunjuk</button>
+  </div>
+
+  <div class="action-row">
+    <button class="icon-btn" id="g1-undo" onclick="doUndo('g1')" title="Undo" disabled>↩️</button>
+    <button class="icon-btn" id="g1-redo" onclick="doRedo('g1')" title="Redo" disabled>↪️</button>
+  </div>
+
+  <div id="g1-hint-box" style="display:none;" class="abah-alert"></div>
+
+  <button class="btn" id="g1-next" onclick="finishG1()" disabled style="margin-top:16px;">Seterusnya →</button>
+</div>
+
+<!-- ══════════════════════════════════════════
+     S3: GAME 2 — PADANAN BUNYI
+══════════════════════════════════════════ -->
+<div class="scr" id="s-g2">
+  <div class="game-header">
+    <div class="game-title">🔊 Padanan Bunyi</div>
+    <div class="game-badge" style="background:var(--A);">Permainan 2</div>
+  </div>
+
+  <div class="prog-row">
+    <div class="prog-track"><div class="prog-fill" id="g2-prog" style="width:0%"></div></div>
+    <div class="prog-label" id="g2-plabel">0 / 4</div>
+  </div>
+
+  <p class="body-text" id="g2-instruction" style="margin-bottom:12px;"></p>
+
+  <div class="sound-word">
+    <div class="sw-text" id="g2-word"></div>
+    <div class="sw-sub" id="g2-wordsub"></div>
+  </div>
+
+  <div class="replay-btn" id="g2-replay" onclick="replayWord()">
+    🔊 Dengar Semula
+  </div>
+
+  <div class="image-choices" id="g2-choices"></div>
+
+  <div class="hint-row" id="g2-hints">
+    <button class="hint-btn" id="g2-hint-v" onclick="useHint('g2','visual')">👁️ Petunjuk Visual</button>
+    <button class="hint-btn" id="g2-hint-a" onclick="useHint('g2','audio')">🔊 Petunjuk Bunyi</button>
+  </div>
+
+  <div id="g2-hint-box" style="display:none;" class="abah-alert"></div>
+
+  <div class="action-row">
+    <button class="icon-btn" id="g2-undo" onclick="doUndo('g2')" title="Cuba Lain" disabled>↩️</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     S4: GAME 3 — BINA CORAK
+══════════════════════════════════════════ -->
+<div class="scr" id="s-g3">
+  <div class="game-header">
+    <div class="game-title">🧩 Bina Corak</div>
+    <div class="game-badge" style="background:var(--K);">Permainan 3</div>
+  </div>
+
+  <div class="prog-row">
+    <div class="prog-track"><div class="prog-fill" id="g3-prog" style="width:0%"></div></div>
+    <div class="prog-label" id="g3-plabel">0 / 4</div>
+  </div>
+
+  <p class="body-text" id="g3-instruction" style="margin-bottom:12px;"></p>
+
+  <div class="label">Corak ini:</div>
+  <div class="pattern-display" id="g3-pattern"></div>
+
+  <div class="label" style="margin-top:4px;">Pilih yang betul untuk isi tempat kosong:</div>
+  <div class="pat-options" id="g3-options"></div>
+
+  <div class="hint-row" id="g3-hints">
+    <button class="hint-btn" id="g3-hint-v" onclick="useHint('g3','visual')">👁️ Tunjuk Pola</button>
+    <button class="hint-btn" id="g3-hint-a" onclick="useHint('g3','audio')">🔊 Terangkan</button>
+  </div>
+
+  <div id="g3-hint-box" style="display:none;" class="abah-alert"></div>
+
+  <div class="action-row">
+    <button class="icon-btn" id="g3-undo" onclick="doUndo('g3')" title="Undo" disabled>↩️</button>
+    <button class="icon-btn" id="g3-redo" onclick="doRedo('g3')" title="Redo" disabled>↪️</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     S5: RESULT
+══════════════════════════════════════════ -->
+<div class="scr" id="s-result">
+  <div class="result-banner">
+    <span class="result-emoji" id="res-emoji"></span>
+    <div class="result-style" id="res-style"></div>
+    <p class="result-desc" id="res-desc"></p>
+  </div>
+
+  <div class="label">Skor VAK</div>
+  <div class="vak-bars" id="res-vak-bars"></div>
+
+  <div class="abah-alert">
+    <div class="ah">📣 Abah — Pemerhatian Signal</div>
+    <div id="res-insights-list" class="insights-list" style="margin:8px 0 0;"></div>
+  </div>
+
+  <div class="label">Ringkasan Signal</div>
+  <div class="signal-grid" id="res-signals"></div>
+
+  <div class="div"></div>
+
+  <div class="label">Laporan Lengkap (untuk Abah)</div>
+  <div class="export-box" id="export-text"></div>
+
+  <div class="btn-row" style="margin-bottom:10px;">
+    <button class="btn blue sm" onclick="copyReport()">📋 Salin</button>
+    <button class="btn sm ghost" onclick="downloadReport()">⬇️ Muat Turun</button>
+  </div>
+
+  <button class="btn ghost" onclick="goTo('s-land'); resetAll();" style="margin-top:8px;">← Anak Lain / Mula Semula</button>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+</div><!-- /wrap -->
+
+<!-- ══════════════════════════════════════════
+     MODAL — Tambah Anak Baru
+══════════════════════════════════════════ -->
+<div class="modal-backdrop" id="modal-add-child" onclick="handleBackdropClick(event)">
+  <div class="modal-box">
+    <div class="modal-title">➕ Tambah Anak</div>
+
+    <label class="modal-label" for="new-child-name">Nama</label>
+    <input type="text" id="new-child-name" class="modal-input" placeholder="cth: Huda" maxlength="20">
+
+    <label class="modal-label" for="new-child-age">Umur</label>
+    <input type="number" id="new-child-age" class="modal-input" min="2" max="15" placeholder="5">
+
+    <div class="modal-label">Mod Ujian</div>
+    <div class="modal-radio-row">
+      <label>
+        <input type="radio" name="new-child-mode" value="full" checked>
+        <div><strong>Penuh</strong> — 3 permainan (sesuai umur 6+)</div>
+      </label>
+      <label>
+        <input type="radio" name="new-child-mode" value="simple">
+        <div><strong>Mudah</strong> — Permainan 1 sahaja (sesuai umur ≤5)</div>
+      </label>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn sm" onclick="saveNewChild()">Simpan ✓</button>
+      <button class="btn sm ghost" onclick="closeModal()">Batal</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════
+let child = null;
+
+const LOG = [];
+function log(event, detail={}) {
+  LOG.push({ t: Date.now(), event, child, ...detail });
+}
+
+const SIG = {
+  g1: { firstActionMs:null, sessionStart:null, hintsV:0, hintsA:0, undos:0, redos:0, attempts:[], placementOrder:[], wrongPlacements:0 },
+  g2: { firstActionMs:null, sessionStart:null, hintsV:0, hintsA:0, replays:0, attempts:[], wrongPicks:0, undos:0 },
+  g3: { firstActionMs:null, sessionStart:null, hintsV:0, hintsA:0, undos:0, redos:0, attempts:[], wrongPicks:0, hesitateSecs:[] }
+};
+
+// ═══════════════════════════════════════════════════════
+// AUDIO
+// ═══════════════════════════════════════════════════════
+function speak(text) {
+  if (!window.speechSynthesis) return;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'ms-MY'; u.rate = 0.9;
+  speechSynthesis.speak(u);
+}
+
+let _asmaAudio = null;
+function playAsma(file) {
+  if (child !== 'asma') return;
+  if (_asmaAudio) { _asmaAudio.pause(); _asmaAudio.currentTime = 0; }
+  _asmaAudio = new Audio('audio/' + file + '.mp3');
+  _asmaAudio.play().catch(() => {});
+}
+function playAsmaChain(files) {
+  if (!files.length || child !== 'asma') return;
+  const [first, ...rest] = files;
+  if (_asmaAudio) { _asmaAudio.pause(); _asmaAudio.currentTime = 0; }
+  _asmaAudio = new Audio('audio/' + first + '.mp3');
+  if (rest.length) _asmaAudio.onended = () => playAsmaChain(rest);
+  _asmaAudio.play().catch(() => { if (rest.length) playAsmaChain(rest); });
+}
+
+// ═══════════════════════════════════════════════════════
+// CHILD CONFIG
+// ═══════════════════════════════════════════════════════
+const CHILDREN = {
+  aflah: {
+    name:'Aflah', avatar:'🧒', age:'8 tahun', grade:'Darjah 2',
+    games: ['g1','g2','g3'],
+    desc:'Kamu akan main 3 permainan pendek. Main je macam biasa — takde jawapan salah!',
+    gameLabels:['🖼️ Susun Gambar','🔊 Padanan Bunyi','🧩 Bina Corak'],
+    asma: false
+  },
+  haidar: {
+    name:'Haidar', avatar:'👦', age:'7 tahun', grade:'Darjah 1',
+    games: ['g1','g2','g3'],
+    desc:'Kamu akan main 3 permainan pendek. Main je macam biasa — takde jawapan salah!',
+    gameLabels:['🖼️ Susun Gambar','🔊 Padanan Bunyi','🧩 Bina Corak'],
+    asma: false
+  },
+  asma: {
+    name:'Asma', avatar:'👧', age:'5 tahun', grade:'Tadika',
+    games: ['g1'],
+    desc:'Kita main satu permainan pendek je. Abah ada sama! 😊',
+    gameLabels:['🖼️ Susun Gambar'],
+    asma: true
+  }
+};
+
+let customChildren = [];
+
+function loadChildren() {
+  try {
+    customChildren = JSON.parse(localStorage.getItem('arh_children') || '[]');
+    customChildren.forEach(c => { CHILDREN[c.id] = c; });
+  } catch(e) { customChildren = []; }
+  renderChildGrid();
+}
+
+function renderChildGrid() {
+  const grid = document.getElementById('child-grid');
+  grid.innerHTML = '';
+  ['aflah','haidar','asma'].forEach(id => grid.appendChild(makeChildBtn(id)));
+  customChildren.forEach(c => grid.appendChild(makeChildBtn(c.id)));
+  const addBtn = document.createElement('div');
+  addBtn.className = 'child-btn child-btn-add';
+  addBtn.innerHTML = `<span class="avatar">➕</span><div class="cname">Anak Baru</div><div class="cage">Tambah</div>`;
+  addBtn.onclick = () => openModal();
+  grid.appendChild(addBtn);
+}
+
+function makeChildBtn(id) {
+  const cfg = CHILDREN[id];
+  const btn = document.createElement('div');
+  btn.className = 'child-btn';
+  btn.id = 'cb-' + id;
+  btn.onclick = () => pickChild(id);
+  btn.innerHTML = `<span class="avatar">${cfg.avatar}</span><div class="cname">${cfg.name}</div><div class="cage">${cfg.age}${cfg.grade ? ' · ' + cfg.grade : ''}</div>`;
+  return btn;
+}
+
+// ═══════════════════════════════════════════════════════
+// GAME DATA
+// ═══════════════════════════════════════════════════════
+const G1_ROUNDS = [
+  {
+    title: 'Cerita Hujan',
+    hint_visual: 'Tengok langit dan tanah — gelap dulu, pastu basah, pastu terang!',
+    hint_audio:  'Abah: Ceritakan pada anak — langit jadi mendung, hujan turun, tanah basah, lepas tu matahari keluar semula.',
+    panels: [
+      { emoji:'☀️', label:'Hari yang cerah', order:1 },
+      { emoji:'☁️', label:'Awan mendung datang', order:2 },
+      { emoji:'🌧️', label:'Hujan lebat', order:3 },
+      { emoji:'🌈', label:'Pelangi keluar', order:4 },
+    ]
+  },
+  {
+    title: 'Pokok Epal',
+    hint_visual: 'Tengok saiz pokok — kecil dulu, pastu besar, pastu ada buah!',
+    hint_audio:  'Abah: Ceritakan — tanam benih dulu, siram air, pokok tumbuh besar, lepas tu buah keluar.',
+    panels: [
+      { emoji:'🌱', label:'Tanam benih', order:1 },
+      { emoji:'💧', label:'Siram air setiap hari', order:2 },
+      { emoji:'🌳', label:'Pokok dah besar', order:3 },
+      { emoji:'🍎', label:'Buah dah masak', order:4 },
+    ]
+  },
+  {
+    title: 'Masak Nasi',
+    hint_visual: 'Tengok bekas masakan — kosong dulu, pastu ada beras, pastu ada asap, pastu siap!',
+    hint_audio:  'Abah: Ceritakan — basuh beras dulu, masuk dalam periuk, masak atas api, lepas tu nasi siap dimakan.',
+    panels: [
+      { emoji:'🌾', label:'Basuh beras', order:1 },
+      { emoji:'🫙', label:'Masuk dalam periuk', order:2 },
+      { emoji:'🔥', label:'Masak atas dapur', order:3 },
+      { emoji:'🍚', label:'Nasi siap! Makan!', order:4 },
+    ]
+  }
+];
+
+const G2_ROUNDS = [
+  {
+    word:'KUCING', sub:'Haiwan berbulu yang suka tidur',
+    correct:{ emoji:'🐱', label:'Kucing' },
+    wrong:  [{ emoji:'🐶', label:'Anjing' }, { emoji:'🐰', label:'Arnab' }, { emoji:'🐸', label:'Katak' }]
+  },
+  {
+    word:'MATAHARI', sub:'Bersinar di langit pada waktu siang',
+    correct:{ emoji:'☀️', label:'Matahari' },
+    wrong:  [{ emoji:'🌙', label:'Bulan' }, { emoji:'⭐', label:'Bintang' }, { emoji:'☁️', label:'Awan' }]
+  },
+  {
+    word:'IKAN', sub:'Haiwan yang hidup dalam air',
+    correct:{ emoji:'🐟', label:'Ikan' },
+    wrong:  [{ emoji:'🦀', label:'Ketam' }, { emoji:'🐙', label:'Sotong' }, { emoji:'🦋', label:'Rama-rama' }]
+  },
+  {
+    word:'POKOK', sub:'Tumbuhan besar yang ada daun dan dahan',
+    correct:{ emoji:'🌳', label:'Pokok' },
+    wrong:  [{ emoji:'🌸', label:'Bunga' }, { emoji:'🍄', label:'Cendawan' }, { emoji:'🌿', label:'Rumput' }]
+  }
+];
+
+const G3_ROUNDS = [
+  {
+    pattern:['🔴','🔵','🔴','🔵','❓'], answer:'🔴', options:['🔴','🔵','🟡','🟢'],
+    hint_v:'Tengok warna bertukar-tukar — merah, biru, merah, biru... lepas biru, mesti apa?',
+    hint_a:'Abah: Sebut corak bersama anak — "merah, biru, merah, biru... sekarang?"'
+  },
+  {
+    pattern:['🌟','🌟','💫','🌟','🌟','❓'], answer:'💫', options:['🌟','💫','⭐','✨'],
+    hint_v:'Kira — dua bintang, satu bintang kecil, dua bintang lagi... lepas dua tu, mesti apa?',
+    hint_a:'Abah: Sebut — "bintang-bintang-cahaya, bintang-bintang-??" tanya anak sambungkan.'
+  },
+  {
+    pattern:['🐱','🐶','🐱','🐶','🐱','❓'], answer:'🐶', options:['🐱','🐶','🐰','🐸'],
+    hint_v:'Tengok corak — kucing, anjing, kucing, anjing... giliran siapa lepas ni?',
+    hint_a:'Abah: Tanya anak — "Kucing, Anjing, Kucing, Anjing... seterusnya?"'
+  },
+  {
+    pattern:['1️⃣','2️⃣','3️⃣','1️⃣','2️⃣','❓'], answer:'3️⃣', options:['1️⃣','2️⃣','3️⃣','4️⃣'],
+    hint_v:'Nombor 1, 2, 3 berulang — lepas 1, 2 mesti apa?',
+    hint_a:'Abah: Kira bersama — "satu, dua, tiga, satu, dua... tiga?" tanya anak.'
+  }
+];
+
+// ═══════════════════════════════════════════════════════
+// GAME STATE
+// ═══════════════════════════════════════════════════════
+let g1Round = 0, g1History = [], g1Future = [], g1Slots = [null,null,null,null];
+let g2Round = 0;
+let g3Round = 0;
+let currentGame = null;
+
+// ═══════════════════════════════════════════════════════
+// LANDING
+// ═══════════════════════════════════════════════════════
+function pickChild(c) {
+  child = c;
+  const theme = CHILDREN[c]?.custom ? 'new' : c;
+  document.body.className = 'theme-' + theme;
+  document.querySelectorAll('.child-btn').forEach(b => b.classList.remove('sel'));
+  const btn = document.getElementById('cb-' + c);
+  if (btn) btn.classList.add('sel');
+  document.getElementById('land-start').disabled = false;
+  log('child_selected', { selected: c });
+}
+
+function goToIntro() {
+  log('intro_start');
+  const cfg = CHILDREN[child];
+
+  const abahNote = document.getElementById('intro-abah-note');
+  if (cfg.asma) {
+    abahNote.innerHTML = `<div class="abah-alert"><div class="ah">📣 Abah — Duduk Bersama ${cfg.name}</div>
+    Tolong baca semua arahan kepada ${cfg.name}. Perhatikan apa yang dia buat dulu — adakah dia <b>tengok lama sebelum sentuh</b>, atau <b>terus sentuh</b>, atau <b>bercakap-cakap</b>? Abah boleh catat pemerhatian dalam laporan nanti.</div>`;
+    abahNote.style.display = 'block';
+  } else { abahNote.style.display = 'none'; }
+
+  document.getElementById('intro-avatar').textContent = cfg.avatar;
+  document.getElementById('intro-name').textContent = 'Hai ' + cfg.name + '! 👋';
+  document.getElementById('intro-desc').textContent = cfg.desc;
+
+  const gEl = document.getElementById('intro-games');
+  gEl.innerHTML = cfg.gameLabels.map(g =>
+    `<div style="display:flex;align-items:center;gap:10px;background:var(--surface2);border-radius:10px;padding:10px 14px;font-size:.88rem;font-weight:700;color:var(--ink);border:1px solid var(--border);">${g}</div>`
+  ).join('');
+
+  goTo('s-intro');
+  if (cfg.asma) playAsma('asma_welcome');
+}
+
+// ═══════════════════════════════════════════════════════
+// START GAMES
+// ═══════════════════════════════════════════════════════
+function startGames() {
+  log('games_start');
+  speak(' ');
+  setTimeout(() => startG1(), 100);
+}
+
+// ═══════════════════════════════════════════════════════
+// GAME 1 — SUSUN GAMBAR
+// ═══════════════════════════════════════════════════════
+function startG1() {
+  currentGame = 'g1';
+  g1Round = 0;
+  Object.assign(SIG.g1, { firstActionMs:null, sessionStart:Date.now(), hintsV:0, hintsA:0, undos:0, redos:0, attempts:[], placementOrder:[], wrongPlacements:0 });
+  log('g1_start');
+
+  const cfg = CHILDREN[child];
+  document.getElementById('g1-instruction').textContent =
+    cfg.asma
+      ? 'Abah: Tunjukkan gambar-gambar ini kepada ' + cfg.name + '. Minta dia susun mengikut cerita yang betul.'
+      : 'Susun gambar-gambar ini mengikut cerita yang betul. Seret gambar ke dalam kotak yang betul!';
+
+  const asmaNote = document.getElementById('g1-asma-note');
+  if (cfg.asma) {
+    asmaNote.style.display = 'block';
+    asmaNote.innerHTML = `<div class="abah-alert"><div class="ah">📣 Abah</div>Perhatikan: Adakah ${cfg.name} tengok semua gambar dulu sebelum gerak? Atau terus pegang dan cuba? Adakah dia bercakap semasa main?</div>`;
+  }
+
+  loadG1Round();
+  goTo('s-g1');
+  if (cfg.asma) playAsmaChain(['asma_g1_intro', 'asma_g1_r0_prompt']);
+}
+
+function loadG1Round() {
+  const round = G1_ROUNDS[g1Round];
+  document.getElementById('g1-prog').style.width = (g1Round / G1_ROUNDS.length * 100) + '%';
+  document.getElementById('g1-plabel').textContent = g1Round + ' / ' + G1_ROUNDS.length;
+  document.getElementById('g1-next').disabled = true;
+
+  g1Slots = [null,null,null,null];
+  g1History = []; g1Future = [];
+  document.getElementById('g1-undo').disabled = true;
+  document.getElementById('g1-redo').disabled = true;
+  document.getElementById('g1-hint-box').style.display = 'none';
+  document.getElementById('g1-hint-v').classList.remove('used');
+  document.getElementById('g1-hint-a').classList.remove('used');
+
+  const shuffled = [...round.panels].sort(() => Math.random() - .5);
+
+  const cardsEl = document.getElementById('g1-cards');
+  cardsEl.innerHTML = '';
+  shuffled.forEach(p => {
+    const card = document.createElement('div');
+    card.className = 'story-card';
+    card.dataset.order = p.order;
+    card.dataset.emoji = p.emoji;
+    card.innerHTML = `<div class="sc-emoji">${p.emoji}</div><div class="sc-num">${p.label}</div>`;
+    card.draggable = true;
+
+    // Desktop drag
+    card.addEventListener('dragstart', e => {
+      e.dataTransfer.setData('text/plain', p.order + '|' + p.emoji + '|' + p.label);
+      card.classList.add('holding');
+      if (!SIG.g1.firstActionMs) SIG.g1.firstActionMs = Date.now() - SIG.g1.sessionStart;
+      log('g1_drag_start', { emoji:p.emoji, order:p.order, round:g1Round });
+    });
+    card.addEventListener('dragend', () => card.classList.remove('holding'));
+
+    // Pointer drag (touch + stylus + mouse) — reliable across all devices
+    setupPointerDrag(card, p.order, p.emoji, p.label);
+    cardsEl.appendChild(card);
+  });
+
+  const slotsEl = document.getElementById('g1-slots');
+  slotsEl.innerHTML = '';
+  [1,2,3,4].forEach(num => {
+    const slot = document.createElement('div');
+    slot.className = 'slot';
+    slot.dataset.slot = num;
+    slot.innerHTML = `<span class="slot-num">${num}</span><span class="slot-label">Ke-${num}</span>`;
+
+    slot.addEventListener('dragover', e => { e.preventDefault(); slot.classList.add('drag-over'); });
+    slot.addEventListener('dragleave', () => slot.classList.remove('drag-over'));
+    slot.addEventListener('drop', e => {
+      e.preventDefault();
+      slot.classList.remove('drag-over');
+      const [order, emoji, label] = e.dataTransfer.getData('text/plain').split('|');
+      placeCard(slot, num, parseInt(order), emoji, label);
+    });
+    slotsEl.appendChild(slot);
+  });
+}
+
+// Reliable pointer-based drag (replaces unreliable touchend+elementFromPoint)
+function setupPointerDrag(card, order, emoji, label) {
+  let active = false;
+
+  card.addEventListener('pointerdown', e => {
+    if (e.button && e.button !== 0) return;
+    active = true;
+    card.setPointerCapture(e.pointerId);
+    card.classList.add('holding');
+    if (!SIG.g1.firstActionMs) SIG.g1.firstActionMs = Date.now() - SIG.g1.sessionStart;
+    log('g1_touch_start', { emoji, order, round:g1Round });
+    e.preventDefault();
+  });
+
+  card.addEventListener('pointermove', e => {
+    if (!active) return;
+    // Highlight slot under pointer
+    document.querySelectorAll('.slot').forEach(s => s.classList.remove('drag-over'));
+    const under = document.elementFromPoint(e.clientX, e.clientY);
+    under?.closest('.slot')?.classList.add('drag-over');
+  });
+
+  card.addEventListener('pointerup', e => {
+    if (!active) return;
+    active = false;
+    card.classList.remove('holding');
+    document.querySelectorAll('.slot').forEach(s => s.classList.remove('drag-over'));
+    const under = document.elementFromPoint(e.clientX, e.clientY);
+    const slot = under?.closest('.slot');
+    if (slot) placeCard(slot, parseInt(slot.dataset.slot), order, emoji, label);
+  });
+
+  card.addEventListener('pointercancel', () => {
+    active = false;
+    card.classList.remove('holding');
+    document.querySelectorAll('.slot').forEach(s => s.classList.remove('drag-over'));
+  });
+}
+
+function placeCard(slotEl, slotNum, order, emoji, label) {
+  // Don't overwrite — require undo first to keep scoring clean
+  if (g1Slots[slotNum - 1] !== null) {
+    toast('Slot dah penuh! Tekan ↩️ undo dulu.', 'bad');
+    return;
+  }
+
+  const isCorrect = slotNum === order;
+  g1History.push({ slotNum, prev: null, order, emoji });
+  g1Future = [];
+  document.getElementById('g1-undo').disabled = false;
+  document.getElementById('g1-redo').disabled = true;
+
+  g1Slots[slotNum - 1] = { order, emoji, label };
+  SIG.g1.placementOrder.push(slotNum);
+  SIG.g1.attempts.push({ t:Date.now(), slotNum, order, emoji, correct:isCorrect });
+  if (!isCorrect) SIG.g1.wrongPlacements++;
+  log('g1_place', { slotNum, order, emoji, correct:isCorrect, round:g1Round });
+
+  renderSlot(slotEl, emoji, label, isCorrect);
+  toast(isCorrect ? '✅ Bagus!' : '🔄 Cuba lagi!', isCorrect ? 'good':'bad');
+  if (child === 'asma') playAsma(isCorrect ? 'asma_correct' : 'asma_tryagain');
+  checkG1Complete();
+}
+
+function renderSlot(slotEl, emoji, label, correct) {
+  slotEl.classList.add('filled');
+  slotEl.classList.remove('drag-over');
+  slotEl.innerHTML = `<span class="slot-num">${slotEl.dataset.slot}</span>
+    <div style="font-size:2.4rem;line-height:1;">${emoji}</div>
+    <div style="font-size:.7rem;color:var(--ink2);text-align:center;padding:0 6px;">${label}</div>`;
+}
+
+function checkG1Complete() {
+  const allFilled = g1Slots.every(s => s !== null);
+  const allCorrect = g1Slots.every((s, i) => s && s.order === i + 1);
+  if (allFilled) {
+    document.getElementById('g1-next').disabled = false;
+    if (allCorrect) toast('🎉 Betul semua!', 'good');
+  }
+}
+
+function doUndo(game) {
+  if (game === 'g1') {
+    if (!g1History.length) return;
+    const last = g1History.pop();
+    g1Future.push(last);
+    g1Slots[last.slotNum - 1] = null;
+    SIG.g1.undos++;
+    log('g1_undo', { slotNum:last.slotNum });
+    const slotEl = document.querySelector(`[data-slot="${last.slotNum}"]`);
+    if (slotEl) {
+      slotEl.classList.remove('filled');
+      slotEl.innerHTML = `<span class="slot-num">${last.slotNum}</span><span class="slot-label">Ke-${last.slotNum}</span>`;
+    }
+    document.getElementById('g1-undo').disabled = g1History.length === 0;
+    document.getElementById('g1-redo').disabled = false;
+    document.getElementById('g1-next').disabled = true;
+  } else if (game === 'g2') {
+    SIG.g2.undos++;
+    log('g2_undo');
+    loadG2Round();
+  } else if (game === 'g3') {
+    SIG.g3.undos++;
+    log('g3_undo');
+    loadG3Round();
+  }
+}
+
+function doRedo(game) {
+  if (game === 'g1') {
+    if (!g1Future.length) return;
+    const next = g1Future.pop();
+    // Only redo if slot is still empty
+    if (g1Slots[next.slotNum - 1] !== null) { g1Future.push(next); return; }
+    g1History.push(next);
+    g1Slots[next.slotNum - 1] = { order:next.order, emoji:next.emoji };
+    SIG.g1.redos++;
+    log('g1_redo', { slotNum:next.slotNum });
+    const slotEl = document.querySelector(`[data-slot="${next.slotNum}"]`);
+    if (slotEl) renderSlot(slotEl, next.emoji, '', next.order === next.slotNum);
+    document.getElementById('g1-redo').disabled = g1Future.length === 0;
+    document.getElementById('g1-undo').disabled = false;
+    checkG1Complete();
+  } else if (game === 'g3') {
+    SIG.g3.redos++;
+    log('g3_redo');
+  }
+}
+
+function finishG1() {
+  log('g1_round_done', { round:g1Round });
+  g1Round++;
+  if (g1Round < G1_ROUNDS.length) {
+    if (CHILDREN[child].asma) playAsmaChain(['asma_next_round', `asma_g1_r${g1Round}_prompt`]);
+    loadG1Round();
+  } else {
+    log('g1_complete');
+    if (CHILDREN[child].asma) {
+      playAsmaChain(['asma_done', 'asma_call_abah']);
+      setTimeout(() => showResult(), 6000);
+    } else {
+      startG2();
+    }
+  }
+  document.getElementById('g1-prog').style.width = (g1Round / G1_ROUNDS.length * 100) + '%';
+  document.getElementById('g1-plabel').textContent = g1Round + ' / ' + G1_ROUNDS.length;
+}
+
+// ═══════════════════════════════════════════════════════
+// GAME 2 — PADANAN BUNYI
+// ═══════════════════════════════════════════════════════
+function startG2() {
+  currentGame = 'g2';
+  g2Round = 0;
+  Object.assign(SIG.g2, { firstActionMs:null, sessionStart:Date.now(), hintsV:0, hintsA:0, replays:0, attempts:[], wrongPicks:0, undos:0 });
+  log('g2_start');
+  document.getElementById('g2-instruction').textContent =
+    'Tengok perkataan di bawah. Dengar sebutan dia, pastu pilih gambar yang betul!';
+  loadG2Round();
+  goTo('s-g2');
+}
+
+function loadG2Round() {
+  const round = G2_ROUNDS[g2Round];
+  document.getElementById('g2-prog').style.width = (g2Round / G2_ROUNDS.length * 100) + '%';
+  document.getElementById('g2-plabel').textContent = g2Round + ' / ' + G2_ROUNDS.length;
+  document.getElementById('g2-word').textContent = round.word;
+  document.getElementById('g2-wordsub').textContent = round.sub;
+  document.getElementById('g2-hint-box').style.display = 'none';
+  document.getElementById('g2-hint-v').classList.remove('used');
+  document.getElementById('g2-hint-a').classList.remove('used');
+  document.getElementById('g2-undo').disabled = true;
+  document.getElementById('g2-replay').classList.remove('used');
+  speak(round.word);
+  log('g2_word_shown', { word:round.word, round:g2Round });
+
+  const all = [round.correct, ...round.wrong].sort(()=>Math.random()-.5);
+  const choicesEl = document.getElementById('g2-choices');
+  choicesEl.innerHTML = '';
+  all.forEach(opt => {
+    const div = document.createElement('div');
+    div.className = 'img-choice';
+    div.innerHTML = `<div class="ic-emoji">${opt.emoji}</div><div class="ic-label">${opt.label}</div>`;
+    div.onclick = () => {
+      if (!SIG.g2.firstActionMs) SIG.g2.firstActionMs = Date.now() - SIG.g2.sessionStart;
+      const correct = opt.label === round.correct.label;
+      div.classList.add(correct ? 'selected-right' : 'selected-wrong');
+      SIG.g2.attempts.push({ t:Date.now(), picked:opt.label, correct, round:g2Round });
+      if (!correct) SIG.g2.wrongPicks++;
+      log('g2_pick', { picked:opt.label, correct, word:round.word, round:g2Round });
+      document.getElementById('g2-undo').disabled = false;
+      toast(correct ? '✅ Betul!' : '❌ Cuba lagi!', correct?'good':'bad');
+      if (correct) {
+        setTimeout(() => {
+          g2Round++;
+          if (g2Round < G2_ROUNDS.length) loadG2Round();
+          else { log('g2_complete'); startG3(); }
+        }, 800);
+      }
+    };
+    choicesEl.appendChild(div);
+  });
+}
+
+function replayWord() {
+  const round = G2_ROUNDS[g2Round];
+  SIG.g2.replays++;
+  log('g2_replay', { word:round.word, round:g2Round });
+  speak(round.word);
+  document.getElementById('g2-replay').classList.add('used');
+  setTimeout(() => document.getElementById('g2-replay').classList.remove('used'), 1500);
+}
+
+// ═══════════════════════════════════════════════════════
+// GAME 3 — BINA CORAK
+// ═══════════════════════════════════════════════════════
+function startG3() {
+  currentGame = 'g3';
+  g3Round = 0;
+  Object.assign(SIG.g3, { firstActionMs:null, sessionStart:Date.now(), hintsV:0, hintsA:0, undos:0, redos:0, attempts:[], wrongPicks:0, hesitateSecs:[] });
+  log('g3_start');
+  document.getElementById('g3-instruction').textContent =
+    'Ada corak di sini. Cari yang sesuai untuk isi tempat yang ada tanda ❓!';
+  loadG3Round();
+  goTo('s-g3');
+}
+
+let g3ActionTs = null;
+
+function loadG3Round() {
+  const round = G3_ROUNDS[g3Round];
+  document.getElementById('g3-prog').style.width = (g3Round / G3_ROUNDS.length * 100) + '%';
+  document.getElementById('g3-plabel').textContent = g3Round + ' / ' + G3_ROUNDS.length;
+  document.getElementById('g3-hint-box').style.display = 'none';
+  document.getElementById('g3-hint-v').classList.remove('used');
+  document.getElementById('g3-hint-a').classList.remove('used');
+  document.getElementById('g3-undo').disabled = true;
+  document.getElementById('g3-redo').disabled = true;
+  g3ActionTs = Date.now();
+
+  const patEl = document.getElementById('g3-pattern');
+  patEl.innerHTML = '';
+  round.pattern.forEach(item => {
+    const cell = document.createElement('div');
+    cell.className = 'pat-cell' + (item === '❓' ? ' blank' : '');
+    cell.textContent = item === '❓' ? '?' : item;
+    patEl.appendChild(cell);
+  });
+  log('g3_round_shown', { round:g3Round, answer:round.answer });
+
+  const optsEl = document.getElementById('g3-options');
+  const shuffled = [...round.options].sort(()=>Math.random()-.5);
+  optsEl.innerHTML = '';
+  shuffled.forEach(opt => {
+    const div = document.createElement('div');
+    div.className = 'pat-opt';
+    div.textContent = opt;
+    div.onclick = () => {
+      if (!SIG.g3.firstActionMs) SIG.g3.firstActionMs = Date.now() - SIG.g3.sessionStart;
+      const hesitate = (Date.now() - g3ActionTs) / 1000;
+      SIG.g3.hesitateSecs.push(hesitate);
+      const correct = opt === round.answer;
+      SIG.g3.attempts.push({ t:Date.now(), picked:opt, correct, round:g3Round, hesitateSec:hesitate });
+      if (!correct) SIG.g3.wrongPicks++;
+      log('g3_pick', { picked:opt, correct, answer:round.answer, round:g3Round, hesitateSec:hesitate });
+
+      const blankCell = document.querySelector('.pat-cell.blank');
+      if (blankCell) {
+        blankCell.textContent = opt;
+        blankCell.classList.add(correct ? 'filled-correct' : 'filled-wrong');
+        if (!correct) setTimeout(() => {
+          blankCell.textContent = '?';
+          blankCell.className = 'pat-cell blank';
+        }, 600);
+      }
+      document.getElementById('g3-undo').disabled = false;
+      toast(correct ? '🎉 Pandai!' : '❌ Cuba lagi!', correct?'good':'bad');
+
+      if (correct) {
+        div.classList.add('used');
+        setTimeout(() => {
+          g3Round++;
+          if (g3Round < G3_ROUNDS.length) loadG3Round();
+          else { log('g3_complete'); showResult(); }
+        }, 700);
+      }
+    };
+    optsEl.appendChild(div);
+  });
+}
+
+// ═══════════════════════════════════════════════════════
+// HINTS
+// ═══════════════════════════════════════════════════════
+function useHint(game, type) {
+  SIG[game]['hints' + type.charAt(0).toUpperCase() + type.slice(1)]++;
+  log(game + '_hint', { type });
+  document.getElementById(`${game}-hint-${type.charAt(0)}`).classList.add('used');
+
+  let text = '';
+  if (game === 'g1') {
+    text = type === 'visual' ? G1_ROUNDS[g1Round]?.hint_visual : G1_ROUNDS[g1Round]?.hint_audio;
+  } else if (game === 'g3') {
+    text = type === 'visual' ? G3_ROUNDS[g3Round]?.hint_v : G3_ROUNDS[g3Round]?.hint_a;
+  } else if (game === 'g2') {
+    text = type === 'visual'
+      ? 'Tengok rupa bentuk gambar dengan teliti — mana satu yang sama dengan perkataan itu?'
+      : 'Abah: Sebut perkataan tu pelan-pelan dan tanya anak — mana gambar yang sama?';
+  }
+
+  const hintBox = document.getElementById(`${game}-hint-box`);
+  const isAbahNote = type === 'audio';
+  hintBox.innerHTML = isAbahNote
+    ? `<div class="ah">📣 Abah</div>${text}`
+    : `<div class="ah">👁️ Petunjuk</div>${text}`;
+  hintBox.style.display = 'block';
+
+  if (type === 'audio' && !isAbahNote) speak(text);
+  if (child === 'asma' && game === 'g1') {
+    const HINTS = ['asma_hint_r0','asma_hint_r1','asma_hint_r2'];
+    playAsma(HINTS[g1Round]);
+  }
+}
+
+// ═══════════════════════════════════════════════════════
+// RESULT & REPORT
+// ═══════════════════════════════════════════════════════
+function showResult() {
+  log('session_complete');
+  const cfg = CHILDREN[child];
+  const isAsma = cfg.asma;
+
+  // ── VAK scoring (v2: linear ramp + median G3) ──
+  const scores = { V:0, A:0, K:0 };
+  const g1 = SIG.g1;
+
+  // First-action linear ramp (replaces hard 2s/4s thresholds)
+  if (g1.firstActionMs !== null) {
+    const ms = g1.firstActionMs;
+    if      (ms > 5500) scores.V += 2;
+    else if (ms > 3500) scores.V += 1;
+    else if (ms < 1500) scores.K += 2;
+    else if (ms < 2500) scores.K += 1;
+    // 2500–3500ms: neutral
+  }
+  if (g1.hintsV > g1.hintsA) scores.V += 2;
+  if (g1.hintsA > g1.hintsV) scores.A += 2;
+  if (g1.wrongPlacements <= 1) scores.V += 1;
+  if (g1.undos > 2) scores.A += 1;
+  if (g1.wrongPlacements > 3) scores.K += 1;
+
+  let medHesitate = 0;
+  if (!isAsma) {
+    const g2 = SIG.g2;
+    if (g2.firstActionMs !== null) {
+      const ms = g2.firstActionMs;
+      if      (ms > 5500) scores.V += 1;
+      else if (ms < 1500) scores.K += 1;
+    }
+    if (g2.replays > 1) scores.A += 3;
+    if (g2.hintsA > g2.hintsV) scores.A += 2;
+    if (g2.hintsV > g2.hintsA) scores.V += 2;
+    if (g2.wrongPicks <= 1) scores.V += 1;
+
+    // G3: use MEDIAN hesitation (not mean) to resist outliers
+    const g3 = SIG.g3;
+    const sorted = [...g3.hesitateSecs].sort((a,b)=>a-b);
+    medHesitate = sorted.length ? sorted[Math.floor(sorted.length / 2)] : 0;
+    if (medHesitate > 5) scores.V += 2;
+    else if (medHesitate < 2) scores.K += 2;
+    if (g3.hintsV > g3.hintsA) scores.V += 2;
+    if (g3.hintsA > g3.hintsV) scores.A += 2;
+    if (g3.wrongPicks > 3) scores.K += 1;
+    if (g3.undos > 2) scores.V += 1;
+  }
+
+  const total = scores.V + scores.A + scores.K || 1;
+  const pct = k => Math.round((scores[k]/total)*100);
+  const sorted = Object.entries(scores).sort((a,b)=>b[1]-a[1]);
+  const [pk] = sorted[0];
+
+  const STYLE_META = {
+    V:{ label:'Visual 👁️',      color:'var(--V)', emoji:'👁️',
+        desc:'Belajar paling baik dengan melihat — gambar, carta, warna, dan corak. Suka perhatikan dulu sebelum bertindak.' },
+    A:{ label:'Auditori 🔊',    color:'var(--A)', emoji:'🔊',
+        desc:'Belajar paling baik dengan mendengar — sebutan, penjelasan lisan, dan muzik. Suka ulang-ulang secara lisan.' },
+    K:{ label:'Kinestetik 🤲',  color:'var(--K)', emoji:'🤲',
+        desc:'Belajar paling baik dengan buat sendiri — cuba, sentuh, gerak, dan praktik terus. Suka explore dulu.' }
+  };
+
+  const meta = STYLE_META[pk];
+  document.getElementById('res-emoji').textContent = meta.emoji;
+  document.getElementById('res-style').textContent = meta.label;
+  document.getElementById('res-style').style.color = meta.color;
+  document.getElementById('res-desc').textContent = meta.desc;
+
+  // VAK score bars
+  const barsEl = document.getElementById('res-vak-bars');
+  barsEl.innerHTML = [
+    ['Visual 👁️',     scores.V, pct('V'), 'var(--V)'],
+    ['Auditori 🔊',   scores.A, pct('A'), 'var(--A)'],
+    ['Kinestetik 🤲', scores.K, pct('K'), 'var(--K)'],
+  ].map(([name, , percent, color]) => `
+    <div class="vak-bar-row">
+      <div class="vak-bar-label">${name}</div>
+      <div class="vak-bar-track"><div class="vak-bar-fill" style="width:0%;background:${color}" data-target="${percent}"></div></div>
+      <div class="vak-bar-pct">${percent}%</div>
+    </div>`).join('');
+  // Animate bars after paint
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    barsEl.querySelectorAll('.vak-bar-fill').forEach(bar => {
+      bar.style.width = bar.dataset.target + '%';
+    });
+  }));
+
+  // Abah auto-generated insights
+  const insights = [];
+  if (g1.firstActionMs > 5500) insights.push('⏸️ Ambil masa panjang sebelum mula di G1 — ciri pemerhatian visual yang kuat.');
+  else if (g1.firstActionMs !== null && g1.firstActionMs < 1500) insights.push('⚡ Terus gerak tanpa jeda di G1 — ciri kinestetik (buat dulu, fikir kemudian).');
+  if (g1.wrongPlacements >= 5) insights.push(`🔄 ${g1.wrongPlacements} kesilapan di G1 — cuba-kesilapan tinggi, cenderung kinestetik.`);
+  if (g1.hintsA > 0) insights.push(`🔊 Minta petunjuk audio ${g1.hintsA}× — ada kecenderungan auditori.`);
+
+  if (!isAsma) {
+    if (SIG.g2.replays >= 2) insights.push(`🔊 Putar semula bunyi ${SIG.g2.replays}× di G2 — signal auditori yang kuat. Cuba kaedah belajar lisan.`);
+    if (medHesitate > 7) insights.push(`🧩 Ambil masa lama mengkaji corak di G3 (median ${medHesitate.toFixed(1)}s) — pemikir analitik, proses secara visual.`);
+    if (SIG.g2.wrongPicks === 0 && g1.wrongPlacements <= 2) insights.push('✅ Kesilapan minimum — ciri pemprosesan yang teliti dan berhati-hati.');
+  }
+  if (insights.length === 0) insights.push('📊 Data dikumpul. Hantar laporan penuh kepada Abah untuk analisis mendalam.');
+
+  document.getElementById('res-insights-list').innerHTML =
+    insights.map(t => `<div class="insight-item">${t}</div>`).join('');
+
+  // Signal summary
+  const sigGrid = document.getElementById('res-signals');
+  const g1lat = g1.firstActionMs !== null ? (g1.firstActionMs/1000).toFixed(1)+'s' : '—';
+  const rows = [
+    ['Tindakan Pertama (G1)', g1lat],
+    ['Petunjuk Visual dipilih', (SIG.g1.hintsV + (isAsma?0:SIG.g2.hintsV) + (isAsma?0:SIG.g3.hintsV)) + 'x'],
+    ['Petunjuk Bunyi dipilih', (SIG.g1.hintsA + (isAsma?0:SIG.g2.hintsA) + (isAsma?0:SIG.g3.hintsA)) + 'x'],
+    ['Undo digunakan', (SIG.g1.undos + (isAsma?0:SIG.g2.undos) + (isAsma?0:SIG.g3.undos)) + 'x'],
+    ['Dengar semula (G2)', isAsma ? 'N/A' : SIG.g2.replays + 'x'],
+    ['Kesilapan keseluruhan', (SIG.g1.wrongPlacements + (isAsma?0:SIG.g2.wrongPicks) + (isAsma?0:SIG.g3.wrongPicks)) + ''],
+  ];
+  sigGrid.innerHTML = rows.map(([k,v]) =>
+    `<div class="signal-row"><div class="signal-name">${k}</div><div class="signal-val">${v}</div></div>`
+  ).join('');
+
+  // Export report
+  const now = new Date();
+  const g3med = isAsma ? 'N/A' : (medHesitate > 0 ? medHesitate.toFixed(1)+'s' : '—');
+  const readable = `
+╔══════════════════════════════════════════════════════╗
+  LAPORAN VAK — ARH Kids Behavioural Assessment v2
+  Anak : ${cfg.name} (${cfg.age}, ${cfg.grade})
+  Tarikh: ${now.toLocaleDateString('ms-MY')}
+  Masa  : ${now.toLocaleTimeString('ms-MY')}
+╚══════════════════════════════════════════════════════╝
+
+KEPUTUSAN UTAMA
+───────────────
+Gaya Belajar Utama : ${meta.label}
+Skor Visual        : ${scores.V} mata (${pct('V')}%)
+Skor Auditori      : ${scores.A} mata (${pct('A')}%)
+Skor Kinestetik    : ${scores.K} mata (${pct('K')}%)
+
+SIGNAL BEHAVIORIAL
+──────────────────
+Tindakan Pertama G1 : ${g1lat}
+Hint Visual dipilih : ${SIG.g1.hintsV + (isAsma?0:SIG.g2.hintsV+SIG.g3.hintsV)}x
+Hint Bunyi dipilih  : ${SIG.g1.hintsA + (isAsma?0:SIG.g2.hintsA+SIG.g3.hintsA)}x
+Undo digunakan      : ${SIG.g1.undos + (isAsma?0:SIG.g2.undos+SIG.g3.undos)}x
+Redo digunakan      : ${SIG.g1.redos + (isAsma?0:SIG.g3.redos)}x
+Dengar Semula (G2)  : ${isAsma?'N/A':SIG.g2.replays+'x'}
+Kesilapan G1        : ${SIG.g1.wrongPlacements}
+Kesilapan G2        : ${isAsma?'N/A':SIG.g2.wrongPicks}
+Kesilapan G3        : ${isAsma?'N/A':SIG.g3.wrongPicks}
+Median Hesitasi G3  : ${g3med}
+
+PEMERHATIAN AUTO
+────────────────
+${insights.join('\n')}
+
+LOG AKSI PENUH
+──────────────
+${LOG.map(e=>`[${new Date(e.t).toLocaleTimeString('ms-MY')}] ${e.event} ${JSON.stringify(Object.fromEntries(Object.entries(e).filter(([k])=>!['t','event','child'].includes(k))))}`).join('\n')}
+
+NOTA UNTUK ABAH
+───────────────
+Hantar laporan ini kepada Claude untuk analisis VAK penuh.
+Tambah pemerhatian Abah jika ada:
+- Adakah anak bercakap semasa main?
+- Adakah anak gelisah atau duduk diam?
+- Ada tingkah laku lain yang Abah perasan?
+`.trim();
+
+  const jsonReport = {
+    meta: { child:cfg.name, age:cfg.age, grade:cfg.grade, datetime:now.toISOString(), version:'v2' },
+    result: { primary:pk, scores, percentages:{ V:pct('V'), A:pct('A'), K:pct('K') } },
+    signals: {
+      g1_first_action_ms: SIG.g1.firstActionMs,
+      hints_visual_total: SIG.g1.hintsV + (isAsma?0:SIG.g2.hintsV+SIG.g3.hintsV),
+      hints_audio_total:  SIG.g1.hintsA + (isAsma?0:SIG.g2.hintsA+SIG.g3.hintsA),
+      undo_total: SIG.g1.undos + (isAsma?0:SIG.g2.undos+SIG.g3.undos),
+      redo_total: SIG.g1.redos + (isAsma?0:SIG.g3.redos),
+      g2_replays: isAsma?null:SIG.g2.replays,
+      errors_g1: SIG.g1.wrongPlacements,
+      errors_g2: isAsma?null:SIG.g2.wrongPicks,
+      errors_g3: isAsma?null:SIG.g3.wrongPicks,
+      g3_median_hesitate_sec: isAsma?null:(medHesitate||null)
+    },
+    auto_insights: insights,
+    action_log: LOG
+  };
+
+  const full = readable + '\n\n---JSON---\n' + JSON.stringify(jsonReport, null, 2);
+  document.getElementById('export-text').textContent = full;
+  window._reportData = full;
+  window._reportName = `VAK_${cfg.name}_${now.toISOString().slice(0,10)}_v2.txt`;
+
+  goTo('s-result');
+}
+
+function copyReport() {
+  if (!window._reportData) return;
+  navigator.clipboard.writeText(window._reportData)
+    .then(()=>toast('📋 Disalin!','good'))
+    .catch(()=>toast('Gagal salin','bad'));
+}
+
+function downloadReport() {
+  if (!window._reportData) return;
+  const blob = new Blob([window._reportData], {type:'text/plain;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = window._reportName || 'vak_report_v2.txt';
+  a.click();
+}
+
+// ═══════════════════════════════════════════════════════
+// MODAL — ADD CHILD
+// ═══════════════════════════════════════════════════════
+function openModal() {
+  document.getElementById('modal-add-child').classList.add('open');
+  document.getElementById('new-child-name').value = '';
+  document.getElementById('new-child-age').value = '';
+  document.querySelector('input[name="new-child-mode"][value="full"]').checked = true;
+  setTimeout(() => document.getElementById('new-child-name').focus(), 100);
+}
+
+function closeModal() {
+  document.getElementById('modal-add-child').classList.remove('open');
+}
+
+function handleBackdropClick(e) {
+  if (e.target === document.getElementById('modal-add-child')) closeModal();
+}
+
+function saveNewChild() {
+  const name = document.getElementById('new-child-name').value.trim();
+  const age = parseInt(document.getElementById('new-child-age').value);
+  const mode = document.querySelector('input[name="new-child-mode"]:checked').value;
+
+  if (!name) { toast('Isi nama dulu!', 'bad'); return; }
+  if (isNaN(age) || age < 2 || age > 15) { toast('Umur 2–15 tahun.', 'bad'); return; }
+
+  const id = 'child_' + Date.now();
+  const isSimple = mode === 'simple' || age <= 5;
+  const grade = age <= 5 ? 'Tadika' : age <= 7 ? 'D1–2' : age <= 9 ? 'D3–4' : 'D5–6';
+  const newChild = {
+    id, name,
+    age: age + ' tahun', grade,
+    avatar: age <= 5 ? '👧' : age <= 9 ? '🧒' : '👦',
+    games: isSimple ? ['g1'] : ['g1','g2','g3'],
+    desc: isSimple ? 'Kita main satu permainan pendek je. 😊' : 'Kamu akan main 3 permainan pendek. Main je macam biasa!',
+    gameLabels: isSimple ? ['🖼️ Susun Gambar'] : ['🖼️ Susun Gambar','🔊 Padanan Bunyi','🧩 Bina Corak'],
+    asma: isSimple,
+    custom: true
+  };
+
+  customChildren.push(newChild);
+  CHILDREN[id] = newChild;
+  localStorage.setItem('arh_children', JSON.stringify(customChildren));
+  closeModal();
+  renderChildGrid();
+  pickChild(id);
+  toast('✅ ' + name + ' dah ditambah!', 'good');
+}
+
+// ═══════════════════════════════════════════════════════
+// UTILS
+// ═══════════════════════════════════════════════════════
+function goTo(id) {
+  document.querySelectorAll('.scr').forEach(s=>s.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function toast(msg, type='') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'toast show ' + type;
+  clearTimeout(el._t);
+  el._t = setTimeout(()=>el.classList.remove('show'), 1800);
+}
+
+function resetAll() {
+  child = null;
+  document.body.className = '';
+  LOG.length = 0;
+  g1Round=0; g2Round=0; g3Round=0;
+  renderChildGrid();
+  document.getElementById('land-start').disabled=true;
+}
+
+// ── Init ──
+loadChildren();
+</script>
+</body>
+</html>
