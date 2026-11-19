@@ -4,7 +4,7 @@ Permainan bina bandar untuk Aflah dan Haidar. Bandar hanya membesar bila mereka 
 permainan tidak membuat kira-kira untuk mereka. Soalan ditulis dalam bahasa Cina seperti soalan
 peperiksaan SJKC, dengan petunjuk BM satu klik.
 
-**Main:** [arh-kids-space.pages.dev/bandar-ilmu/v1/](https://arh-kids-space.pages.dev/bandar-ilmu/v1/),
+**Main:** [kids.arh-urus.com/bandar-ilmu/v1/](https://kids.arh-urus.com/bandar-ilmu/v1/),
 atau pasang sebagai aplikasi desktop (luar talian):
 `powershell -ExecutionPolicy Bypass -File bandar-ilmu\scripts\install-desktop.ps1`
 

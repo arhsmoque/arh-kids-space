@@ -1,0 +1,17 @@
+.git
+.github
+.agents
+.wrangler
+node_modules
+scripts
+instruction
+**/scripts
+**/session-logs
+*.py
+*.ps1
+*.sh
+wrangler.jsonc
+.assetsignore
+.gitignore
+*.md
+**/*.md

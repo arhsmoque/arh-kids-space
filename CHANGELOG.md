@@ -8,6 +8,7 @@ Perubahan aplikasi dicatatkan dalam CHANGELOG.md masing-masing subprojek.
 ## 2026-11-20
 
 - Tambah subprojek `bandar-ilmu/` (Bandar Ilmu v1, permainan bina bandar matematik + Mandarin) dan kad di landing page
+- Live di **kids.arh-urus.com** (Worker `arh-kids-space`, static assets). Pages `arh-kids-space.pages.dev` sudah tiada; fail .md, skrip dan session-logs tidak lagi diterbitkan
 
 ## 2026-05-02
 

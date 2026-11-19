@@ -2,7 +2,7 @@
 
 Ruang belajar interaktif untuk anak-anak keluarga ARH — Aflah, Haidar, Asma.
 
-**Live:** [arh-kids-space.pages.dev](https://arh-kids-space.pages.dev)
+**Live:** [kids.arh-urus.com](https://kids.arh-urus.com) (Cloudflare Worker `arh-kids-space`; Pages project lama `arh-kids-space.pages.dev` sudah tiada)
 
 ---
 
@@ -39,7 +39,7 @@ arh-kids-space/
 
 ## Cara Guna (Abah)
 
-1. Buka [arh-kids-space.pages.dev](https://arh-kids-space.pages.dev)
+1. Buka [kids.arh-urus.com](https://kids.arh-urus.com)
 2. Pilih aplikasi
 3. Jalankan sesi, eksport laporan, tampal ke Claude untuk analisis
 
@@ -48,6 +48,10 @@ Atau muat turun mana-mana fail `.html` dan buka terus dalam pelayar — tiada in
 ---
 
 ## Deploy
+
+**Semasa (2026-11-20):** `g4-secrets-cli inject --env CLOUDFLARE_API_TOKEN=arh-cloudflare-workers-local/api_token -- npx wrangler@4 deploy`, kemudian `python scripts/attach-domain.py` (dengan inject yang sama) untuk kids.arh-urus.com. Fail dalam `.assetsignore` (skrip, `.md`, session-logs) tidak diterbitkan.
+
+Lama (rosak sejak Julai 2026; projek Pages sudah tiada):
 
 Push ke `main` → GitHub Actions → Cloudflare Pages auto-deploy.
 Lihat [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml).

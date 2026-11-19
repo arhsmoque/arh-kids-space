@@ -43,7 +43,7 @@ Browser
 | Workflow | `.github/workflows/deploy-pages.yml` |
 | Deploy directory | `.` (root repo) |
 | Project name CF | `arh-kids-space` |
-| Live URL | https://arh-kids-space.pages.dev |
+| Live URL | https://kids.arh-urus.com (Worker `arh-kids-space`, static assets; deploy: lihat `wrangler.jsonc`) |
 
 Workflow boleh guna semula tersedia di `reusable-cf-pages-deploy.yml` untuk bootstrap projek CF Pages baru.
 

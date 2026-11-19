@@ -1,0 +1,12 @@
+{
+  // ARH Kids Space on the operator's own domain (operator 2026-11-20: "Build on arh.urus.com").
+  // Static assets only, no Worker code. Deploy:
+  //   g4-secrets-cli inject --env CLOUDFLARE_API_TOKEN=arh-cloudflare-workers-local/api_token -- npx wrangler@4 deploy
+  "name": "arh-kids-space",
+  "account_id": "dc3bfa957bdf216b7cc45214455aaa72",
+  "compatibility_date": "2026-11-01",
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": [{ "pattern": "kids.arh-urus.com", "custom_domain": true }],
+  "assets": { "directory": ".", "html_handling": "auto-trailing-slash", "not_found_handling": "404-page" }
+}
