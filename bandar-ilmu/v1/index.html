@@ -108,6 +108,12 @@ button{font:inherit;cursor:pointer;border:0;border-radius:10px}
 .foot{margin-top:22px;display:flex;gap:10px;justify-content:center}
 .foot .btn{background:rgba(255,255,255,.15);color:#fff}
 
+.pindots{display:flex;gap:16px;justify-content:center;margin:12px 0 4px}
+.pindots i{width:20px;height:20px;border-radius:50%;border:3px solid var(--muted)}
+.pindots i.on{background:var(--accent);border-color:var(--accent)}
+.pinpad{display:grid;grid-template-columns:repeat(3,76px);gap:10px;justify-content:center;margin:10px 0 4px}
+.pinpad .btn{font-size:26px;height:62px}
+.pinNote{color:#fff;opacity:.85;margin-top:14px;font-size:15px}
 table.rep{width:100%;border-collapse:collapse;font-size:14px;margin:6px 0 12px}
 table.rep th,table.rep td{padding:5px 6px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
 table.rep th{color:var(--muted);font-weight:600}
@@ -331,7 +337,13 @@ function load() {
   try { const raw = localStorage.getItem(SAVE_KEY); S = raw ? JSON.parse(raw) : null; }
   catch (e) { storageOk = false; S = null; }
   if (!S || S.v !== 1) S = newSave();
+  if (S.settings.pin) { if (/^\d{4}$/.test(S.settings.pin)) S.settings.abahPinH = pinHash(S.settings.pin); delete S.settings.pin; }
 }
+/* PINs (same pattern as ARH ScreenTime): each child has an own 4-digit PIN that starts the turn;
+   Abah has a separate PIN for the report and settings. Stored hashed, never in clear. */
+function pinHash(pin) { let h = 2166136261; for (const c of 'bandar-ilmu:' + pin) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619) >>> 0; } return h.toString(36); }
+function pinLocked() { const l = S.settings.lockUntil || 0; return Date.now() < l ? Math.ceil((l - Date.now()) / 1000) : 0; }
+function pinFail() { S.settings.fails = (S.settings.fails || 0) + 1; if (S.settings.fails >= 5) { S.settings.lockUntil = Date.now() + 60000; S.settings.fails = 0; } save(); }
 function save() {
   try { localStorage.setItem(SAVE_KEY, JSON.stringify(S)); } catch (e) { storageOk = false; }
 }
@@ -1100,10 +1112,58 @@ function showProfiles() {
     <div class="muted" style="font-size:13px;margin-top:6px">Hari ini: ${Math.round(minutesToday(p))}/${S.settings.dailyMinutes} minit</div></button>`;
   $('#screen').innerHTML = `<div class="titleBox"><h1>🏘️ Bandar Ilmu</h1><div class="sub zh">知识城 · Bina bandar dengan matematik</div>
     <div class="profiles">${card(S.players.aflah)}${card(S.players.haidar)}</div>
+    ${Object.values(S.players).some(p => !p.pinH) ? '<div class="pinNote">🔑 Abah: tetapkan PIN setiap anak dalam panel Abah dahulu.</div>' : ''}
     <div class="foot"><button class="btn" id="bAbah">👨 Abah</button></div></div>`;
   $('#screen').classList.remove('hidden');
-  document.querySelectorAll('.pcard').forEach(el => el.onclick = () => startPlayer(el.dataset.p));
+  document.querySelectorAll('.pcard').forEach(el => el.onclick = () => childPin(el.dataset.p));
   $('#bAbah').onclick = abahGate;
+}
+// Number pad with 4 dots. onPin(pin) returns an error message, or null when it has moved on.
+function pinPad({ icon = '🔒', title, sub = '', onPin, onCancel }) {
+  let v = '';
+  openModal(`<h2><span class="ic">${icon}</span>${title}</h2><p class="muted" style="text-align:center">${sub}</p>
+    <div class="pindots" id="pd"></div><div class="fb bad" id="fb" style="text-align:center"></div>
+    <div class="pinpad">${[1, 2, 3, 4, 5, 6, 7, 8, 9].map(n => `<button class="btn" data-k="${n}">${n}</button>`).join('')}<button class="btn" data-k="x" title="Batal">✕</button><button class="btn" data-k="0">0</button><button class="btn" data-k="b" title="Padam">⌫</button></div>`);
+  const draw = () => { $('#pd').innerHTML = [0, 1, 2, 3].map(i => `<i class="${i < v.length ? 'on' : ''}"></i>`).join(''); };
+  const press = k => {
+    if (k === 'x') { closeModal(); onCancel && onCancel(); return; }
+    if (k === 'b') { v = v.slice(0, -1); draw(); return; }
+    if (v.length >= 4) return;
+    v += k; draw();
+    if (v.length === 4) {
+      const pin = v;
+      setTimeout(() => {
+        const err = onPin(pin);
+        if (err && $('#pd')) { $('#fb').textContent = err; v = ''; draw(); $('#modal').classList.remove('shake'); void $('#modal').offsetWidth; $('#modal').classList.add('shake'); }
+      }, 150);
+    }
+  };
+  document.querySelectorAll('#modal [data-k]').forEach(b => b.onclick = () => press(b.dataset.k));
+  $('#modal').onkeydown = e => { if (/^\d$/.test(e.key)) press(e.key); else if (e.key === 'Backspace') press('b'); else if (e.key === 'Escape') press('x'); };
+  $('#modal').tabIndex = -1; draw(); setTimeout(() => $('#modal').focus(), 30);
+}
+function checkPin(pin, hash) {
+  const w = pinLocked(); if (w) return `Terlalu banyak cubaan. Tunggu ${w} saat.`;
+  if (pinHash(pin) !== hash) { pinFail(); return 'PIN salah. Cuba lagi.'; }
+  S.settings.fails = 0; return null;
+}
+function childPin(id) {
+  const p = S.players[id];
+  if (minutesToday(p) >= S.settings.dailyMinutes) { toast(`${p.name} sudah main ${S.settings.dailyMinutes} minit hari ini. Jumpa esok! 明天见！`, 'bad'); return; }
+  if (!p.pinH) { toast(`PIN ${p.name} belum ditetapkan. Minta Abah tetapkan dalam panel Abah 👨.`, 'bad'); return; }
+  pinPad({ icon: '🔑', title: `${p.name} <span class="zh">${p.zh}</span>`, sub: 'Masukkan PIN anda · 输入密码',
+    onPin: pin => { const err = checkPin(pin, p.pinH); if (err) return err; closeModal(); startPlayer(id); return null; } });
+}
+// Choose a new PIN twice. forbid: hashes already used by someone else.
+function setPinFlow(title, forbid, done, back) {
+  pinPad({ icon: '🔑', title, sub: 'Pilih 4 digit baharu', onCancel: back, onPin: a => {
+    if (forbid.includes(pinHash(a))) return 'PIN ini sudah digunakan orang lain. Pilih lain.';
+    pinPad({ icon: '🔑', title, sub: 'Masukkan sekali lagi untuk sahkan', onCancel: back, onPin: b => {
+      if (a !== b) return 'Tak sama dengan tadi. Cuba lagi.';
+      done(pinHash(a)); return null;
+    } });
+    return null;
+  } });
 }
 function startPlayer(id) {
   const p = S.players[id];
@@ -1139,16 +1199,13 @@ function showBook() {
   document.querySelectorAll('.wcard[data-w]').forEach(el => el.onclick = () => playWord(el.dataset.w));
   $('#bX').onclick = closeModal;
 }
+const childHashes = except => Object.values(S.players).filter(p => p.id !== except && p.pinH).map(p => p.pinH);
 function abahGate() {
-  const has = !!S.settings.pin;
-  openModal(`<h2><span class="ic">👨</span>Abah</h2><p>${has ? 'Masukkan PIN.' : 'Tetapkan PIN 4 digit untuk panel Abah.'}</p>
-    <div class="ansRow"><input id="a1" type="password" inputmode="numeric" maxlength="6"></div><div class="fb bad" id="fb"></div>
-    <div class="btns"><button class="btn" id="bX">Batal</button><button class="btn pri" id="bOk">OK</button></div>`);
-  const go = () => { const v = $('#a1').value.trim(); if (!/^\d{4,6}$/.test(v)) { $('#fb').textContent = '4–6 digit.'; return; }
-    if (!has) { S.settings.pin = v; save(); } else if (v !== S.settings.pin) { $('#fb').textContent = 'PIN salah.'; return; }
-    showReport('aflah'); };
-  $('#bOk').onclick = go; $('#bX').onclick = closeModal; $('#modal').onkeydown = e => { if (e.key === 'Enter') go(); };
-  setTimeout(() => $('#a1').focus(), 30);
+  if (!S.settings.abahPinH) {
+    setPinFlow('Tetapkan PIN Abah', childHashes(), h => { S.settings.abahPinH = h; save(); toast('🔑 PIN Abah ditetapkan.', 'good'); showReport('aflah'); });
+    return;
+  }
+  pinPad({ icon: '👨', title: 'Abah', sub: 'PIN Abah (4 digit)', onPin: pin => { const err = checkPin(pin, S.settings.abahPinH); if (err) return err; showReport('aflah'); return null; } });
 }
 function showReport(pid) {
   const p = S.players[pid], logs = S.log.filter(l => l.p === pid);
@@ -1165,11 +1222,18 @@ function showReport(pid) {
     <h3 style="margin:8px 0 4px">Tetapan</h3>
     <div class="ansRow" style="font-size:15px">Had main sehari <input id="lim" class="sm" value="${S.settings.dailyMinutes}"> minit
       <span style="margin-left:12px">Trek ${p.name}:</span> <select id="trk" style="font:inherit;padding:4px"><option value="muda" ${p.track === 'muda' ? 'selected' : ''}>Muda (Tahun 1–2)</option><option value="besar" ${p.track === 'besar' ? 'selected' : ''}>Besar (Tahun 3+)</option></select></div>
+    <h3 style="margin:8px 0 4px">PIN</h3>
+    <div class="btns" style="justify-content:flex-start">${Object.values(S.players).map(x => `<button class="btn" data-pin="${x.id}">🔑 PIN ${x.name} ${x.pinH ? '✓' : '(belum)'}</button>`).join('')}<button class="btn" data-pin="abah">🔑 Tukar PIN Abah</button></div>
     ${storageOk ? '' : '<p class="fb bad">Simpanan pelayar disekat — kemajuan tidak disimpan. Guna Eksport.</p>'}
     <div class="btns"><button class="btn" id="bExp">⬇ Eksport JSON</button><button class="btn" id="bImp">⬆ Import</button><button class="btn" id="bReset">↺ Mula semula bandar</button><button class="btn pri" id="bX">Simpan & tutup</button></div>
     <input type="file" id="fImp" accept=".json" class="hidden">`);
   document.querySelectorAll('[data-t]').forEach(b => b.onclick = () => { saveSettings(p); showReport(b.dataset.t); });
   $('#bX').onclick = () => { saveSettings(p); closeModal(); showProfiles(); };
+  document.querySelectorAll('[data-pin]').forEach(b => b.onclick = () => {
+    saveSettings(p); const who = b.dataset.pin, back = () => showReport(pid);
+    if (who === 'abah') setPinFlow('PIN Abah baharu', childHashes(), h => { S.settings.abahPinH = h; save(); toast('🔑 PIN Abah ditukar.', 'good'); back(); }, back);
+    else { const c = S.players[who]; setPinFlow(`PIN ${c.name}`, [...childHashes(who), S.settings.abahPinH].filter(Boolean), h => { c.pinH = h; save(); toast(`🔑 PIN ${c.name} ditetapkan.`, 'good'); back(); }, back); }
+  });
   $('#bExp').onclick = () => { const blob = new Blob([JSON.stringify(S, null, 1)], { type: 'application/json' }); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `bandar-ilmu-${todayKey()}.json`; a.click(); };
   $('#bImp').onclick = () => $('#fImp').click();
   $('#fImp').onchange = e => { const f = e.target.files[0]; if (!f) return; f.text().then(txt => { try { const d = JSON.parse(txt); if (d.v !== 1 || !d.town) throw 0; S = d; save(); terrainDirty = true; toast('Diimport.', 'good'); showReport(pid); } catch (er) { toast('Fail tidak sah.', 'bad'); } }); };

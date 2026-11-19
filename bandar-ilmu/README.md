@@ -26,7 +26,8 @@ atau pasang sebagai aplikasi desktop (luar talian):
 - **Ganjaran:** bandar membesar (penduduk, bangunan baru), duit untuk hiasan, Buku Kata Cina (41 kata
   dengan audio), gelaran ikut penguasaan (Petani Pintar, Tukang Roti, Kerani Gudang, Saudagar, Datuk Bandar).
 - **Hari permainan ≈ 15 minit** (7 pagi → 7 malam), ringkasan waktu matahari terbenam, had minit sehari.
-- **Panel Abah** (PIN): penguasaan setiap kemahiran, kesilapan terkini dengan jawapan anak, eksport JSON.
+- **PIN 4 digit (seperti ARH ScreenTime):** setiap anak masukkan PIN sendiri untuk mula giliran; Abah tetapkan PIN anak dalam panel Abah.
+- **Panel Abah** (PIN Abah berasingan): penguasaan setiap kemahiran, kesilapan terkini dengan jawapan anak, eksport JSON.
 
 ## Fail
 

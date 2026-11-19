@@ -1,5 +1,9 @@
 # Bandar Ilmu — Changelog
 
+## v1.1 — 2026-11-20
+
+- PIN 4 digit seperti ARH ScreenTime: setiap anak ada PIN sendiri untuk mula giliran (tukar pemain = PIN lagi); PIN Abah berasingan untuk laporan & tetapan. PIN anak tidak boleh sama dengan PIN Abah atau adik-beradik. 5 cubaan salah = kunci 60 saat. PIN disimpan sebagai hash. Abah tetapkan PIN anak dalam panel Abah.
+
 ## v1 — 2026-11-20
 
 - Kampung permulaan (4 petak tanah) dikelilingi hutan; 32 petak lagi untuk dibeli dengan kira harga.
