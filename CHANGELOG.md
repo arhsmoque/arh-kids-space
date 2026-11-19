@@ -5,6 +5,10 @@ Perubahan aplikasi dicatatkan dalam CHANGELOG.md masing-masing subprojek.
 
 ---
 
+## 2026-11-20
+
+- Tambah subprojek `bandar-ilmu/` (Bandar Ilmu v1, permainan bina bandar matematik + Mandarin) dan kad di landing page
+
 ## 2026-05-02
 
 - Susun semula repo kepada struktur monorepo subprojek (vak/ dan kawan-belajar/)

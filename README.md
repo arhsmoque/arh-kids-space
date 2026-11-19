@@ -12,6 +12,7 @@ Ruang belajar interaktif untuk anak-anak keluarga ARH — Aflah, Haidar, Asma.
 |--------|----------|-------|-------|
 | [`vak/`](vak/) | Penilaian gaya belajar VAK | v2 | Aflah, Haidar, Asma |
 | [`kawan-belajar/`](kawan-belajar/) | Kuiz Islam · Hafazan · Mandarin | v1 | Aflah, Haidar |
+| [`bandar-ilmu/`](bandar-ilmu/) | Permainan bina bandar: matematik + Mandarin | v1 | Aflah, Haidar |
 
 Setiap subprojek mempunyai `README.md`, `CHANGELOG.md`, dan folder versi tersendiri.
 
